@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Entidades">
+  <ClassDiagramComponents>
+    <Class name="Bomberos" package="Entidades" visibility="public" xPosition="-96.0" yPosition="31.0">
+      <Fields>
+        <Field name="id_bombero" type="int" visibility="private"/>
+        <Field name="dni" type="String" visibility="private"/>
+        <Field name="nombre_ape" type="String" visibility="private"/>
+        <Field name="fecha_nac" type="LocalDate" visibility="private"/>
+        <Field name="celular" type="String" visibility="private"/>
+        <Field name="codBrigada" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="id_bombero"/>
+          <Argument type="String" name="dni"/>
+          <Argument type="String" name="nombre_ape"/>
+          <Argument type="LocalDate" name="fecha_nac"/>
+          <Argument type="String" name="celular"/>
+          <Argument type="int" name="codBrigada"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Cuartel" package="" visibility="public" xPosition="578.0" yPosition="12.0">
+      <Fields>
+        <Field name="codCuartel" type="int" visibility="private"/>
+        <Field name="nombre_cuartel" type="String" visibility="private"/>
+        <Field name="direccion" type="String" visibility="private"/>
+        <Field name="coord_X" type="int" visibility="private"/>
+        <Field name="coord_Y" type="int" visibility="private"/>
+        <Field name="telefono" type="String" visibility="private"/>
+        <Field name="correo" type="String" visibility="private"/>
+        <Field name="brigada" type="Brigada" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="codCuartel"/>
+          <Argument type="String" name="nombre_cuartel"/>
+          <Argument type="String" name="direccion"/>
+          <Argument type="int" name="coord_X"/>
+          <Argument type="int" name="coord_Y"/>
+          <Argument type="String" name="telefono"/>
+          <Argument type="String" name="correo"/>
+          <Argument type="Brigada" name="brigada"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Brigada" package="" visibility="public" xPosition="-46.0" yPosition="345.0">
+      <Fields>
+        <Field name="codBrigada" type="int" visibility="private"/>
+        <Field name="nombre_br" type="String" visibility="private"/>
+        <Field name="especialidad" type="String" visibility="private"/>
+        <Field name="libre" type="boolean" visibility="private"/>
+        <Field name="nro_cuartel" type="int" visibility="private"/>
+        <Field name="bombero" type="Bombero" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="codBrigada"/>
+          <Argument type="String" name="nombre_br"/>
+          <Argument type="String" name="especialidad"/>
+          <Argument type="boolean" name="libre"/>
+          <Argument type="int" name="nro_cuartel"/>
+          <Argument type="Bombero" name="bombero"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Siniestro" package="" visibility="public" xPosition="679.0" yPosition="345.0">
+      <Fields>
+        <Field name="codigo" type="int" visibility="private"/>
+        <Field name="tipo" type="String" visibility="private"/>
+        <Field name="fecha_siniestro" type="LocalDate" visibility="private"/>
+        <Field name="coord_X" type="int" visibility="private"/>
+        <Field name="coord_Y" type="int" visibility="private"/>
+        <Field name="detalles" type="String" visibility="private"/>
+        <Field name="fecha_resol" type="LocalDate" visibility="private"/>
+        <Field name="puntuacion" type="int" visibility="private"/>
+        <Field name="codBrigada" type="int" visibility="private"/>
+        <Field name="brigada" type="Brigada" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="codigo"/>
+          <Argument type="String" name="tipo"/>
+          <Argument type="LocalDate" name="fecha_siniestro"/>
+          <Argument type="int" name="coord_X"/>
+          <Argument type="int" name="coord_Y"/>
+          <Argument type="String" name="detalles"/>
+          <Argument type="LocalDate" name="fecha_resol"/>
+          <Argument type="int" name="puntuacion"/>
+          <Argument type="int" name="codBrigada"/>
+          <Argument type="Brigada" name="brigada"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation name="Requiere" source="Siniestro" target="Brigada" sourceCardinality="1..*" targetCardinality="1..*"/>
+    <HasRelation name="Está compuesto por" source="Cuartel" target="Brigada" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="Tienen" source="Brigada" target="Entidades.Bomberos" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
