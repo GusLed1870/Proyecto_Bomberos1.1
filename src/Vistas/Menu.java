@@ -51,7 +51,6 @@ public class Menu extends javax.swing.JFrame {
         jBbrigadas = new javax.swing.JMenuItem();
         jBcuarteles = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jbEmergencias = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jBen_proceso = new javax.swing.JMenuItem();
         jBfinalizado = new javax.swing.JMenuItem();
@@ -118,11 +117,6 @@ public class Menu extends javax.swing.JFrame {
         jBbrigada.add(jBbombero);
 
         jBbrigadas.setText("Brigadas.");
-        jBbrigadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBbrigadasActionPerformed(evt);
-            }
-        });
         jBbrigada.add(jBbrigadas);
 
         jBcuarteles.setText("Cuarteles.");
@@ -136,10 +130,6 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar3.add(jBbrigada);
 
         jMenu8.setText("Emergencias");
-
-        jbEmergencias.setText("Click.");
-        jMenu8.add(jbEmergencias);
-
         jMenuBar3.add(jMenu8);
 
         jMenu9.setText("Estado");
@@ -148,11 +138,6 @@ public class Menu extends javax.swing.JFrame {
         jMenu9.add(jBen_proceso);
 
         jBfinalizado.setText("Finalizado.");
-        jBfinalizado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBfinalizadoActionPerformed(evt);
-            }
-        });
         jMenu9.add(jBfinalizado);
 
         jMenuBar3.add(jMenu9);
@@ -178,43 +163,40 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBbrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbrigadasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBbrigadasActionPerformed
-
-    private void jBfinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBfinalizadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBfinalizadoActionPerformed
-
-    private void jBcuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcuartelesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBcuartelesActionPerformed
-
-    private void jBbomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbomberoActionPerformed
-        escritorio.removeAll();
+    private void jBbrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbrigadaActionPerformed
+       /* escritorio.removeAll();
         escritorio.repaint();
 
-        Bombero bom = new Bombero();
+        Vistas_Brigada brig = new Vistas_Brigada();
+
+        escritorio.add(brig);
+        escritorio.moveToFront(brig);
+        brig.setVisible(true);*/
+    }//GEN-LAST:event_jBbrigadaActionPerformed
+
+    private void jBbomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbomberoActionPerformed
+         /*escritorio.removeAll();
+        escritorio.repaint();
+
+      Bombero bom = new Bombero();
 
         escritorio.add(bom);
         escritorio.moveToFront(bom);
-        bom.setVisible(true);
+        bom.setVisible(true);*/
     }//GEN-LAST:event_jBbomberoActionPerformed
 
-    private void jBbrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbrigadaActionPerformed
-        escritorio.removeAll();
+    private void jBcuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcuartelesActionPerformed
+      escritorio.removeAll();
         escritorio.repaint();
-        
-        Vistas_Brigada brig = new Vistas_Brigada();
-        
-        escritorio.add(brig);
-        escritorio.moveToFront(brig);
-        brig.setVisible(true);
-    }//GEN-LAST:event_jBbrigadaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+      Vista_cuartel cua = new Vista_cuartel();
+
+        escritorio.add(cua);
+        escritorio.moveToFront(cua);
+        cua.setVisible(true);
+    }//GEN-LAST:event_jBcuartelesActionPerformed
+
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -276,6 +258,5 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JMenuItem jbEmergencias;
     // End of variables declaration//GEN-END:variables
 }

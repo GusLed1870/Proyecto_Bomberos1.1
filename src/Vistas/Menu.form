@@ -131,9 +131,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Brigadas."/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBbrigadasActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jBcuarteles">
               <Properties>
@@ -149,13 +146,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Emergencias"/>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jbEmergencias">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Click."/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu9">
           <Properties>
@@ -171,9 +161,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Finalizado."/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBfinalizadoActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
