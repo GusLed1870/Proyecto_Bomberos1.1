@@ -194,7 +194,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
 
-        Bombero bom = new Bombero();
+        Vista_Bombero bom = new Vista_Bombero();
 
         escritorio.add(bom);
         escritorio.moveToFront(bom);
@@ -204,14 +204,22 @@ public class Menu extends javax.swing.JFrame {
     private void jBbrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbrigadaActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
+     
         
-        Vistas_Brigada brig = new Vistas_Brigada();
+        
+        
+       /* Vistas_Brigada brig = new Vistas_Brigada();
         
         escritorio.add(brig);
         escritorio.moveToFront(brig);
         brig.setVisible(true);
+                
+        */
     }//GEN-LAST:event_jBbrigadaActionPerformed
 
+       
+       
+       
     /**
      * @param args the command line arguments
      */

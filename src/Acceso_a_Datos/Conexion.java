@@ -14,6 +14,10 @@ public class Conexion {
     private static final String PASSWORD = "";
     
     private static Connection connection;
+
+    static Connection getConexion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     //Constructor
     private Conexion(){}

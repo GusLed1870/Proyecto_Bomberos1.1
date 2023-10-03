@@ -9,12 +9,12 @@ package Vistas;
  *
  * @author leona
  */
-public class Bombero extends javax.swing.JInternalFrame {
+public class Vista_Bombero extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Bombero
      */
-    public Bombero() {
+    public Vista_Bombero() {
         initComponents();
     }
 
