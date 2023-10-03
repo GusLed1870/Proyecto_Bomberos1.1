@@ -191,14 +191,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jBcuartelesActionPerformed
 
     private void jBbomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbomberoActionPerformed
-        escritorio.removeAll();
+        /*escritorio.removeAll();
         escritorio.repaint();
 
         Bombero bom = new Bombero();
 
         escritorio.add(bom);
         escritorio.moveToFront(bom);
-        bom.setVisible(true);
+        bom.setVisible(true);*/
     }//GEN-LAST:event_jBbomberoActionPerformed
 
     private void jBbrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbrigadaActionPerformed
