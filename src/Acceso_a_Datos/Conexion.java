@@ -9,11 +9,15 @@ public class Conexion {
     
     //Atributos
     private static final String URL = "jdbc:mariadb://localhost/";
-    private static final String DB = "universidad";
+    private static final String DB = "bomberos";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     
     private static Connection connection;
+
+    static Connection getConexion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     //Constructor
     private Conexion(){}
