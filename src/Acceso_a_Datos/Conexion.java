@@ -9,7 +9,7 @@ public class Conexion {
     
     //Atributos
     private static final String URL = "jdbc:mariadb://localhost/";
-    private static final String DB = "universidad";
+    private static final String DB = "bomberos";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     

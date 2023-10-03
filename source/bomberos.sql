@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2023 a las 00:59:37
+-- Tiempo de generación: 04-10-2023 a las 01:01:26
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -33,9 +33,11 @@ CREATE TABLE `bombero` (
   `id_bombero` int(11) NOT NULL,
   `dni` varchar(8) NOT NULL,
   `nombre_ape` varchar(50) NOT NULL,
+  `grupoSanguineo` varchar(4) NOT NULL,
   `fecha_nac` date NOT NULL,
   `celular` int(15) NOT NULL,
-  `codBrigada` int(11) NOT NULL
+  `codBrigada` int(11) NOT NULL,
+  `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -81,7 +83,7 @@ CREATE TABLE `siniestro` (
   `coord_X` int(11) NOT NULL,
   `coord_Y` int(11) NOT NULL,
   `detalles` text NOT NULL,
-  `fecha_resol` date NOT NULL,
+  `fecha_resol` date DEFAULT NULL,
   `puntuacion` int(11) NOT NULL,
   `codBrigada` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
