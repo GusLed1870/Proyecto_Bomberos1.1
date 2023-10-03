@@ -12,7 +12,7 @@ public class Siniestro {
     private String detalles;
     private LocalDate fecha_resol;
     private int puntuacion;
-    private int codBrigada;
+    private int codBrigada;//no deberia ir
     private Brigada brigada;
 
     public Siniestro() {
