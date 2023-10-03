@@ -2,7 +2,7 @@
 
 <ClassDiagram name="Entidades">
   <ClassDiagramComponents>
-    <Class name="Bomberos" package="Entidades" visibility="public" xPosition="-96.0" yPosition="31.0">
+    <Class name="Bomberos" package="Entidades" visibility="public" xPosition="64.0" yPosition="50.0">
       <Fields>
         <Field name="id_bombero" type="int" visibility="private"/>
         <Field name="dni" type="String" visibility="private"/>
@@ -10,6 +10,8 @@
         <Field name="fecha_nac" type="LocalDate" visibility="private"/>
         <Field name="celular" type="String" visibility="private"/>
         <Field name="codBrigada" type="int" visibility="private"/>
+        <Field name="grupoSanguineo" type="String" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public">
@@ -19,10 +21,14 @@
           <Argument type="LocalDate" name="fecha_nac"/>
           <Argument type="String" name="celular"/>
           <Argument type="int" name="codBrigada"/>
+          <Argument type="String" name="grupoSanguineo"/>
+          <Argument type="boolean" name="estado"/>
         </Constructor>
         <Constructor visibility="public"/>
       </Constructors>
-      <Methods/>
+      <Methods>
+        <Method name="untitledMethod" returnType="void" visibility="public"/>
+      </Methods>
     </Class>
     <Class name="Cuartel" package="" visibility="public" xPosition="578.0" yPosition="12.0">
       <Fields>
@@ -104,8 +110,8 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
+    <HasRelation name="Tienen" source="Brigada" target="Entidades.Bomberos" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <UseRelation name="Requiere" source="Siniestro" target="Brigada" sourceCardinality="1..*" targetCardinality="1..*"/>
     <HasRelation name="Está compuesto por" source="Cuartel" target="Brigada" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="Tienen" source="Brigada" target="Entidades.Bomberos" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
   </ClassDiagramRelations>
 </ClassDiagram>

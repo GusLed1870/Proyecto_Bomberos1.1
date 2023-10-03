@@ -11,11 +11,13 @@ public class Bombero {
     private LocalDate fecha_nac;
     private String celular;
     private int codBrigada;
+    private String grupoSanguineo;
+    private boolean estado;
 
     public Bombero() {
     }
 
-    public Bombero(String nombre, int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, String celular, int codBrigada) {
+    public Bombero(String nombre, int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, String celular, int codBrigada, String grupoSanguineo, boolean estado) {
         this.nombre = nombre;
         this.id_bombero = id_bombero;
         this.dni = dni;
@@ -23,6 +25,8 @@ public class Bombero {
         this.fecha_nac = fecha_nac;
         this.celular = celular;
         this.codBrigada = codBrigada;
+        this.grupoSanguineo = grupoSanguineo;
+        this.estado = estado;
     }
 
     public String getNombre() {
@@ -81,8 +85,24 @@ public class Bombero {
         this.codBrigada = codBrigada;
     }
 
+    public String getGrupoSanguineo() {
+        return grupoSanguineo;
+    }
+
+    public void setGrupoSanguineo(String grupoSanguineo) {
+        this.grupoSanguineo = grupoSanguineo;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Bombero{" + "nombre=" + nombre + ", id_bombero=" + id_bombero + ", dni=" + dni + ", nombre_ape=" + nombre_ape + ", fecha_nac=" + fecha_nac + ", celular=" + celular + ", codBrigada=" + codBrigada + '}';
+        return "Bombero{" + "nombre=" + nombre + ", id_bombero=" + id_bombero + ", dni=" + dni + ", nombre_ape=" + nombre_ape + ", fecha_nac=" + fecha_nac + ", celular=" + celular + ", codBrigada=" + codBrigada + ", grupoSanguineo=" + grupoSanguineo + ", estado=" + estado + '}';
     }  
 }
