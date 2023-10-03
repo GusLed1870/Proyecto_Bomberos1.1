@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class Bombero {
 
-    private String nombre;
     private int id_bombero;
     private String dni;
     private String nombre_ape;
@@ -17,8 +16,7 @@ public class Bombero {
     public Bombero() {
     }
 
-    public Bombero(String nombre, int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, String celular, int codBrigada, String grupoSanguineo, boolean estado) {
-        this.nombre = nombre;
+    public Bombero(int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, String celular, int codBrigada, String grupoSanguineo, boolean estado) {
         this.id_bombero = id_bombero;
         this.dni = dni;
         this.nombre_ape = nombre_ape;
@@ -27,14 +25,6 @@ public class Bombero {
         this.codBrigada = codBrigada;
         this.grupoSanguineo = grupoSanguineo;
         this.estado = estado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getId_bombero() {
@@ -103,6 +93,9 @@ public class Bombero {
 
     @Override
     public String toString() {
-        return "Bombero{" + "nombre=" + nombre + ", id_bombero=" + id_bombero + ", dni=" + dni + ", nombre_ape=" + nombre_ape + ", fecha_nac=" + fecha_nac + ", celular=" + celular + ", codBrigada=" + codBrigada + ", grupoSanguineo=" + grupoSanguineo + ", estado=" + estado + '}';
+        return "Bombero" + "\nid_bombero: " + id_bombero + "\nDNI: " + dni 
+                + "\nNombre y Apellido: " + nombre_ape + "\nFecha de Nacimiento: " + fecha_nac 
+                + "\nCelular: " + celular + "\nCógigo de Brigada: " + codBrigada 
+                + "\nGrupo Sanguineo: " + grupoSanguineo + "\nEstado: " + estado;
     }  
 }

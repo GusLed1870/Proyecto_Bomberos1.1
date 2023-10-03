@@ -2,7 +2,7 @@
 
 <ClassDiagram name="Entidades">
   <ClassDiagramComponents>
-    <Class name="Bomberos" package="Entidades" visibility="public" xPosition="64.0" yPosition="50.0">
+    <Class name="Bomberos" package="Entidades" visibility="public" xPosition="-95.0" yPosition="-7.0">
       <Fields>
         <Field name="id_bombero" type="int" visibility="private"/>
         <Field name="dni" type="String" visibility="private"/>
@@ -30,7 +30,7 @@
         <Method name="untitledMethod" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Cuartel" package="" visibility="public" xPosition="578.0" yPosition="12.0">
+    <Class name="Cuartel" package="" visibility="public" xPosition="633.0" yPosition="12.0">
       <Fields>
         <Field name="codCuartel" type="int" visibility="private"/>
         <Field name="nombre_cuartel" type="String" visibility="private"/>

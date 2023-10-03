@@ -113,7 +113,10 @@ public class Siniestro {
 
     @Override
     public String toString() {
-        return "Siniestro{" + "codigo=" + codigo + ", tipo=" + tipo + ", fecha_siniestro=" + fecha_siniestro + ", coord_X=" + coord_X + ", coord_Y=" + coord_Y + ", detalles=" + detalles + ", fecha_resol=" + fecha_resol + ", puntuacion=" + puntuacion + ", codBrigada=" + codBrigada + ", brigada=" + brigada + '}';
+        return "Siniestro" + "\nCódigo: " + codigo + "\nTipo: " + tipo + "\nFecha del siniestro: " + fecha_siniestro 
+                + "\nCoord_X: " + coord_X + "\nCoord_Y: " + coord_Y + "\nDetalles: " + detalles 
+                + "\nFecha de resolución: " + fecha_resol + "\nPuntuacion: " + puntuacion 
+                + "\nCódigo de Brigada: " + codBrigada + "\n" + brigada;
     }
      
 }
