@@ -36,9 +36,10 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        jbAgregar = new javax.swing.JButton();
         tfNroCuartel = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
+        jbModificar = new javax.swing.JButton();
 
         JpanelBrigada.setBackground(new java.awt.Color(102, 255, 255));
         JpanelBrigada.setForeground(new java.awt.Color(153, 255, 255));
@@ -75,9 +76,9 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(102, 255, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Agregar");
+        jbAgregar.setBackground(new java.awt.Color(102, 255, 255));
+        jbAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        jbAgregar.setText("Agregar");
 
         tfNroCuartel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +91,10 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                 tfNombreActionPerformed(evt);
             }
         });
+
+        jbModificar.setBackground(new java.awt.Color(102, 255, 255));
+        jbModificar.setForeground(new java.awt.Color(255, 255, 255));
+        jbModificar.setText("Modificar");
 
         javax.swing.GroupLayout JpanelBrigadaLayout = new javax.swing.GroupLayout(JpanelBrigada);
         JpanelBrigada.setLayout(JpanelBrigadaLayout);
@@ -109,7 +114,10 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                                 .addComponent(jRadioButton1)
                                 .addGap(54, 54, 54)
                                 .addComponent(jRadioButton2))
-                            .addComponent(jButton1)
+                            .addGroup(JpanelBrigadaLayout.createSequentialGroup()
+                                .addComponent(jbAgregar)
+                                .addGap(40, 40, 40)
+                                .addComponent(jbModificar))
                             .addGroup(JpanelBrigadaLayout.createSequentialGroup()
                                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
@@ -147,7 +155,9 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
                 .addGap(66, 66, 66)
-                .addComponent(jButton1)
+                .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbAgregar)
+                    .addComponent(jbModificar))
                 .addContainerGap(208, Short.MAX_VALUE))
         );
 
@@ -186,7 +196,6 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelBrigada;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -195,6 +204,8 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbAgregar;
+    private javax.swing.JButton jbModificar;
     private javax.swing.JTextField tfNombre;
     private javax.swing.JTextField tfNroCuartel;
     // End of variables declaration//GEN-END:variables
