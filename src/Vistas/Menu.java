@@ -205,21 +205,15 @@ public class Menu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
      
-        
-        
-        
-       /* Vistas_Brigada brig = new Vistas_Brigada();
+       
+       Vistas_Brigada brig = new Vistas_Brigada();
         
         escritorio.add(brig);
         escritorio.moveToFront(brig);
         brig.setVisible(true);
-                
-        */
+                      
     }//GEN-LAST:event_jBbrigadaActionPerformed
-
-       
-       
-       
+    
     /**
      * @param args the command line arguments
      */
