@@ -9,20 +9,20 @@ public class Bombero {
     private String nombre_ape;
     private LocalDate fecha_nac;
     private String celular;
-    private int codBrigada;
+    private Brigada brigada;
     private String grupoSanguineo;
     private boolean estado;
 
     public Bombero() {
     }
 
-    public Bombero(int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, String celular, int codBrigada, String grupoSanguineo, boolean estado) {
+    public Bombero(int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, String celular, Brigada brigada, String grupoSanguineo, boolean estado) {
         this.id_bombero = id_bombero;
         this.dni = dni;
         this.nombre_ape = nombre_ape;
         this.fecha_nac = fecha_nac;
         this.celular = celular;
-        this.codBrigada = codBrigada;
+        this.brigada = brigada;
         this.grupoSanguineo = grupoSanguineo;
         this.estado = estado;
     }
@@ -67,12 +67,12 @@ public class Bombero {
         this.celular = celular;
     }
 
-    public int getCodBrigada() {
-        return codBrigada;
+    public Brigada getBrigada() {
+        return brigada;
     }
 
-    public void setCodBrigada(int codBrigada) {
-        this.codBrigada = codBrigada;
+    public void setBrigada(Brigada brigada) {
+        this.brigada = brigada;
     }
 
     public String getGrupoSanguineo() {
@@ -95,7 +95,7 @@ public class Bombero {
     public String toString() {
         return "Bombero" + "\nid_bombero: " + id_bombero + "\nDNI: " + dni 
                 + "\nNombre y Apellido: " + nombre_ape + "\nFecha de Nacimiento: " + fecha_nac 
-                + "\nCelular: " + celular + "\nCógigo de Brigada: " + codBrigada 
+                + "\nCelular: " + celular + "\nCógigo de Brigada: " + brigada.getCodBrigada()
                 + "\nGrupo Sanguineo: " + grupoSanguineo + "\nEstado: " + estado;
     }  
 }

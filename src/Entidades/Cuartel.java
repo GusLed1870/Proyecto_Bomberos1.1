@@ -9,9 +9,7 @@ public class Cuartel {
     private int coord_Y;
     private String telefono;
     private String correo;
-    private Brigada brigada;
-
- 
+    
     public Cuartel() {
     }
 
@@ -23,7 +21,7 @@ public class Cuartel {
         this.coord_Y = coord_Y;
         this.telefono = telefono;
         this.correo = correo;
-        this.brigada = brigada;
+
     }
 
     public int getCodCuartel() {
@@ -82,18 +80,10 @@ public class Cuartel {
         this.correo = correo;
     }
 
-    public Brigada getBrigada() {
-        return brigada;
-    }
-
-    public void setBrigada(Brigada brigada) {
-        this.brigada = brigada;
-    }
-
     @Override
     public String toString() {
         return "Cuartel" + "\nCódigo de Cuartel: " + codCuartel + "\nNombre de Cuartel: " + nombre_cuartel 
                 + "\nDirección: " + direccion + "\nCoord_X: " + coord_X + "\nCoord_Y: " + coord_Y
-                + "\nTeléfono: " + telefono + "\nCorreo: " + correo + "\n" + brigada;
+                + "\nTeléfono: " + telefono + "\nCorreo: " + correo;
     } 
 }
