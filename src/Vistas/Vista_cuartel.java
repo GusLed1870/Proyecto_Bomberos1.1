@@ -1,15 +1,18 @@
 package Vistas;
 
 import Acceso_a_Datos.Cuartel_data;
+import Entidades.Cuartel;
+import javax.swing.JOptionPane;
 
 public class Vista_cuartel extends javax.swing.JInternalFrame {
-    
+
     //Atributos
     private Cuartel_data cuar;
-    
+
     //Constructor
     public Vista_cuartel() {
         initComponents();
+        cuar = new Cuartel_data();
     }
 
     @SuppressWarnings("unchecked")
@@ -17,8 +20,6 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTcodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTnombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -32,13 +33,10 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTCorreo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jBsalir = new javax.swing.JButton();
-        jBguardarDatos = new javax.swing.JButton();
+        jBguardar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 204));
         jPanel1.setForeground(new java.awt.Color(0, 204, 204));
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setText("CODIGO:");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("NOMBRE:");
@@ -51,6 +49,12 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("LONGITUD:");
+
+        jTy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTyActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("TELEFONO:");
@@ -65,7 +69,12 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             }
         });
 
-        jBguardarDatos.setText("GUARDAR CUARTEL");
+        jBguardar.setText("Guardar Cuartel");
+        jBguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBguardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,58 +100,48 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                                 .addGap(64, 64, 64)
                                 .addComponent(jLabel5)
                                 .addGap(36, 36, 36)
-                                .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(57, 57, 57))
+                                .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(jBguardarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
+                        .addGap(137, 137, 137)
+                        .addComponent(jBguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77)
                         .addComponent(jBsalir)))
                 .addContainerGap(134, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jTcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBguardarDatos)
-                    .addComponent(jBsalir))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jBsalir))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jBguardar)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,10 +163,34 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBsalirActionPerformed
 
+    private void jTyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTyActionPerformed
+
+    private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+        try {
+            if (jTnombre.getText().isEmpty() || jTdireccion.getText().isEmpty() || jTx.getText().isEmpty() || jTy.getText().isEmpty() || jTtelefono.getText().isEmpty() || jTCorreo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No debe haber espacios vacios.");
+                return;
+            }
+            String nombre_cuartel = jTnombre.getText();
+            String direccion = jTdireccion.getText();
+            int coord_X = Integer.parseInt(jTx.getText());
+            int coord_Y = Integer.parseInt(jTy.getText());
+            String telefono = jTtelefono.getText();
+            String correo = jTCorreo.getText();
+            Cuartel cua = new Cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
+            cuar.cargarCuartel(cua);
+            JOptionPane.showMessageDialog(this, "cuartel añadido con éxito");
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Ingresar valores numericos");
+        }
+
+    }//GEN-LAST:event_jBguardarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBguardarDatos;
+    private javax.swing.JButton jBguardar;
     private javax.swing.JButton jBsalir;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -176,11 +199,20 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTCorreo;
-    private javax.swing.JTextField jTcodigo;
     private javax.swing.JTextField jTdireccion;
     private javax.swing.JTextField jTnombre;
     private javax.swing.JTextField jTtelefono;
     private javax.swing.JTextField jTx;
     private javax.swing.JTextField jTy;
     // End of variables declaration//GEN-END:variables
+
+    public void limpiarCampos() {
+        jTnombre.setText(null);
+        jTCorreo.setText(null);
+        jTtelefono.setText(null);
+        jTdireccion.setText(null);
+        jTx.setText(null);
+        jTy.setText(null);
+    }
+
 }
