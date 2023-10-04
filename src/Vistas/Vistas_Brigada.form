@@ -165,10 +165,12 @@
                       <Component id="jbModificar1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -353,11 +355,14 @@
         <Component class="javax.swing.JComboBox" name="jComboBox1">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="7">
+                <StringItem index="0" value="--Seleccionar una especialidad--"/>
+                <StringItem index="1" value=" Incendios en viviendas, e industrias"/>
+                <StringItem index="2" value="Salvamento en derrumbes"/>
+                <StringItem index="3" value="Rescates en &#xe1;mbito monta&#xf1;a"/>
+                <StringItem index="4" value="Rescate de personas atrapadas en accidentes de tr&#xe1;fico"/>
+                <StringItem index="5" value="Socorrer inundaciones"/>
+                <StringItem index="6" value="Operativos de prevenci&#xf3;n"/>
               </StringArray>
             </Property>
           </Properties>
