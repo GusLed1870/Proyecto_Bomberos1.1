@@ -11,14 +11,19 @@ import javax.swing.JOptionPane;
 
 public class Cuartel_data {
 
+    //Atributos
     private Connection con = null;
 
+    //Constructor
     public Cuartel_data() {
         con = Conexion.getConnection();
     }
 
+    //Métodos ABM
     public void cargarCuartel(Cuartel cuartel) {
+        
         String sql = "INSERT INTO cuartel (codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cuartel.getCodCuartel());
