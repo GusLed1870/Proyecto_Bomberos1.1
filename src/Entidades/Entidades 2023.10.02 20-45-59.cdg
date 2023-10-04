@@ -2,14 +2,14 @@
 
 <ClassDiagram name="Entidades">
   <ClassDiagramComponents>
-    <Class name="Bomberos" package="Entidades" visibility="public" xPosition="-95.0" yPosition="-7.0">
+    <Class name="Bombero" package="Entidades" visibility="public" xPosition="8.0" yPosition="24.0">
       <Fields>
         <Field name="id_bombero" type="int" visibility="private"/>
         <Field name="dni" type="String" visibility="private"/>
         <Field name="nombre_ape" type="String" visibility="private"/>
         <Field name="fecha_nac" type="LocalDate" visibility="private"/>
         <Field name="celular" type="String" visibility="private"/>
-        <Field name="codBrigada" type="int" visibility="private"/>
+        <Field name="brigada" type="Brigada" visibility="private"/>
         <Field name="grupoSanguineo" type="String" visibility="private"/>
         <Field name="estado" type="boolean" visibility="private"/>
       </Fields>
@@ -20,17 +20,15 @@
           <Argument type="String" name="nombre_ape"/>
           <Argument type="LocalDate" name="fecha_nac"/>
           <Argument type="String" name="celular"/>
-          <Argument type="int" name="codBrigada"/>
+          <Argument type="Brigada" name="brigada"/>
           <Argument type="String" name="grupoSanguineo"/>
           <Argument type="boolean" name="estado"/>
         </Constructor>
         <Constructor visibility="public"/>
       </Constructors>
-      <Methods>
-        <Method name="untitledMethod" returnType="void" visibility="public"/>
-      </Methods>
+      <Methods/>
     </Class>
-    <Class name="Cuartel" package="" visibility="public" xPosition="633.0" yPosition="12.0">
+    <Class name="Cuartel" package="" visibility="public" xPosition="1002.0" yPosition="119.0">
       <Fields>
         <Field name="codCuartel" type="int" visibility="private"/>
         <Field name="nombre_cuartel" type="String" visibility="private"/>
@@ -39,7 +37,6 @@
         <Field name="coord_Y" type="int" visibility="private"/>
         <Field name="telefono" type="String" visibility="private"/>
         <Field name="correo" type="String" visibility="private"/>
-        <Field name="brigada" type="Brigada" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public">
@@ -56,14 +53,13 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="Brigada" package="" visibility="public" xPosition="-46.0" yPosition="345.0">
+    <Class name="Brigada" package="" visibility="public" xPosition="117.0" yPosition="406.0">
       <Fields>
         <Field name="codBrigada" type="int" visibility="private"/>
         <Field name="nombre_br" type="String" visibility="private"/>
         <Field name="especialidad" type="String" visibility="private"/>
         <Field name="libre" type="boolean" visibility="private"/>
-        <Field name="nro_cuartel" type="int" visibility="private"/>
-        <Field name="bombero" type="Bombero" visibility="private"/>
+        <Field name="cuartel" type="Cuartel" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public">
@@ -71,14 +67,13 @@
           <Argument type="String" name="nombre_br"/>
           <Argument type="String" name="especialidad"/>
           <Argument type="boolean" name="libre"/>
-          <Argument type="int" name="nro_cuartel"/>
-          <Argument type="Bombero" name="bombero"/>
+          <Argument type="Cuartel" name="cuartel"/>
         </Constructor>
         <Constructor visibility="public"/>
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="Siniestro" package="" visibility="public" xPosition="679.0" yPosition="345.0">
+    <Class name="Siniestro" package="" visibility="public" xPosition="832.0" yPosition="434.0">
       <Fields>
         <Field name="codigo" type="int" visibility="private"/>
         <Field name="tipo" type="String" visibility="private"/>
@@ -110,8 +105,8 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="Tienen" source="Brigada" target="Entidades.Bomberos" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="Se le asigna" source="Entidades.Bombero" target="Brigada" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Se le asigna" source="Brigada" target="Cuartel" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
     <UseRelation name="Requiere" source="Siniestro" target="Brigada" sourceCardinality="1..*" targetCardinality="1..*"/>
-    <HasRelation name="Está compuesto por" source="Cuartel" target="Brigada" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
   </ClassDiagramRelations>
 </ClassDiagram>
