@@ -1,6 +1,7 @@
 package Acceso_a_Datos;
 
 import Entidades.Bombero;
+import Entidades.Brigada;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 public class BomberoData {
 
     private Connection con = null;
+    private Brigada brigada;
 
     public BomberoData() {
         con = Conexion.getConexion();
@@ -21,15 +23,16 @@ public class BomberoData {
 
     public void guardarBombero(Bombero bombero) {
 
-        String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, bombero.getDni());
             ps.setString(2, bombero.getNombre_ape());
             ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
             ps.setInt(4, bombero.getCelular());
-            ps.setString(5, bombero.getGrupoSanguineo());
-            ps.setBoolean(6, bombero.isEstado());
+            ps.setInt(5, brigada.getCodBrigada());
+            ps.setString(6, bombero.getGrupoSanguineo());
+            ps.setBoolean(7, bombero.isEstado());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -45,40 +48,42 @@ public class BomberoData {
         }
     }
 
-    public Bombero buscarBomberoPorID(int id) {
-        Bombero bombero = null;
-        String sql = "SELECT dni, nombre_ape, fecha_nac, celular, grupoSanguineo, estado FROM bombero WHERE id_bombero = ?";
-        PreparedStatement ps = null;
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+//    public Bombero buscarBomberoPorID(int id) {
+//        Bombero bombero = null;
+//        String sql = "SELECT dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado FROM bombero WHERE id_bombero = ?";
+//        PreparedStatement ps = null;
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                bombero = new Bombero();
+//                bombero.setId_bombero(id);
+//                bombero.setDni(rs.getString("dni"));
+//                bombero.setNombre_ape(rs.getString("nombre_ape"));
+//                bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
+//                bombero.setCelular(rs.getInt("celular"));
+//                bombero.set
+//                bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
+//                bombero.setEstado(rs.getBoolean("estado"));
+//
+//            } else {
+//                ps.close();
+//            }
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
+//        }
+//        return bombero;
+//    }
 
-            if (rs.next()) {
-                bombero = new Bombero();
-                bombero.setId_bombero(id);
-                bombero.setDni(rs.getString("dni"));
-                bombero.setNombre_ape(rs.getString("nombre_ape"));
-                bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
-                bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
-                bombero.setEstado(rs.getBoolean("estado"));
-
-            } else {
-                ps.close();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
-        }
-        return bombero;
-    }
-
-    public Bombero buscarBomberoPordni(int dni) {
+    public Bombero buscarBomberoPordni(String dni) {
         Bombero bombero = null;
         String sql = "SELECT * FROM bombero WHERE dni = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, dni);
+            ps.setString(1, dni);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -86,8 +91,8 @@ public class BomberoData {
                 bombero.setId_bombero(rs.getInt("id_bombero"));
                 bombero.setDni(rs.getString("dni"));
                 bombero.setNombre_ape(rs.getString("nombre_ape"));
-                 bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
-                 bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
+                bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
+                bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
                 bombero.setEstado(rs.getBoolean("estado"));
 
             } else {

@@ -9,10 +9,10 @@ public class Cuartel {
     private int coord_Y;
     private String telefono;
     private String correo;
-    
+       
     public Cuartel() {
     }
-
+    
     public Cuartel(int codCuartel, String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo, Brigada brigada) {
         this.codCuartel = codCuartel;
         this.nombre_cuartel = nombre_cuartel;
