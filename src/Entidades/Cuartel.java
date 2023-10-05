@@ -2,6 +2,7 @@ package Entidades;
 
 public class Cuartel {
 
+    //Atributos
     private int codCuartel;
     private String nombre_cuartel;
     private String direccion;
@@ -9,12 +10,18 @@ public class Cuartel {
     private int coord_Y;
     private String telefono;
     private String correo;
-       
+      
     public Cuartel() {
     }
     
     public Cuartel(int codCuartel, String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo, Brigada brigada) {
         this.codCuartel = codCuartel;
+    
+    //Constructores
+    public Cuartel() {}
+
+    public Cuartel(String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo) {
+
         this.nombre_cuartel = nombre_cuartel;
         this.direccion = direccion;
         this.coord_X = coord_X;
@@ -24,6 +31,7 @@ public class Cuartel {
 
     }
 
+    //Métodos getter y setter
     public int getCodCuartel() {
         return codCuartel;
     }
@@ -80,6 +88,7 @@ public class Cuartel {
         this.correo = correo;
     }
 
+    //Método toString
     @Override
     public String toString() {
         return "Cuartel" + "\nCódigo de Cuartel: " + codCuartel + "\nNombre de Cuartel: " + nombre_cuartel 
