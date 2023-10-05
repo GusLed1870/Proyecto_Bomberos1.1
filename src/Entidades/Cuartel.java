@@ -14,12 +14,6 @@ public class Cuartel {
     public Cuartel() {
     }
     
-    public Cuartel(int codCuartel, String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo, Brigada brigada) {
-        this.codCuartel = codCuartel;
-    
-    //Constructores
-    public Cuartel() {}
-
     public Cuartel(String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo) {
 
         this.nombre_cuartel = nombre_cuartel;

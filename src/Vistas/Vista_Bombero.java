@@ -2,18 +2,25 @@ package Vistas;
 
 import Acceso_a_Datos.BomberoData;
 import Entidades.Bombero;
+import Entidades.Brigada;
+import Entidades.Cuartel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class Vista_Bombero extends javax.swing.JInternalFrame {
 
+    private BomberoData bomberoData;
+
     public Vista_Bombero() {
         initComponents();
-       limpiarCampos();
+        limpiarCampos();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -96,12 +103,17 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
         jBSalir.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         calendarioOculto.setBackground(new java.awt.Color(112, 12, 19));
         calendarioOculto.setForeground(new java.awt.Color(112, 11, 19));
         calendarioOculto.setText("jLabel9");
 
-        jCBBrigadaAsignada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBBrigadaAsignada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Explosivos", "Incendios", "Catástrofes", "Accidentes" }));
         jCBBrigadaAsignada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBBrigadaAsignadaActionPerformed(evt);
@@ -235,19 +247,38 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        if (jTNombreApellido.getText().isEmpty() || jTDNI.getText().isEmpty() || jDCFechaNac.getDate() == null 
-            || jTCelular.getText().isEmpty() || jCBGrupoSanguineo.getSelectedIndex()>0
-                || jRBEstado.getText() == null || jCBBrigadaAsignada.getSelectedIndex()>0) {
+        String nombre = jTNombreApellido.getText();
+        String dni = jTDNI.getText();
+        LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int celular = Integer.parseInt(jTCelular.getText());
+        String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
+        boolean estado = jRBEstado.isSelected();
+        Cuartel cuartel=new Cuartel();
+        Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
+        
+        Brigada brigada= new Brigada(1, "alfa", "incendios forestales",true, cuartel); // Cuando cargue el combo box de brigada obtengo este dato y borro esta línea
+      
+        
+      
+
+        if (jTNombreApellido.getText().isEmpty() || jTDNI.getText().isEmpty() || jDCFechaNac.getDate() == null
+                || jTCelular.getText().isEmpty() || jCBGrupoSanguineo.getSelectedIndex() == 0
+                || jCBBrigadaAsignada.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "No debe dejar campos vacíos");
             return;
         }
-     
-       
+        Bombero bombero = new Bombero(dni, nombre, FechaNacFormateada, celular, brigada, grupoSanguineo, estado);
+        bomberoData.guardarBombero(bombero);
+        JOptionPane.showMessageDialog(null,"Bombero agregado con éxito");
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jCBBrigadaAsignadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBBrigadaAsignadaActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jCBBrigadaAsignadaActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -286,8 +317,8 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             calendarioOculto.setText("");
         }
     }
-    
-    private void limpiarCampos(){
+
+    private void limpiarCampos() {
         jTNombreApellido.setText(null);
         jTDNI.setText(null);
         jDCFechaNac.setDate(null);
@@ -296,6 +327,18 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jCBBrigadaAsignada.setSelectedIndex(0);
         jCBGrupoSanguineo.setSelectedIndex(0);
         jRBEstado.setText(null);
-        jRBEstado.setEnabled(false);
+        jRBEstado.setSelected(false);
     }
+
+    private void obtenerFechaFormateada() {
+        Date fechaSeleccionada = jDCFechaNac.getDate();
+        if (fechaSeleccionada != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String FechaFormateada = sdf.format(fechaSeleccionada);
+            calendarioOculto.setText(FechaFormateada);
+        } else {
+            calendarioOculto.setText("");
+        }
+    }
+
 }
