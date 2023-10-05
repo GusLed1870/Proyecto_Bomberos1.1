@@ -10,11 +10,12 @@ public class Cuartel {
     private int coord_Y;
     private String telefono;
     private String correo;
+      
+    public Cuartel() {
+    }
     
-    //Constructores
-    public Cuartel() {}
-
     public Cuartel(String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo) {
+
         this.nombre_cuartel = nombre_cuartel;
         this.direccion = direccion;
         this.coord_X = coord_X;

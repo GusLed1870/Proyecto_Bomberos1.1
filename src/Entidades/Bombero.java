@@ -17,6 +17,16 @@ public class Bombero {
     //Constructores
     public Bombero() {}
 
+    public Bombero(String dni, String nombre_ape, LocalDate fecha_nac, int celular, Brigada brigada, String grupoSanguineo, boolean estado) {
+        this.dni = dni;
+        this.nombre_ape = nombre_ape;
+        this.fecha_nac = fecha_nac;
+        this.celular = celular;
+        this.brigada = brigada;
+        this.grupoSanguineo = grupoSanguineo;
+        this.estado = estado;
+    }
+
     public Bombero(int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, int celular, Brigada brigada, String grupoSanguineo, boolean estado) {
         this.id_bombero = id_bombero;
         this.dni = dni;
