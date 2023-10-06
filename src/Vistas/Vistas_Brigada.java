@@ -41,6 +41,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jCBCuarteles = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         JpanelBrigada.setBackground(new java.awt.Color(102, 255, 255));
         JpanelBrigada.setForeground(new java.awt.Color(153, 255, 255));
@@ -142,6 +143,8 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Buscar");
+
         javax.swing.GroupLayout JpanelBrigadaLayout = new javax.swing.GroupLayout(JpanelBrigada);
         JpanelBrigada.setLayout(JpanelBrigadaLayout);
         JpanelBrigadaLayout.setHorizontalGroup(
@@ -178,9 +181,11 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                             .addGroup(JpanelBrigadaLayout.createSequentialGroup()
                                 .addGap(71, 71, 71)
                                 .addComponent(jbAgregar)
-                                .addGap(126, 126, 126)
+                                .addGap(59, 59, 59)
                                 .addComponent(jbModificar1)
-                                .addGap(138, 138, 138)
+                                .addGap(64, 64, 64)
+                                .addComponent(jButton1)
+                                .addGap(64, 64, 64)
                                 .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7))))
                     .addGroup(JpanelBrigadaLayout.createSequentialGroup()
@@ -238,7 +243,8 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAgregar)
                     .addComponent(jbModificar)
-                    .addComponent(jbModificar1))
+                    .addComponent(jbModificar1)
+                    .addComponent(jButton1))
                 .addGap(47, 47, 47)
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -326,6 +332,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelBrigada;
     private javax.swing.JButton Ocupadas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCBCuarteles;
     private javax.swing.JComboBox<String> jCBEspecialidad;
     private javax.swing.JLabel jLabel1;
