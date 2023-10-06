@@ -1,15 +1,14 @@
 package Vistas;
 
 import Acceso_a_Datos.BomberoData;
+import Acceso_a_Datos.BrigadaData;
 import Entidades.Bombero;
 import Entidades.Brigada;
 import Entidades.Cuartel;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -19,8 +18,9 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
     public Vista_Bombero() {
         initComponents();
+        bomberoData = new BomberoData(); // Inicializa bomberoData
         limpiarCampos();
-
+        cargarComboBrigadas();
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +46,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jBEliminar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
         calendarioOculto = new javax.swing.JLabel();
-        jCBBrigadaAsignada = new javax.swing.JComboBox<>();
+        jCBBrigadaAsignada = new javax.swing.JComboBox();
         jCBGrupoSanguineo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jRBEstado = new javax.swing.JRadioButton();
@@ -112,13 +112,6 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         calendarioOculto.setBackground(new java.awt.Color(112, 12, 19));
         calendarioOculto.setForeground(new java.awt.Color(112, 11, 19));
         calendarioOculto.setText("jLabel9");
-
-        jCBBrigadaAsignada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Explosivos", "Incendios", "Catástrofes", "Accidentes" }));
-        jCBBrigadaAsignada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBBrigadaAsignadaActionPerformed(evt);
-            }
-        });
 
         jCBGrupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el grupo sanguíneo", "A-", "A+", "B-", "B+", "AB-", "AB+", "0+", "0-", " " }));
 
@@ -249,17 +242,10 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
         String nombre = jTNombreApellido.getText();
         String dni = jTDNI.getText();
-        LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaNac = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int celular = Integer.parseInt(jTCelular.getText());
         String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
         boolean estado = jRBEstado.isSelected();
-        Cuartel cuartel=new Cuartel();
-        Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
-        
-        Brigada brigada= new Brigada(1, "alfa", "incendios forestales",true, cuartel); // Cuando cargue el combo box de brigada obtengo este dato y borro esta línea
-      
-        
-      
 
         if (jTNombreApellido.getText().isEmpty() || jTDNI.getText().isEmpty() || jDCFechaNac.getDate() == null
                 || jTCelular.getText().isEmpty() || jCBGrupoSanguineo.getSelectedIndex() == 0
@@ -267,14 +253,12 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No debe dejar campos vacíos");
             return;
         }
-        Bombero bombero = new Bombero(dni, nombre, FechaNacFormateada, celular, brigada, grupoSanguineo, estado);
+
+        Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getSelectedItem();
+        Bombero bombero = new Bombero(dni, nombre, fechaNac, celular, brigadaSeleccionada, grupoSanguineo, estado);
         bomberoData.guardarBombero(bombero);
-        JOptionPane.showMessageDialog(null,"Bombero agregado con éxito");
+        JOptionPane.showMessageDialog(null, "Bombero agregado con éxito");
     }//GEN-LAST:event_jBAgregarActionPerformed
-
-    private void jCBBrigadaAsignadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBBrigadaAsignadaActionPerformed
-
-    }//GEN-LAST:event_jCBBrigadaAsignadaActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
@@ -289,7 +273,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jCBBrigadaAsignada;
+    private javax.swing.JComboBox jCBBrigadaAsignada;
     private javax.swing.JComboBox<String> jCBGrupoSanguineo;
     private com.toedter.calendar.JDateChooser jDCFechaNac;
     private javax.swing.JLabel jLabel1;
@@ -323,10 +307,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jTDNI.setText(null);
         jDCFechaNac.setDate(null);
         jCBBrigadaAsignada.setSelectedItem(null);
-        jTCelular.setText(null);
-        jCBBrigadaAsignada.setSelectedIndex(0);
-        jCBGrupoSanguineo.setSelectedIndex(0);
-        jRBEstado.setText(null);
+        jTCelular.setText(null);     
         jRBEstado.setSelected(false);
     }
 
@@ -341,4 +322,22 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargarComboBrigadas() {
+
+        BrigadaData brigadaData = new BrigadaData();
+        ArrayList<Brigada> listaBrigadas = (ArrayList<Brigada>) brigadaData.listarBrigadas();
+
+        // Limpia el JComboBox si tiene elementos previos
+        jCBBrigadaAsignada.removeAllItems();
+
+        for (Brigada brigada : listaBrigadas) {
+            // Agrega el nombre o algún atributo de la brigada en el JComboBox
+            jCBBrigadaAsignada.addItem(brigada.toString());
+        }
+
+        if (!listaBrigadas.isEmpty()) {
+            // Selecciona la primera brigada de la lista
+            jCBBrigadaAsignada.setSelectedIndex(0);
+        }
+    }
 }

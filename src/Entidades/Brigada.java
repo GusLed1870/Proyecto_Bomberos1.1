@@ -71,7 +71,7 @@ public class Brigada {
     //Método toString
     @Override
     public String toString() {
-        return "Brigada" + "\nCódigo de Brigada: " + codBrigada + "\nNombre de Brigada: " + nombre_br 
-                + "\nEspecialidad: " + especialidad + "\nLibre: " + libre + "\nNombre de Cuartel: " + cuartel.getNombre_cuartel();
+        return "Código de Brigada: " + codBrigada + "Nombre: " + nombre_br 
+                + "Especialidad: " + especialidad + "Libre: " + libre + "Nombre de Cuartel: " + cuartel.getNombre_cuartel();
     } 
 }
