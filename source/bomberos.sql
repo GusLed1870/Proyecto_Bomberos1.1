@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 02:51:00
+-- Tiempo de generación: 06-10-2023 a las 23:17:59
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -145,7 +145,10 @@ INSERT INTO `cuartel` (`codCuartel`, `nombre_cuartel`, `direccion`, `coord_X`, `
 (21, 'Estación X Lugano', 'Cafayate y Ana Diaz', 3618, 2634, '4605-4242', 'luganoxest@yahoo.com'),
 (22, 'Estación XI Albariño', 'Santander 5955', 2485, 3246, '4601-8801', 'albariest@hotmail.com'),
 (23, 'Destacamento G.E.R. Caballito', 'Riglos 959', 1114, 6954, '4921-2737', 'gercaballito@gmail.com'),
-(24, 'Destacamento G.E.R. Saavedra', ' Jaramillo 3551', 2599, 4288, '4542-2222', 'saavedreger@hotmail.com');
+(24, 'Destacamento G.E.R. Saavedra', ' Jaramillo 3551', 2599, 4288, '4542-2222', 'saavedreger@hotmail.com'),
+(25, 'Estación II Patricios', 'Av. Caseros 2849', 3445, 4567, '4943-2222', 'estpalermo@gmail.com'),
+(26, 'Destacamento Nueva Pompeya', 'Av. Saenz 1457', 2342, 1275, '4911-4852', 'jhgghfh@gmail.com'),
+(27, 'Estación III Barracas', 'Brandsen 1046', 8234, 975, '4567-8655', 'dhfhswjj@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -217,7 +220,7 @@ ALTER TABLE `brigada`
 -- AUTO_INCREMENT de la tabla `cuartel`
 --
 ALTER TABLE `cuartel`
-  MODIFY `codCuartel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `codCuartel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `siniestro`

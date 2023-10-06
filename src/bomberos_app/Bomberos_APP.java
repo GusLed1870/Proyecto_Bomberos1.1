@@ -2,12 +2,9 @@ package bomberos_app;
 
 import Acceso_a_Datos.Conexion;
 import Acceso_a_Datos.Cuartel_data;
-import Entidades.Brigada;
-import Entidades.Cuartel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 public class Bomberos_APP {
@@ -16,7 +13,7 @@ public class Bomberos_APP {
 
     public static void main(String[] args) throws SQLException {
      
-        Connection conn = Conexion.getConnection();
+        Connection conn = Conexion.getConexion();
         
         
         // Bombero(String dni, String nombre_ape, LocalDate fecha_nac, int celular, Brigada brigada, String grupoSanguineo, boolean estado)
