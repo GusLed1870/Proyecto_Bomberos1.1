@@ -20,6 +20,13 @@ public class Brigada {
         this.cuartel = cuartel;
     }
 
+    public Brigada(String nombre_br, String especialidad, boolean libre, Cuartel cuartel) {
+        this.nombre_br = nombre_br;
+        this.especialidad = especialidad;
+        this.libre = libre;
+        this.cuartel = cuartel;
+    }
+    
     //Métodos getter y setter
     public int getCodBrigada() {
         return codBrigada;

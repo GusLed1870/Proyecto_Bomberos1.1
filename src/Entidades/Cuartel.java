@@ -13,6 +13,16 @@ public class Cuartel {
       
     public Cuartel() {
     }
+
+    public Cuartel(int codCuartel, String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo) {
+        this.codCuartel = codCuartel;
+        this.nombre_cuartel = nombre_cuartel;
+        this.direccion = direccion;
+        this.coord_X = coord_X;
+        this.coord_Y = coord_Y;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
     
     public Cuartel(String nombre_cuartel, String direccion, int coord_X, int coord_Y, String telefono, String correo) {
 
