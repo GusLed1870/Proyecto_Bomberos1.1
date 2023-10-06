@@ -350,7 +350,17 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         combo.add("Rescate de personas atrapadas en accidentes de tráfico");
         combo.add("Socorrer inundaciones");
         combo.add("Operativos de prevención");
-        System.out.println("Lugar "+combo.indexOf("Salvamento en derrumbes"));
+        int espe=combo.indexOf(bri.getEspecialidad());
+        jCBEspecialidad.setSelectedIndex(espe);
+        if(bri.isLibre()){
+            jRBlibretrue.setSelected(true);
+            jRBlibretrue.setText("SI");
+        
+        }else{
+            jRBlibrefalse.setSelected(true);
+            jRBlibrefalse.setText("NO");
+        }
+        
 
 
 
