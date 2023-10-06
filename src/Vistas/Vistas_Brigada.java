@@ -5,6 +5,7 @@ import Acceso_a_Datos.Cuartel_data;
 import Entidades.Brigada;
 import Entidades.Cuartel;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Vistas_Brigada extends javax.swing.JInternalFrame {
 
@@ -41,7 +42,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jCBCuarteles = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jBuscar = new javax.swing.JButton();
 
         JpanelBrigada.setBackground(new java.awt.Color(102, 255, 255));
         JpanelBrigada.setForeground(new java.awt.Color(153, 255, 255));
@@ -143,8 +144,13 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Buscar");
+        jBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        jBuscar.setText("Buscar");
+        jBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JpanelBrigadaLayout = new javax.swing.GroupLayout(JpanelBrigada);
         JpanelBrigada.setLayout(JpanelBrigadaLayout);
@@ -185,7 +191,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                                 .addGap(59, 59, 59)
                                 .addComponent(jbModificar1)
                                 .addGap(64, 64, 64)
-                                .addComponent(jButton1)
+                                .addComponent(jBuscar)
                                 .addGap(64, 64, 64)
                                 .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7))))
@@ -245,7 +251,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                     .addComponent(jbAgregar)
                     .addComponent(jbModificar)
                     .addComponent(jbModificar1)
-                    .addComponent(jButton1))
+                    .addComponent(jBuscar))
                 .addGap(47, 47, 47)
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -330,10 +336,30 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
    
     }//GEN-LAST:event_jCBCuartelesActionPerformed
 
+    private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
+        String nombre=tfNombre.getText();
+        BrigadaData briData=new BrigadaData();
+        int id=briData.buscarBrigada(nombre);
+        System.out.println("id: " +id);
+        Brigada bri=briData.buscarBrigada2(id);
+        tfNombre.setText(bri.getNombre_br());
+        ArrayList<String> combo = new ArrayList<>();
+        combo.add("Incendios en viviendas, e industrias");
+        combo.add("Salvamento en derrumbes");
+        combo.add("Rescates en ámbito montaña");
+        combo.add("Rescate de personas atrapadas en accidentes de tráfico");
+        combo.add("Socorrer inundaciones");
+        combo.add("Operativos de prevención");
+        System.out.println("Lugar "+combo.indexOf("Salvamento en derrumbes"));
+
+
+
+    }//GEN-LAST:event_jBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelBrigada;
     private javax.swing.JButton Ocupadas;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBuscar;
     private javax.swing.JComboBox<String> jCBCuarteles;
     private javax.swing.JComboBox<String> jCBEspecialidad;
     private javax.swing.JLabel jLabel1;

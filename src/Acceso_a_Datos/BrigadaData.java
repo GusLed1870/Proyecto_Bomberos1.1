@@ -72,10 +72,10 @@ public class BrigadaData {
     return codBrigada;
 }
     
-    public Brigada buscarBrigada(int codBrigada) {
+    public Brigada buscarBrigada2(int codBrigada) {
     Brigada brigada = null;
     Cuartel_data CuartelData = new Cuartel_data();
-    String sql = "SELECT codBrigada, nombre_br, especialidad, libre, codCuartel FROM brigada WHERE codBrigada = ?";
+    String sql = "SELECT codBrigada, nombre_br, especialidad, libre, nro_cuartel FROM brigada WHERE codBrigada = ?";
     PreparedStatement ps = null;
     try {
         ps = con.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class BrigadaData {
             brigada.setEspecialidad(rs.getString("especialidad")); // Corrección aquí
             brigada.setLibre(rs.getBoolean("libre"));
             
-            int codCuartel = rs.getInt("codCuartel"); // Obtener el valor de codCuartel desde la base de datos
+            int codCuartel = rs.getInt("nro_cuartel"); // Obtener el valor de codCuartel desde la base de datos
 
             // Aquí debes obtener un objeto Cuartel relacionado con el código de cuartel
             Cuartel cuartel = CuartelData.buscarCuartel(codCuartel);
