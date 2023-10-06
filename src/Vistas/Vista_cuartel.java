@@ -33,7 +33,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTCorreo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jBsalir = new javax.swing.JButton();
-        jBguardar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 204));
         jPanel1.setForeground(new java.awt.Color(0, 204, 204));
@@ -69,10 +69,10 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             }
         });
 
-        jBguardar.setText("Guardar Cuartel");
-        jBguardar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Guardar cuartel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBguardarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -103,11 +103,13 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                                 .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jBguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
+                        .addGap(406, 406, 406)
                         .addComponent(jBsalir)))
                 .addContainerGap(134, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(271, 271, 271))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,14 +136,11 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jBsalir))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jBguardar)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(jBsalir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,33 +163,49 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBsalirActionPerformed
 
     private void jTyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTyActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTyActionPerformed
 
-    private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String vacios[] = new String[4];
+
         try {
-            if (jTnombre.getText().isEmpty() || jTdireccion.getText().isEmpty() || jTx.getText().isEmpty() || jTy.getText().isEmpty() || jTtelefono.getText().isEmpty() || jTCorreo.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No debe haber espacios vacios.");
+
+            if (jTnombre.getText().isEmpty()) {
+                vacios[1] = "Nombre";
+            }
+            if (jTdireccion.getText().isEmpty()) {
+                vacios[2] = "Direccion";
+            }
+            if (jTtelefono.getText().isEmpty()) {
+                vacios[3] = "Telefono";
+            }
+            
+
+            if (jTdireccion.getText().isEmpty() || jTnombre.getText().isEmpty() || jTtelefono.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, vacios );
+                        
+
                 return;
             }
+
             String nombre_cuartel = jTnombre.getText();
             String direccion = jTdireccion.getText();
-            int coord_X = Integer.parseInt(jTx.getText());
-            int coord_Y = Integer.parseInt(jTy.getText());
             String telefono = jTtelefono.getText();
             String correo = jTCorreo.getText();
+            int coord_X = Integer.parseInt(jTx.getText());
+            int coord_Y = Integer.parseInt(jTy.getText());
             Cuartel cua = new Cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
             cuar.cargarCuartel(cua);
             JOptionPane.showMessageDialog(this, "cuartel añadido con éxito");
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Ingresar valores numericos");
-        }
 
-    }//GEN-LAST:event_jBguardarActionPerformed
-
+    }//GEN-LAST:event_jButton1ActionPerformed
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBguardar;
     private javax.swing.JButton jBsalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -213,6 +228,9 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTdireccion.setText(null);
         jTx.setText(null);
         jTy.setText(null);
+    }
+
+    public void AprendiLoDelMetodo(Vista_cuartel vista) {
     }
 
 }
