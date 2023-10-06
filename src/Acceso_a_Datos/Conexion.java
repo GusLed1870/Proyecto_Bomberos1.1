@@ -6,38 +6,20 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-    
-    //Atributos
-    private static final String URL = "jdbc:mariadb://localhost/";
-    private static final String DB = "bomberos";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
-    
-    private static Connection connection;
 
-    static Connection getConexion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    //Constructor
-    private Conexion(){}
-    
-    //Método adicional
-    public static Connection getConnection(){
-        
-        if(connection == null){
-            try {
-                Class.forName("org.mariadb.jdbc.Driver");
-                connection = DriverManager.getConnection(URL + DB + "?useLegacyDatetimeCode=false&serverTimezone=UTC" +
-                                                         "&user=" + USER + "&password=" + PASSWORD);
-                System.out.println("Conectado correctamente.\n");
-            } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Error al cargar los drivers: " + ex.getMessage());
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al conectarse a la BD: " + ex.getMessage());
+    private static String url = "jdbc:mariadb://localhost/bomberos";
+    private static String usuario = "root";
+    private static String password = "";
+    private static Connection con;
+
+    public static Connection getConexion() {
+        try {
+            if (con == null) {
+                con = DriverManager.getConnection(url, usuario, password);
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos. Error: " + ex.getMessage());
         }
-        
-        return connection;
+        return con;
     }
 }

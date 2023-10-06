@@ -1,6 +1,8 @@
 package Vistas;
 
+import Acceso_a_Datos.BrigadaData;
 import Acceso_a_Datos.Cuartel_data;
+import Entidades.Brigada;
 import Entidades.Cuartel;
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jbTodas = new javax.swing.JButton();
         jbLibres = new javax.swing.JButton();
         Ocupadas = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jCBEspecialidad = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jCBCuarteles = new javax.swing.JComboBox<>();
@@ -124,7 +126,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         Ocupadas.setBackground(new java.awt.Color(102, 255, 255));
         Ocupadas.setText("Ocupadas");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar una especialidad--", " Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
+        jCBEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar una especialidad--", " Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -170,7 +172,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                                         .addGap(62, 62, 62)
                                         .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(tfNombre)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jCBEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jCBCuarteles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(20, 20, 20))
                             .addGroup(JpanelBrigadaLayout.createSequentialGroup()
@@ -226,7 +228,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCBEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -286,6 +288,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         Cuartel_data cuar = new Cuartel_data();
         Cuartel cuartel = new Cuartel();
+        BrigadaData briData=new BrigadaData();
         
         String selectedItemText = (String) jCBCuarteles.getSelectedItem();
     int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
@@ -305,6 +308,8 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         //System.out.println("CodCuartel "+codCuartel);
         cuartel = cuar.buscarCuartel(codCuartel);
         //System.out.println("Nombre "+cuartel.getNombre_cuartel());
+        Brigada bri=new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBlibretrue.isSelected(), cuartel);
+        briData.guardarBrigada(bri);
         
     }
         
@@ -322,7 +327,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JPanel JpanelBrigada;
     private javax.swing.JButton Ocupadas;
     private javax.swing.JComboBox<String> jCBCuarteles;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jCBEspecialidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

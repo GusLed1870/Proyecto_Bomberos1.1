@@ -18,7 +18,7 @@ public class Cuartel_data {
 
     //Constructor
     public Cuartel_data() {
-        con = Conexion.getConnection();
+        con = Conexion.getConexion();
     }
 
     //Métodos ABM
