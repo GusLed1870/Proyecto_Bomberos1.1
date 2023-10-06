@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entidades;
+package Acceso_a_Datos;
 
 /**
  *
  * @author Gus
  */
-public class Bomberos {
-    private String nombre;
+public class BrigadaData {
+    
+    
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Siniestro {
 
+    //Atributos
     private int codigo;
     private String tipo;
     private LocalDate fecha_siniestro;
@@ -15,8 +16,8 @@ public class Siniestro {
     private int codBrigada;//no deberia ir
     private Brigada brigada;
 
-    public Siniestro() {
-    }
+    //Constructores
+    public Siniestro() {}
 
     public Siniestro(int codigo, String tipo, LocalDate fecha_siniestro, int coord_X, int coord_Y, String detalles, LocalDate fecha_resol, int puntuacion, int codBrigada, Brigada brigada) {
         this.codigo = codigo;
@@ -31,6 +32,7 @@ public class Siniestro {
         this.brigada = brigada;
     }
 
+    //Métodos getter y setter
     public int getCodigo() {
         return codigo;
     }
@@ -111,12 +113,12 @@ public class Siniestro {
         this.brigada = brigada;
     }
 
+    //Método toString
     @Override
     public String toString() {
         return "Siniestro" + "\nCódigo: " + codigo + "\nTipo: " + tipo + "\nFecha del siniestro: " + fecha_siniestro 
                 + "\nCoord_X: " + coord_X + "\nCoord_Y: " + coord_Y + "\nDetalles: " + detalles 
                 + "\nFecha de resolución: " + fecha_resol + "\nPuntuacion: " + puntuacion 
                 + "\nCódigo de Brigada: " + codBrigada + "\n" + brigada;
-    }
-     
+    }  
 }

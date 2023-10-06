@@ -13,15 +13,19 @@ import javax.swing.JOptionPane;
 
 public class BomberoData {
 
+    //Atributos
     private Connection con = null;
 
+    //Constructor
     public BomberoData() {
         con = Conexion.getConexion();
     }
 
+    //Métodos ABM
     public void guardarBombero(Bombero bombero) {
 
         String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?)";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, bombero.getDni());
@@ -32,6 +36,7 @@ public class BomberoData {
             ps.setBoolean(6, bombero.isEstado());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
+            
             if (rs.next()) {
                 bombero.setId_bombero(rs.getInt(1));
 
@@ -41,16 +46,17 @@ public class BomberoData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero: " + ex.getMessage());
         }
     }
 
     public Bombero buscarBomberoPorID(int id) {
+        
         Bombero bombero = null;
         String sql = "SELECT dni, nombre_ape, fecha_nac, celular, grupoSanguineo, estado FROM bombero WHERE id_bombero = ?";
-        PreparedStatement ps = null;
+
         try {
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
@@ -69,15 +75,17 @@ public class BomberoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
         }
+        
         return bombero;
     }
 
     public Bombero buscarBomberoPordni(int dni) {
+        
         Bombero bombero = null;
         String sql = "SELECT * FROM bombero WHERE dni = ?";
-        PreparedStatement ps = null;
+
         try {
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
 
@@ -105,10 +113,12 @@ public class BomberoData {
     public List<Bombero> listarBomberos() {
 
         List<Bombero> bomberos = new ArrayList<>();
+        String sql = "SELECT * FROM ombero WHERE estado = 1 ";
+        
         try {
-            String sql = "SELECT * FROM ombero WHERE estado = 1 ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
                Bombero bombero = new Bombero();
 
@@ -120,6 +130,7 @@ public class BomberoData {
                 bombero.setEstado(rs.getBoolean("estado"));
                 bomberos.add(bombero);
             }
+            
             ps.close();
 
         } catch (SQLException ex) {
@@ -132,12 +143,10 @@ public class BomberoData {
 
         BomberoData bomberodata = new BomberoData();
         int id = bombero.getId_bombero();
-
         String sql = "UPDATE bombero SET dni = ? , nombre_ape = ?, fecha_nac = ?, grupoSanguineo = ?, estado = ? WHERE id_bombero = ?";
-        PreparedStatement ps = null;
 
         try {
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, bombero.getDni());
             ps.setString(2, bombero.getNombre_ape());
             ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
@@ -159,8 +168,10 @@ public class BomberoData {
     }
 
     public void eliminarBombero(int id) {
+        
+        String sql = "UPDATE bombero SET estado = 0 WHERE id_bombero = ? ";
+        
         try {
-            String sql = "UPDATE bombero SET estado = 0 WHERE id_bombero = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
@@ -168,18 +179,21 @@ public class BomberoData {
             if (fila == 1) {
                 JOptionPane.showMessageDialog(null, " Se eliminó el bombero.");
             }
+            
             ps.close();
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla bombero. ");
         }
     }
 
-    public int buscarBomberoIdPorDni(int dni) {
+    public int buscarBomberoIdPorDni(int dni) { 
+        
         int bomberoId = -1; // Valor predeterminado en caso de que no se encuentre el alumno
         String sql = "SELECT id_bombero FROM bombero WHERE dni = ?";
-        PreparedStatement ps = null;
+        
         try {
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
 
@@ -189,7 +203,9 @@ public class BomberoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el bombero con DNI: " + dni);
             }
+            
             ps.close();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
         }
@@ -200,9 +216,9 @@ public class BomberoData {
 
         boolean bomb = false;
         String sql = "SELECT COUNT(*) FROM bombero WHERE dni = ?";
-        PreparedStatement ps = null;
+        
         try {
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
 
@@ -210,11 +226,11 @@ public class BomberoData {
                 bomb = true;
 
             }
+            
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla bombero " + ex.getMessage());
         }
         return bomb;
     }
-
 }

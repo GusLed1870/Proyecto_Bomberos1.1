@@ -2,14 +2,15 @@ package Entidades;
 
 public class Brigada {
 
+    //Atributos
     private int codBrigada;
     private String nombre_br;
     private String especialidad;
     private boolean libre;
     private Cuartel cuartel;
 
-    public Brigada() {
-    }
+    //Constructores
+    public Brigada() {}
 
     public Brigada(int codBrigada, String nombre_br, String especialidad, boolean libre, Cuartel cuartel) {
         this.codBrigada = codBrigada;
@@ -19,6 +20,7 @@ public class Brigada {
         this.cuartel = cuartel;
     }
 
+    //Métodos getter y setter
     public int getCodBrigada() {
         return codBrigada;
     }
@@ -59,6 +61,7 @@ public class Brigada {
         this.cuartel = cuartel;
     }
 
+    //Método toString
     @Override
     public String toString() {
         return "Brigada" + "\nCódigo de Brigada: " + codBrigada + "\nNombre de Brigada: " + nombre_br 
