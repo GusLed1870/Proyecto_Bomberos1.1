@@ -13,13 +13,12 @@ public class Siniestro {
     private String detalles;
     private LocalDate fecha_resol;
     private int puntuacion;
-    private int codBrigada;//no deberia ir
     private Brigada brigada;
 
     //Constructores
     public Siniestro() {}
 
-    public Siniestro(int codigo, String tipo, LocalDate fecha_siniestro, int coord_X, int coord_Y, String detalles, LocalDate fecha_resol, int puntuacion, int codBrigada, Brigada brigada) {
+    public Siniestro(int codigo, String tipo, LocalDate fecha_siniestro, int coord_X, int coord_Y, String detalles, LocalDate fecha_resol, int puntuacion, Brigada brigada) {
         this.codigo = codigo;
         this.tipo = tipo;
         this.fecha_siniestro = fecha_siniestro;
@@ -28,7 +27,6 @@ public class Siniestro {
         this.detalles = detalles;
         this.fecha_resol = fecha_resol;
         this.puntuacion = puntuacion;
-        this.codBrigada = codBrigada;
         this.brigada = brigada;
     }
 
@@ -97,14 +95,6 @@ public class Siniestro {
         this.puntuacion = puntuacion;
     }
 
-    public int getCodBrigada() {
-        return codBrigada;
-    }
-
-    public void setCodBrigada(int codBrigada) {
-        this.codBrigada = codBrigada;
-    }
-
     public Brigada getBrigada() {
         return brigada;
     }
@@ -119,6 +109,6 @@ public class Siniestro {
         return "Siniestro" + "\nCódigo: " + codigo + "\nTipo: " + tipo + "\nFecha del siniestro: " + fecha_siniestro 
                 + "\nCoord_X: " + coord_X + "\nCoord_Y: " + coord_Y + "\nDetalles: " + detalles 
                 + "\nFecha de resolución: " + fecha_resol + "\nPuntuacion: " + puntuacion 
-                + "\nCódigo de Brigada: " + codBrigada + "\n" + brigada;
+                + "\n" + brigada;
     }  
 }
