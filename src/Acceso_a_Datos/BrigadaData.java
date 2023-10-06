@@ -50,5 +50,6 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
         }
     }
+    
 
 }
