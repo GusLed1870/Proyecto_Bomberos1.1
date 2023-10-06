@@ -143,6 +143,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Buscar");
 
         javax.swing.GroupLayout JpanelBrigadaLayout = new javax.swing.GroupLayout(JpanelBrigada);
