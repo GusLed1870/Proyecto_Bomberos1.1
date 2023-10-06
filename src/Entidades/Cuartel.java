@@ -95,8 +95,8 @@ public class Cuartel {
     //Método toString
     @Override
     public String toString() {
-        return "Cuartel" + "\nCódigo de Cuartel: " + codCuartel + "\nNombre de Cuartel: " + nombre_cuartel 
-                + "\nDirección: " + direccion + "\nCoord_X: " + coord_X + "\nCoord_Y: " + coord_Y
-                + "\nTeléfono: " + telefono + "\nCorreo: " + correo;
+        return "Codigo de Cuartel: " + codCuartel + "  Nombre de Cuartel: " + nombre_cuartel 
+                + "\n Dirección: " + direccion + "\nCoord_X: " + coord_X + "\n Coord_Y: " + coord_Y
+                + "\n Teléfono: " + telefono + "\n Correo: " + correo;
     } 
 }

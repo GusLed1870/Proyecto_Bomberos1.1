@@ -1,10 +1,15 @@
 package Vistas;
 
+import Acceso_a_Datos.Cuartel_data;
+import Entidades.Cuartel;
+import java.util.ArrayList;
+
 public class Vistas_Brigada extends javax.swing.JInternalFrame {
 
     //Constructor
     public Vistas_Brigada() {
         initComponents();
+        cargarCB();
     }
 
     @SuppressWarnings("unchecked")
@@ -17,11 +22,10 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jRBlibretrue = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRBlibrefalse = new javax.swing.JRadioButton();
         jbAgregar = new javax.swing.JButton();
-        tfNroCuartel = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
         jbModificar = new javax.swing.JButton();
         jbModificar1 = new javax.swing.JButton();
@@ -34,6 +38,7 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jCBCuarteles = new javax.swing.JComboBox<>();
 
         JpanelBrigada.setBackground(new java.awt.Color(102, 255, 255));
         JpanelBrigada.setForeground(new java.awt.Color(153, 255, 255));
@@ -54,9 +59,9 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Libre");
 
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        jRBlibretrue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jRBlibretrueActionPerformed(evt);
             }
         });
 
@@ -64,19 +69,18 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Nº de Cuartel:");
 
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        jRBlibrefalse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                jRBlibrefalseActionPerformed(evt);
             }
         });
 
         jbAgregar.setBackground(new java.awt.Color(102, 255, 255));
         jbAgregar.setForeground(new java.awt.Color(255, 255, 255));
         jbAgregar.setText("Agregar");
-
-        tfNroCuartel.addActionListener(new java.awt.event.ActionListener() {
+        jbAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNroCuartelActionPerformed(evt);
+                jbAgregarActionPerformed(evt);
             }
         });
 
@@ -129,6 +133,13 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Todas");
 
+        jCBCuarteles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBCuarteles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBCuartelesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JpanelBrigadaLayout = new javax.swing.GroupLayout(JpanelBrigada);
         JpanelBrigada.setLayout(JpanelBrigadaLayout);
         JpanelBrigadaLayout.setHorizontalGroup(
@@ -148,9 +159,9 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(JpanelBrigadaLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(jRBlibretrue)
                                         .addGap(151, 151, 151)
-                                        .addComponent(jRadioButton2))
+                                        .addComponent(jRBlibrefalse))
                                     .addGroup(JpanelBrigadaLayout.createSequentialGroup()
                                         .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel6)
@@ -159,8 +170,8 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                                         .addGap(62, 62, 62)
                                         .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(tfNombre)
-                                            .addComponent(tfNroCuartel)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jCBCuarteles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(20, 20, 20))
                             .addGroup(JpanelBrigadaLayout.createSequentialGroup()
                                 .addGap(71, 71, 71)
@@ -205,9 +216,9 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(tfNroCuartel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCBCuarteles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -219,8 +230,8 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jRBlibretrue)
+                    .addComponent(jRBlibrefalse))
                 .addGap(66, 66, 66)
                 .addGroup(JpanelBrigadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAgregar)
@@ -256,25 +267,61 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    private void jRBlibretrueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBlibretrueActionPerformed
+        jRBlibrefalse.setSelected(false);
+        jRBlibrefalse.setText("");
+        jRBlibretrue.setText("SI");
+    }//GEN-LAST:event_jRBlibretrueActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void tfNroCuartelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNroCuartelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNroCuartelActionPerformed
+    private void jRBlibrefalseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBlibrefalseActionPerformed
+        jRBlibretrue.setSelected(false);
+        jRBlibretrue.setText("");
+        jRBlibrefalse.setText("NO");
+    }//GEN-LAST:event_jRBlibrefalseActionPerformed
 
     private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombreActionPerformed
 
+    private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
+        Cuartel_data cuar = new Cuartel_data();
+        Cuartel cuartel = new Cuartel();
+        
+        String selectedItemText = (String) jCBCuarteles.getSelectedItem();
+    int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+    if (selectedItemText != null) {
+        // Dividir la cadena por espacios en blanco
+        String[] parts = selectedItemText.split(" ");
+        if (parts.length >= 4 && parts[0].equalsIgnoreCase("Codigo") && parts[1].equalsIgnoreCase("de") && parts[2].equalsIgnoreCase("Cuartel:")) {
+            try {
+               
+                codCuartel = Integer.parseInt(parts[3]);
+            } catch (NumberFormatException e) {
+                // Manejo de error en caso de que la conversión a entero falle
+                e.printStackTrace();
+            }
+        }
+        //System.out.println("CodCuartel "+codCuartel);
+        cuartel = cuar.buscarCuartel(codCuartel);
+        //System.out.println("Nombre "+cuartel.getNombre_cuartel());
+        
+    }
+        
+
+    }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void jCBCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBCuartelesActionPerformed
+ 
+   
+
+   
+    }//GEN-LAST:event_jCBCuartelesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelBrigada;
     private javax.swing.JButton Ocupadas;
+    private javax.swing.JComboBox<String> jCBCuarteles;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -284,8 +331,8 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRBlibrefalse;
+    private javax.swing.JRadioButton jRBlibretrue;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
@@ -295,6 +342,23 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbModificar1;
     private javax.swing.JButton jbTodas;
     private javax.swing.JTextField tfNombre;
-    private javax.swing.JTextField tfNroCuartel;
     // End of variables declaration//GEN-END:variables
+    private void cargarCB() {
+        Cuartel_data al = new Cuartel_data();
+        ArrayList<Cuartel> listaCuarteles = (ArrayList<Cuartel>) al.listarCuarteles();
+
+        // Limpia el JComboBox si tiene elementos previos
+        jCBCuarteles.removeAllItems();
+
+        for (Cuartel cuartel : listaCuarteles) {
+            // Agrega el nombre o algún atributo del alumno en el JComboBox
+            jCBCuarteles.addItem(cuartel.toString());
+        }
+
+        if (!listaCuarteles.isEmpty()) {
+            // Selecciona el primer alumno de la lista
+            jCBCuarteles.setSelectedItem(listaCuarteles.get(0).toString());
+        }
+    }
+
 }
