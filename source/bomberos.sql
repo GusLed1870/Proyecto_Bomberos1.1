@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 23:17:59
+-- Tiempo de generación: 07-10-2023 a las 00:25:18
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -66,7 +66,7 @@ INSERT INTO `bombero` (`id_bombero`, `dni`, `nombre_ape`, `fecha_nac`, `celular`
 CREATE TABLE `brigada` (
   `codBrigada` int(11) NOT NULL,
   `nombre_br` varchar(20) NOT NULL,
-  `especialidad` varchar(40) NOT NULL,
+  `especialidad` varchar(60) NOT NULL,
   `libre` tinyint(1) NOT NULL,
   `nro_cuartel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -76,32 +76,17 @@ CREATE TABLE `brigada` (
 --
 
 INSERT INTO `brigada` (`codBrigada`, `nombre_br`, `especialidad`, `libre`, `nro_cuartel`) VALUES
-(2, 'Alfa', 'Rescate Vehicular', 1, 4),
-(4, 'Bravo', 'Buzo de Búsqueda y Rescate', 1, 5),
-(5, 'Charlie', 'Materiales Peligrosos Nivel I', 1, 4),
-(6, 'Delta', 'Manejo de Materiales Radiactivos', 1, 3),
-(7, 'Echo', 'Rescate de Altura', 1, 3),
-(8, 'Foxtrot', 'Incendios Forestales', 1, 3),
-(9, 'Golf', 'Rescate en Montaña', 1, 3),
-(10, 'Hotel', 'Navegación Terrestre y Meteorología', 1, 5),
-(11, 'India', 'Materiales Peligrosos Nivel II', 1, 3),
-(12, 'Juliet', 'Guardavidas', 1, 4),
-(13, 'Kilo', 'Operador de Grúa', 1, 5),
-(14, 'Lima', 'Motorista de Unidad Pesada', 1, 5),
-(15, 'Mike', 'Investigación Pericial', 1, 5),
-(16, 'November', 'Búsqueda y Rescate', 1, 3),
-(17, 'Oscar', 'Comunicaciones', 1, 5),
-(18, 'Papa', 'Asistencia Prehospitalaria', 1, 3),
-(19, 'Quebec', 'Operador de Máquinas Viales', 1, 3),
-(20, 'Romeo', 'Operador de Escalera', 1, 4),
-(21, 'Sierra', 'Operador de Hidroelevador', 1, 5),
-(22, 'Tango', 'Documentación y Legislación', 1, 3),
-(23, 'Uniform', 'Timonel', 1, 4),
-(24, 'Victor', 'Sistemas de Información', 1, 3),
-(25, 'Whiskey', 'Primeros Auxilios', 1, 3),
-(26, 'X-Ray', 'Salvamento en Derrumbes', 1, 4),
-(27, 'Yankee', 'Socorrista en Incendios Industriales', 1, 5),
-(28, 'Zulu', 'Rescatista en Inundaciones', 1, 5);
+(2, 'Alfa', 'Incendios en viviendas, e  industrias', 1, 4),
+(4, 'Bravo', 'Salvamento en derrumbes', 1, 5),
+(6, 'Delta', 'Rescate de personas atrapadas en accidentes de tránsito', 1, 3),
+(8, 'Foxtrot', 'Operativos de prevención', 1, 3),
+(10, 'Hotel', 'Operativos de prevención', 1, 5),
+(12, 'Juliet', 'Socorrer inundaciones', 1, 4),
+(17, 'Oscar', 'Rescate de personas  atrapadas en accidentes de tráfico', 1, 5),
+(20, 'Romeo', 'Rescates en ámbito montaña', 1, 4),
+(22, 'Tango', 'Salvamento en derrumbes', 1, 3),
+(25, 'Whiskey', 'Incendios en viviendas, e  industrias', 1, 3),
+(28, 'Zulu', 'Incendios en viviendas, e  industrias', 1, 5);
 
 -- --------------------------------------------------------
 
