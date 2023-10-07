@@ -14,16 +14,13 @@ import javax.swing.JOptionPane;
 
 public class BomberoData {
 
-    //Atributos
     private Connection con = null;
     private Brigada brigada;
 
-    //Constructor
     public BomberoData() {
         con = Conexion.getConexion();
     }
 
-    //Métodos ABM
     public void guardarBombero(Bombero bombero) {
 
         String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";

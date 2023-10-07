@@ -2,15 +2,16 @@ package Entidades;
 
 public class Brigada {
 
-    //Atributos
+    // Atributos
     private int codBrigada;
     private String nombre_br;
     private String especialidad;
     private boolean libre;
     private Cuartel cuartel;
 
-    //Constructores
-    public Brigada() {}
+    // Constructores
+    public Brigada() {
+    }
 
     public Brigada(int codBrigada, String nombre_br, String especialidad, boolean libre, Cuartel cuartel) {
         this.codBrigada = codBrigada;
@@ -26,8 +27,8 @@ public class Brigada {
         this.libre = libre;
         this.cuartel = cuartel;
     }
-    
-    //Métodos getter y setter
+
+    // Métodos getter y setter
     public int getCodBrigada() {
         return codBrigada;
     }
@@ -68,10 +69,17 @@ public class Brigada {
         this.cuartel = cuartel;
     }
 
-    //Método toString
+    // Método toString
     @Override
     public String toString() {
-        return "Brigada" + "\nCódigo de Brigada: " + codBrigada + "\nNombre de Brigada: " + nombre_br 
-                + "\nEspecialidad: " + especialidad + "\nLibre: " + libre + "\nNombre de Cuartel: " + cuartel.getNombre_cuartel();
-    } 
+        String cuartelNombre = (cuartel != null) ? cuartel.getNombre_cuartel() : "Sin cuartel asignado";
+        String estado;
+        if (libre) {
+            estado = "libre";
+        } else {
+            estado = "ocupada";
+        }
+        return "ID: " + codBrigada + "   Nombre Clave: " + nombre_br
+                + "   Especialidad: " + especialidad + "   Estado: " + estado + "   Cuartel: " + cuartelNombre;
+    }
 }

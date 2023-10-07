@@ -2,7 +2,6 @@ package Entidades;
 
 public class Cuartel {
 
-    //Atributos
     private int codCuartel;
     private String nombre_cuartel;
     private String direccion;
@@ -35,7 +34,6 @@ public class Cuartel {
 
     }
 
-    //Métodos getter y setter
     public int getCodCuartel() {
         return codCuartel;
     }
@@ -92,11 +90,9 @@ public class Cuartel {
         this.correo = correo;
     }
 
-    //Método toString
     @Override
     public String toString() {
-        return "Codigo de Cuartel: " + codCuartel + "  Nombre de Cuartel: " + nombre_cuartel 
-                + "\n Dirección: " + direccion + "\nCoord_X: " + coord_X + "\n Coord_Y: " + coord_Y
-                + "\n Teléfono: " + telefono + "\n Correo: " + correo;
+        return "ID: " + codCuartel + "  Nombre: " + nombre_cuartel 
+                + "  Dirección: " + direccion + "  Teléfono: " + telefono + "  Correo: " + correo;
     } 
 }

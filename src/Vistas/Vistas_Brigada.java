@@ -5,10 +5,10 @@ import Acceso_a_Datos.Cuartel_data;
 import Entidades.Brigada;
 import Entidades.Cuartel;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Vistas_Brigada extends javax.swing.JInternalFrame {
 
-    //Constructor
     public Vistas_Brigada() {
         initComponents();
         cargarCB();
@@ -87,12 +87,6 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
-        tfNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNombreActionPerformed(evt);
-            }
-        });
-
         jbModificar.setBackground(new java.awt.Color(102, 255, 255));
         jbModificar.setForeground(new java.awt.Color(255, 255, 255));
         jbModificar.setText("Salir");
@@ -128,6 +122,11 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         Ocupadas.setText("Ocupadas");
 
         jCBEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar una especialidad--", " Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
+        jCBEspecialidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBEspecialidadActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -288,47 +287,39 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
         jRBlibrefalse.setText("NO");
     }//GEN-LAST:event_jRBlibrefalseActionPerformed
 
-    private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNombreActionPerformed
-
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         Cuartel_data cuar = new Cuartel_data();
         Cuartel cuartel = new Cuartel();
-        BrigadaData briData=new BrigadaData();
-        
+        BrigadaData briData = new BrigadaData();
+
         String selectedItemText = (String) jCBCuarteles.getSelectedItem();
-    int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
 
-    if (selectedItemText != null) {
-        // Dividir la cadena por espacios en blanco
-        String[] parts = selectedItemText.split(" ");
-        if (parts.length >= 4 && parts[0].equalsIgnoreCase("Codigo") && parts[1].equalsIgnoreCase("de") && parts[2].equalsIgnoreCase("Cuartel:")) {
-            try {
-               
-                codCuartel = Integer.parseInt(parts[3]);
-            } catch (NumberFormatException e) {
-                // Manejo de error en caso de que la conversión a entero falle
-                e.printStackTrace();
+        if (selectedItemText != null) {
+            // Dividir la cadena por espacios en blanco
+            String[] parts = selectedItemText.split(" ");
+            if (parts.length >= 4 && parts[0].equalsIgnoreCase("Código") && parts[1].equalsIgnoreCase("de") && parts[2].equalsIgnoreCase("Cuartel:")) {
+                try {
+
+                    codCuartel = Integer.parseInt(parts[3]);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                }
             }
-        }
-        //System.out.println("CodCuartel "+codCuartel);
-        cuartel = cuar.buscarCuartel(codCuartel);
-        //System.out.println("Nombre "+cuartel.getNombre_cuartel());
-        Brigada bri=new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBlibretrue.isSelected(), cuartel);
-        briData.guardarBrigada(bri);
-        
-    }
-        
 
+            cuartel = cuar.buscarCuartel(codCuartel);
+            Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBlibretrue.isSelected(), cuartel);
+            briData.guardarBrigada(bri);
+        }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jCBCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBCuartelesActionPerformed
- 
-   
 
-   
     }//GEN-LAST:event_jCBCuartelesActionPerformed
+
+    private void jCBEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBEspecialidadActionPerformed
+
+    }//GEN-LAST:event_jCBEspecialidadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelBrigada;
@@ -373,5 +364,4 @@ public class Vistas_Brigada extends javax.swing.JInternalFrame {
             jCBCuarteles.setSelectedItem(listaCuarteles.get(0).toString());
         }
     }
-
 }

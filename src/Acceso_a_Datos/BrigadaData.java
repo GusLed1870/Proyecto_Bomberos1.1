@@ -1,24 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Acceso_a_Datos;
 
 import Entidades.Brigada;
 import Entidades.Cuartel;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author leona
- */
 public class BrigadaData {
 
     private Connection con = null;
@@ -51,60 +43,90 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
         }
     }
-    
+
     public int buscarBrigada(String nombreBrigada) {
-    int codBrigada = -1; // Valor por defecto si no se encuentra la brigada
-    String sql = "SELECT codBrigada FROM brigada WHERE nombre_br = ?";
-    PreparedStatement ps = null;
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setString(1, nombreBrigada);
-        ResultSet rs = ps.executeQuery();
+        int codBrigada = -1; // Valor por defecto si no se encuentra la brigada
+        String sql = "SELECT codBrigada FROM brigada WHERE nombre_br = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombreBrigada);
+            ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            codBrigada = rs.getInt("codBrigada");
-        } else {
-            ps.close();
+            if (rs.next()) {
+                codBrigada = rs.getInt("codBrigada");
+            } else {
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
+        return codBrigada;
     }
-    return codBrigada;
-}
-    
+
     public Brigada buscarBrigada(int codBrigada) {
-    Brigada brigada = null;
-    Cuartel_data CuartelData = new Cuartel_data();
-    String sql = "SELECT codBrigada, nombre_br, especialidad, libre, codCuartel FROM brigada WHERE codBrigada = ?";
-    PreparedStatement ps = null;
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, codBrigada);
-        ResultSet rs = ps.executeQuery();
+        Brigada brigada = null;
+        Cuartel_data CuartelData = new Cuartel_data();
+        String sql = "SELECT codBrigada, nombre_br, especialidad, libre, codCuartel FROM brigada WHERE codBrigada = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+            ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            brigada = new Brigada();
-            brigada.setCodBrigada(codBrigada);
-            brigada.setNombre_br(rs.getString("nombre_br"));
-            brigada.setEspecialidad(rs.getString("especialidad")); // Corrección aquí
-            brigada.setLibre(rs.getBoolean("libre"));
-            
-            int codCuartel = rs.getInt("codCuartel"); // Obtener el valor de codCuartel desde la base de datos
+            if (rs.next()) {
+                brigada = new Brigada();
+                brigada.setCodBrigada(codBrigada);
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.setLibre(rs.getBoolean("libre"));
 
-            // Aquí debes obtener un objeto Cuartel relacionado con el código de cuartel
-            Cuartel cuartel = CuartelData.buscarCuartel(codCuartel);
+                int codCuartel = rs.getInt("codCuartel");
 
-            // Establecer el objeto Cuartel en la Brigada
-            brigada.setCuartel(cuartel);
-        } else {
-            ps.close();
+                Cuartel cuartel = CuartelData.buscarCuartel(codCuartel);
+
+                brigada.setCuartel(cuartel);
+            } else {
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
+        return brigada;
     }
-    return brigada;
-}
 
-    
+    public List<Brigada> listarBrigadas() {
 
+        List<Brigada> listaBrigadas = new ArrayList<>();
+        String sql = "SELECT b.*, c.* FROM brigada b JOIN cuartel c ON b.nro_cuartel = c.codCuartel";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Brigada brigada = new Brigada();
+                Cuartel cuartel = new Cuartel();
+
+                brigada.setCodBrigada(rs.getInt("codBrigada"));
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.setLibre(rs.getBoolean("libre"));
+
+                cuartel.setCodCuartel(rs.getInt("nro_cuartel"));
+                cuartel.setNombre_cuartel(rs.getString("nombre_cuartel"));
+
+                // Asigna el cuartel a la brigada
+                brigada.setCuartel(cuartel);
+
+                listaBrigadas.add(brigada);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return listaBrigadas;
+    }
 }
