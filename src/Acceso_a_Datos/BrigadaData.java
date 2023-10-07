@@ -33,9 +33,7 @@ public class BrigadaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 brigada.setCodBrigada(rs.getInt(1));
-
                 JOptionPane.showMessageDialog(null, "Brigada Añadida con éxito: ");
-
             }
             ps.close();
 
@@ -66,8 +64,8 @@ public class BrigadaData {
 
     public Brigada buscarBrigada(int codBrigada) {
         Brigada brigada = null;
-        Cuartel_data CuartelData = new Cuartel_data();
-        String sql = "SELECT codBrigada, nombre_br, especialidad, libre, codCuartel FROM brigada WHERE codBrigada = ?";
+        Cuartel_data cuartelData = new Cuartel_data(); // Cambio de Cuartel_data a CuartelData
+        String sql = "SELECT codBrigada, nombre_br, especialidad, libre, nro_cuartel FROM brigada WHERE codBrigada = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -80,31 +78,10 @@ public class BrigadaData {
                 brigada.setNombre_br(rs.getString("nombre_br"));
                 brigada.setEspecialidad(rs.getString("especialidad"));
                 brigada.setLibre(rs.getBoolean("libre"));
-    return codBrigada;
-}
-    
-    public Brigada buscarBrigada2(int codBrigada) {
-    Brigada brigada = null;
-    Cuartel_data CuartelData = new Cuartel_data();
-    String sql = "SELECT codBrigada, nombre_br, especialidad, libre, nro_cuartel FROM brigada WHERE codBrigada = ?";
-    PreparedStatement ps = null;
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, codBrigada);
-        ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            brigada = new Brigada();
-            brigada.setCodBrigada(codBrigada);
-            brigada.setNombre_br(rs.getString("nombre_br"));
-            brigada.setEspecialidad(rs.getString("especialidad")); // Corrección aquí
-            brigada.setLibre(rs.getBoolean("libre"));
-            
-            int codCuartel = rs.getInt("nro_cuartel"); // Obtener el valor de codCuartel desde la base de datos
+                int codCuartel = rs.getInt("nro_cuartel");
 
-                int codCuartel = rs.getInt("codCuartel");
-
-                Cuartel cuartel = CuartelData.buscarCuartel(codCuartel);
+                Cuartel cuartel = cuartelData.buscarCuartel(codCuartel); // Usar cuartelData en lugar de CuartelData
 
                 brigada.setCuartel(cuartel);
             } else {
@@ -137,7 +114,6 @@ public class BrigadaData {
                 cuartel.setCodCuartel(rs.getInt("nro_cuartel"));
                 cuartel.setNombre_cuartel(rs.getString("nombre_cuartel"));
 
-                // Asigna el cuartel a la brigada
                 brigada.setCuartel(cuartel);
 
                 listaBrigadas.add(brigada);
@@ -150,4 +126,35 @@ public class BrigadaData {
         }
         return listaBrigadas;
     }
+    
+    public Brigada buscarBrigada2(int codBrigada) {
+    Brigada brigada = null;
+    Cuartel_data cuartelData = new Cuartel_data();
+    String sql = "SELECT codBrigada, nombre_br, especialidad, libre, nro_cuartel FROM brigada WHERE codBrigada = ?";
+    PreparedStatement ps = null;
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, codBrigada);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            brigada = new Brigada();
+            brigada.setCodBrigada(codBrigada);
+            brigada.setNombre_br(rs.getString("nombre_br"));
+            brigada.setEspecialidad(rs.getString("especialidad"));
+            brigada.setLibre(rs.getBoolean("libre"));
+
+            int codCuartel = rs.getInt("nro_cuartel");
+
+            Cuartel cuartel = cuartelData.buscarCuartel(codCuartel);
+
+            brigada.setCuartel(cuartel);
+        } else {
+            ps.close();
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
+    }
+    return brigada;
+}
 }
