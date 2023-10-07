@@ -80,6 +80,27 @@ public class BrigadaData {
                 brigada.setNombre_br(rs.getString("nombre_br"));
                 brigada.setEspecialidad(rs.getString("especialidad"));
                 brigada.setLibre(rs.getBoolean("libre"));
+    return codBrigada;
+}
+    
+    public Brigada buscarBrigada2(int codBrigada) {
+    Brigada brigada = null;
+    Cuartel_data CuartelData = new Cuartel_data();
+    String sql = "SELECT codBrigada, nombre_br, especialidad, libre, nro_cuartel FROM brigada WHERE codBrigada = ?";
+    PreparedStatement ps = null;
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, codBrigada);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            brigada = new Brigada();
+            brigada.setCodBrigada(codBrigada);
+            brigada.setNombre_br(rs.getString("nombre_br"));
+            brigada.setEspecialidad(rs.getString("especialidad")); // Corrección aquí
+            brigada.setLibre(rs.getBoolean("libre"));
+            
+            int codCuartel = rs.getInt("nro_cuartel"); // Obtener el valor de codCuartel desde la base de datos
 
                 int codCuartel = rs.getInt("codCuartel");
 
