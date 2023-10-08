@@ -99,7 +99,7 @@ public class Cuartel_data {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Alumno " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Cuartel " + ex.getMessage());
         }
         return cuarteles;
     }

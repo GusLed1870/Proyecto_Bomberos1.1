@@ -92,7 +92,7 @@ public class Cuartel {
 
     @Override
     public String toString() {
-        return "ID: " + codCuartel + "  Nombre: " + nombre_cuartel 
-                + "  Dirección: " + direccion + "  Teléfono: " + telefono + "  Correo: " + correo;
+        return "ID: " + codCuartel + "    " + nombre_cuartel 
+                + "    Dirección: " + direccion + "    Teléfono: " + telefono + "    e-mail: " + correo;
     } 
 }

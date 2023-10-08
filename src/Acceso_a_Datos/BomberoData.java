@@ -114,7 +114,7 @@ public class BomberoData {
     public List<Bombero> listarBomberos() {
 
         List<Bombero> bomberos = new ArrayList<>();
-        String sql = "SELECT * FROM ombero WHERE estado = 1 ";
+        String sql = "SELECT * FROM bombero WHERE estado = 1 ";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);

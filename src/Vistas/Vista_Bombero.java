@@ -137,12 +137,6 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         calendarioOculto.setForeground(new java.awt.Color(112, 11, 19));
         calendarioOculto.setText("jLabel9");
 
-        jCBBrigadaAsignada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBBrigadaAsignadaActionPerformed(evt);
-            }
-        });
-
         jCBGrupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el grupo sanguíneo", "A-", "A+", "B-", "B+", "AB-", "AB+", "0+", "0-", " " }));
 
         jButton1.setText("Búsqueda por DNI");
@@ -290,10 +284,6 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null, "Bombero agregado con éxito");
 
     }//GEN-LAST:event_jBAgregarActionPerformed
-
-    private void jCBBrigadaAsignadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBBrigadaAsignadaActionPerformed
-
-    }//GEN-LAST:event_jCBBrigadaAsignadaActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
