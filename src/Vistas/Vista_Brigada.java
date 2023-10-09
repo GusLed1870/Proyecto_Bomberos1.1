@@ -5,17 +5,25 @@ import Acceso_a_Datos.Cuartel_data;
 import Entidades.Brigada;
 import Entidades.Cuartel;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 public class Vista_Brigada extends javax.swing.JInternalFrame {
 
     public Vista_Brigada() {
         initComponents();
         cargarCB();
+        armarCabecera();
         campo_ID_Cuartel.setVisible(false);
         campo_Especilidad.setVisible(false);
         campo_nombre.setVisible(false);
+        JRBTodas.setSelected(true);
+        BrigadaData BriData=new BrigadaData();
+        List<Brigada> listaBrigadas = BriData.listarBrigadas2(); // Obtener la lista de Brigadas
+        cargarDatosTabla(listaBrigadas); // Cargar los datos en la tabla
+
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +52,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         JRBLibres = new javax.swing.JRadioButton();
         jRBOcupadas = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabla = new javax.swing.JTable();
         campo_ID_Cuartel = new javax.swing.JLabel();
         campo_Especilidad = new javax.swing.JLabel();
         campo_nombre = new javax.swing.JLabel();
@@ -140,15 +148,15 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         });
 
         JRBTodas.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        JRBTodas.setText("jRadioButton2");
+        JRBTodas.setText("Todas");
 
         JRBLibres.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        JRBLibres.setText("jRadioButton3");
+        JRBLibres.setText("Libres");
 
         jRBOcupadas.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jRBOcupadas.setText("jRadioButton4");
+        jRBOcupadas.setText("Ocupadas");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -159,7 +167,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTabla);
 
         campo_ID_Cuartel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         campo_ID_Cuartel.setForeground(new java.awt.Color(255, 0, 0));
@@ -198,7 +206,6 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRBLibre)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(JRBTodas)
@@ -227,7 +234,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         .addGap(56, 56, 56)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
-                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(197, 197, 197)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(444, 444, 444)
@@ -260,16 +271,14 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     .addComponent(jRBLibre)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(JRBTodas)
-                            .addComponent(JRBLibres)
-                            .addComponent(jRBOcupadas))
-                        .addGap(175, 175, 175)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(JRBTodas)
+                    .addComponent(JRBLibres)
+                    .addComponent(jRBOcupadas))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jBSalir)
@@ -396,7 +405,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRBLibre;
     private javax.swing.JRadioButton jRBOcupadas;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTabla;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
     private void cargarCB() {
@@ -551,4 +560,48 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jRBLibre.setSelected(false);
     
     }
+    private void armarCabecera() {
+        modelo.addColumn("Codigo Brigada");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Especialidad");
+        modelo.addColumn("Disponibilidad");
+        modelo.addColumn("Nro de Cuartel");
+        jTabla.setModel(modelo);
+    }
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+    
+    public void cargarDatosTabla(List<Brigada> listaBrigadas) {
+    // Borra cualquier fila existente en la tabla
+    while (modelo.getRowCount() > 0) {
+        modelo.removeRow(0);
+    }
+
+    // Recorre la lista de Brigadas y agrega cada fila al modelo de tabla
+    for (Brigada brigada : listaBrigadas) {
+        Object[] fila = new Object[5]; // 5 columnas en este ejemplo
+        
+        fila[0] = brigada.getCodBrigada();
+        fila[1] = brigada.getNombre_br();
+        fila[2] = brigada.getEspecialidad();
+        if(brigada.isLibre()){
+            fila[3]="Libre";
+        
+        }else{
+            fila[3]="Ocupada";
+        }
+        
+        
+        // Obtén el código de cuartel de la Brigada
+        int codCuartel = brigada.getCuartel() != null ? brigada.getCuartel().getCodCuartel() : -1;
+        fila[4] = codCuartel;
+
+        modelo.addRow(fila);
+    }
+}
+
 }
