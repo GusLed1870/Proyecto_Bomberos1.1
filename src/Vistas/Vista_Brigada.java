@@ -315,7 +315,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-       todo_el_formulario_lleno();
+        if (todo_el_formulario_lleno()) {
+            JOptionPane.showMessageDialog(this, "Entro");
+        }
         /*Cuartel_data cuar = new Cuartel_data();
         Cuartel cuartel = new Cuartel();
         BrigadaData briData = new BrigadaData();
@@ -384,56 +386,147 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
     private void cargarCB() {
-    Cuartel_data cuartelData = new Cuartel_data();
-    ArrayList<Cuartel> listaCuarteles = (ArrayList<Cuartel>) cuartelData.listarCuarteles();
+        Cuartel_data cuartelData = new Cuartel_data();
+        ArrayList<Cuartel> listaCuarteles = (ArrayList<Cuartel>) cuartelData.listarCuarteles();
 
-    // Limpia el JComboBox si tiene elementos previos
-    jCBCuarteles.removeAllItems();
+        // Limpia el JComboBox si tiene elementos previos
+        jCBCuarteles.removeAllItems();
 
-    if (!listaCuarteles.isEmpty()) {
-        jCBCuarteles.addItem("--Seleccionar un cuartel--"); // Agrega el elemento cuando hay cuarteles
-        for (Cuartel cuartel : listaCuarteles) {
-            // Agrega el nombre o algún atributo del cuartel en el JComboBox
-            jCBCuarteles.addItem(cuartel.toString());
+        if (!listaCuarteles.isEmpty()) {
+            jCBCuarteles.addItem("--Seleccionar un cuartel--"); // Agrega el elemento cuando hay cuarteles
+            for (Cuartel cuartel : listaCuarteles) {
+                // Agrega el nombre o algún atributo del cuartel en el JComboBox
+                jCBCuarteles.addItem(cuartel.toString());
+            }
+
+            // Selecciona el primer elemento en la lista
+            jCBCuarteles.setSelectedIndex(0);
+        } else {
+            jCBCuarteles.addItem("--Seleccionar un cuartel--"); // Agrega el elemento cuando no hay cuarteles
+            jCBCuarteles.setSelectedIndex(0); // Establece la selección en la posición 0
         }
-
-        // Selecciona el primer elemento en la lista
-        jCBCuarteles.setSelectedIndex(0);
-    } else {
-        jCBCuarteles.addItem("--Seleccionar un cuartel--"); // Agrega el elemento cuando no hay cuarteles
-        jCBCuarteles.setSelectedIndex(0); // Establece la selección en la posición 0
-    }
     }
 
     private boolean todo_el_formulario_lleno() {
         boolean vacias = false;
-        if (jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() == 0 && tfNombre.getText().equals("")) {
+        if (jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() == 0 && tfNombre.getText().isEmpty()) {
             campo_ID_Cuartel.setVisible(true);
             campo_Especilidad.setVisible(true);
-            
+            campo_nombre.setVisible(true);
+
             int tiempoVisible = 10000; // 20 segundos en milisegundos
             Timer temporizador = new Timer(tiempoVisible, e -> {
                 campo_ID_Cuartel.setVisible(false);
                 campo_Especilidad.setVisible(false);
                 campo_nombre.setVisible(false);
-            });campo_nombre.setVisible(true);
+            });
+            
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
-            JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuarte\n-Nombre\n-Especialidad");
+            JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuartel\n-Nombre\n-Especialidad");
             return vacias;
-            
 
-            
-        }else if(jCBEspecialidad.getSelectedIndex() == 0){
+        } else if (jCBCuarteles.getSelectedIndex() != 0 && jCBEspecialidad.getSelectedIndex() == 0 && tfNombre.getText().isEmpty()) {
+
             campo_Especilidad.setVisible(true);
+            campo_nombre.setVisible(true);
+
             int tiempoVisible = 10000; // 20 segundos en milisegundos
             Timer temporizador = new Timer(tiempoVisible, e -> {
+
                 campo_Especilidad.setVisible(false);
+                campo_nombre.setVisible(false);
             });
+            
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
+            JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Nombre\n-Especialidad");
+            return vacias;
+        } else if (jCBCuarteles.getSelectedIndex() != 0 && jCBEspecialidad.getSelectedIndex() != 0 && tfNombre.getText().isEmpty()) {
+
+            campo_nombre.setVisible(true);
+
+            int tiempoVisible = 10000; // 20 segundos en milisegundos
+            Timer temporizador = new Timer(tiempoVisible, e -> {
+
+                campo_nombre.setVisible(false);
+            });
+          
+            temporizador.setRepeats(false); // Solo se ejecutará una vez
+            temporizador.start();
+            JOptionPane.showMessageDialog(this, "Falta Completar el Campo:\n-Nombre");
+            return vacias;
+
+        } else if (jCBCuarteles.getSelectedIndex() != 0 && jCBEspecialidad.getSelectedIndex() == 0 && !tfNombre.getText().isEmpty()) {
+
+            campo_Especilidad.setVisible(true);
+
+            int tiempoVisible = 10000; // 20 segundos en milisegundos
+            Timer temporizador = new Timer(tiempoVisible, e -> {
+
+                campo_Especilidad.setVisible(false);
+
+            });
+           
+            temporizador.setRepeats(false); // Solo se ejecutará una vez
+            temporizador.start();
+            JOptionPane.showMessageDialog(this, "Falta Completar el Campo:\n-Especialidad");
+            return vacias;
+
+        } else if (jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() != 0 && tfNombre.getText().isEmpty()) {
+            campo_ID_Cuartel.setVisible(true);
+
+            campo_nombre.setVisible(true);
+
+            int tiempoVisible = 10000; // 20 segundos en milisegundos
+            Timer temporizador = new Timer(tiempoVisible, e -> {
+                campo_ID_Cuartel.setVisible(false);
+
+                campo_nombre.setVisible(false);
+            });
+           
+            temporizador.setRepeats(false); // Solo se ejecutará una vez
+            temporizador.start();
+            JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuartel\n-Nombre");
+            return vacias;
+
+        } else if (jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() == 0 && !tfNombre.getText().isEmpty()) {
+            campo_ID_Cuartel.setVisible(true);
+
+            campo_Especilidad.setVisible(true);
+
+            int tiempoVisible = 10000; // 20 segundos en milisegundos
+            Timer temporizador = new Timer(tiempoVisible, e -> {
+                campo_ID_Cuartel.setVisible(false);
+
+               campo_Especilidad.setVisible(false);
+            });
+           
+            temporizador.setRepeats(false); // Solo se ejecutará una vez
+            temporizador.start();
+            JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuartel\n-Especialidad");
+            return vacias;
+
+        }else if(jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() != 0 && !tfNombre.getText().isEmpty()){
+                  
+
+            campo_Especilidad.setVisible(true);
+
+            int tiempoVisible = 10000; // 20 segundos en milisegundos
+            Timer temporizador = new Timer(tiempoVisible, e -> {
+               
+
+               campo_Especilidad.setVisible(false);
+            });
+          
+            temporizador.setRepeats(false); // Solo se ejecutará una vez
+            temporizador.start();
+            JOptionPane.showMessageDialog(this, "Falta Completar el Campo:\n-Cuartel");
+            return vacias;
         
+        }else{
+            return vacias=true;
         }
-        return vacias;
+        
     }
 }
