@@ -323,35 +323,40 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         String nombre = tfNombre.getText();
         BrigadaData briData = new BrigadaData();
         int id = briData.buscarBrigada(nombre);
-        System.out.println("id: " + id);
-        Brigada bri = briData.buscarBrigada2(id);
-        tfNombre.setText(bri.getNombre_br());
-        ArrayList<String> combo = new ArrayList<>();
-        combo.add("Incendios en viviendas, e industrias");
-        combo.add("Salvamento en derrumbes");
-        combo.add("Rescates en ámbito montaña");
-        combo.add("Rescate de personas atrapadas en accidentes de tráfico");
-        combo.add("Socorrer inundaciones");
-        combo.add("Operativos de prevención");
-        int espe = combo.indexOf(bri.getEspecialidad());
-        jCBEspecialidad.setSelectedIndex(espe);
-        if (bri.isLibre()) {
-            jRBLibre.setSelected(true);
-            jRBLibre.setText("Ocupada");
-
+        if (id == -1) {
+            JOptionPane.showMessageDialog(this, "El nombre no se encuentra en la base de datos revisa la tabla con todos los nombres");
         } else {
-            jRBLibre.setSelected(false);
-            jRBLibre.setText("Libre");
+            Brigada bri = briData.buscarBrigada2(id);
+          
+            tfNombre.setText(bri.getNombre_br());
+            ArrayList<String> combo = new ArrayList<>();
+            combo.add("Incendios en viviendas, e industrias");
+            combo.add("Salvamento en derrumbes");
+            combo.add("Rescates en ámbito montaña");
+            combo.add("Rescate de personas atrapadas en accidentes de tráfico");
+            combo.add("Socorrer inundaciones");
+            combo.add("Operativos de prevención");
+            int espe = combo.indexOf((bri.getEspecialidad()));
+           
+            jCBEspecialidad.setSelectedIndex(espe+1); //le sumo uno porque tiene el seleccionar
+            if (bri.isLibre()) {
+                jRBLibre.setSelected(true);
+                jRBLibre.setText("Libre");
+
+            } else {
+                jRBLibre.setSelected(false);
+                jRBLibre.setText("Ocupada");
+            }
         }
+
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
         if (todo_el_formulario_lleno()) {
-                Cuartel_data cuar = new Cuartel_data();
-                Cuartel cuartel = new Cuartel();
-                BrigadaData briData = new BrigadaData();
+            Cuartel_data cuar = new Cuartel_data();
+            Cuartel cuartel = new Cuartel();
+            BrigadaData briData = new BrigadaData();
             if (validaTexto() && briData.nombreNORepetido(tfNombre.getText())) {
-                
 
                 String selectedItemText = (String) jCBCuarteles.getSelectedItem();
                 int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
@@ -373,7 +378,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     briData.guardarBrigada(bri);
                     JRBTodasActionPerformed(evt);
 
-                } 
+                }
 
             }
         }

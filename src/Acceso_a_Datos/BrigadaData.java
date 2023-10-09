@@ -52,10 +52,13 @@ public class BrigadaData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                
                 codBrigada = rs.getInt("codBrigada");
+                
             } else {
                 ps.close();
             }
+          
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
         }
