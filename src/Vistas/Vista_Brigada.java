@@ -315,7 +315,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        vacias();
+       todo_el_formulario_lleno();
         /*Cuartel_data cuar = new Cuartel_data();
         Cuartel cuartel = new Cuartel();
         BrigadaData briData = new BrigadaData();
@@ -405,7 +405,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }
     }
 
-    private boolean vacias() {
+    private boolean todo_el_formulario_lleno() {
         boolean vacias = false;
         if (jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() == 0 && tfNombre.getText().equals("")) {
             campo_ID_Cuartel.setVisible(true);
@@ -419,6 +419,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             });campo_nombre.setVisible(true);
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
+            JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuarte\n-Nombre\n-Especialidad");
+            return vacias;
             
 
             
