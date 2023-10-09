@@ -199,5 +199,89 @@ public class BrigadaData {
         }
         return listaBrigadas;
     }
+    
+     public List<Brigada> listarBrigadaslibres() {
+        List<Brigada> listaBrigadas = new ArrayList<>();
+        String sql = "SELECT * FROM brigada where libre=1";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Brigada brigada = new Brigada();
+                Cuartel cuartel = new Cuartel();
+
+                brigada.setCodBrigada(rs.getInt("codBrigada"));
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.setLibre(rs.getBoolean("libre"));
+
+                int codCuartel = rs.getInt("nro_cuartel");
+                cuartel.setCodCuartel(codCuartel);
+
+                // Ahora debes obtener el objeto Cuartel asociado al código del cuartel
+                Cuartel_data cuartelData = new Cuartel_data();
+                Cuartel cuartelAsociado = cuartelData.buscarCuartel(codCuartel);
+
+                if (cuartelAsociado != null) {
+                    cuartel.setNombre_cuartel(cuartelAsociado.getNombre_cuartel());
+                    // Otros atributos del cuartel si es necesario
+                }
+
+                brigada.setCuartel(cuartel);
+
+                listaBrigadas.add(brigada);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return listaBrigadas;
+    }
+     
+     public List<Brigada> listarBrigadasocupadas() {
+        List<Brigada> listaBrigadas = new ArrayList<>();
+        String sql = "SELECT * FROM brigada where libre=0";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Brigada brigada = new Brigada();
+                Cuartel cuartel = new Cuartel();
+
+                brigada.setCodBrigada(rs.getInt("codBrigada"));
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.setLibre(rs.getBoolean("libre"));
+
+                int codCuartel = rs.getInt("nro_cuartel");
+                cuartel.setCodCuartel(codCuartel);
+
+                // Ahora debes obtener el objeto Cuartel asociado al código del cuartel
+                Cuartel_data cuartelData = new Cuartel_data();
+                Cuartel cuartelAsociado = cuartelData.buscarCuartel(codCuartel);
+
+                if (cuartelAsociado != null) {
+                    cuartel.setNombre_cuartel(cuartelAsociado.getNombre_cuartel());
+                    // Otros atributos del cuartel si es necesario
+                }
+
+                brigada.setCuartel(cuartel);
+
+                listaBrigadas.add(brigada);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return listaBrigadas;
+    }
 
 }

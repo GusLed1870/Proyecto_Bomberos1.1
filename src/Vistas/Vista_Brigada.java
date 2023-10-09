@@ -20,9 +20,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         campo_Especilidad.setVisible(false);
         campo_nombre.setVisible(false);
         JRBTodas.setSelected(true);
-        BrigadaData BriData=new BrigadaData();
-        List<Brigada> listaBrigadas = BriData.listarBrigadas2(); // Obtener la lista de Brigadas
-        cargarDatosTabla(listaBrigadas); // Cargar los datos en la tabla
+        BrigadaData BriData = new BrigadaData();
+        List<Brigada> listaBrigadas = BriData.listarBrigadas2();
+        
+        cargarDatosTabla(listaBrigadas);
+        
 
     }
 
@@ -152,6 +154,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         JRBLibres.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         JRBLibres.setText("Libres");
+        JRBLibres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JRBLibresActionPerformed(evt);
+            }
+        });
 
         jRBOcupadas.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jRBOcupadas.setText("Ocupadas");
@@ -371,12 +378,23 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jRBLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBLibreActionPerformed
-        if(jRBLibre.isSelected()){
+        if (jRBLibre.isSelected()) {
             jRBLibre.setText("SI, esta Libre");
-        }else{
+        } else {
             jRBLibre.setText("NO, esta ocupada");
         }
     }//GEN-LAST:event_jRBLibreActionPerformed
+
+    private void JRBLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBLibresActionPerformed
+        JRBTodas.setSelected(false);
+        jRBOcupadas.setSelected(false);
+        JRBLibres.setEnabled(false);
+        modelo.setRowCount(0);
+        BrigadaData BriData=new BrigadaData();
+        List<Brigada> listaBrigadas2 = BriData.listarBrigadaslibres();
+        cargarDatosTablalibres(listaBrigadas2);
+
+    }//GEN-LAST:event_JRBLibresActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -443,7 +461,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 campo_Especilidad.setVisible(false);
                 campo_nombre.setVisible(false);
             });
-            
+
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
             JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuartel\n-Nombre\n-Especialidad");
@@ -460,7 +478,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 campo_Especilidad.setVisible(false);
                 campo_nombre.setVisible(false);
             });
-            
+
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
             JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Nombre\n-Especialidad");
@@ -474,7 +492,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
                 campo_nombre.setVisible(false);
             });
-          
+
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
             JOptionPane.showMessageDialog(this, "Falta Completar el Campo:\n-Nombre");
@@ -490,7 +508,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 campo_Especilidad.setVisible(false);
 
             });
-           
+
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
             JOptionPane.showMessageDialog(this, "Falta Completar el Campo:\n-Especialidad");
@@ -507,7 +525,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
                 campo_nombre.setVisible(false);
             });
-           
+
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
             JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuartel\n-Nombre");
@@ -522,44 +540,43 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             Timer temporizador = new Timer(tiempoVisible, e -> {
                 campo_ID_Cuartel.setVisible(false);
 
-               campo_Especilidad.setVisible(false);
+                campo_Especilidad.setVisible(false);
             });
-           
+
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
             JOptionPane.showMessageDialog(this, "Faltaron Completar los siguientes Campos:\n-Cuartel\n-Especialidad");
             return vacias;
 
-        }else if(jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() != 0 && !tfNombre.getText().isEmpty()){
-                  
+        } else if (jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() != 0 && !tfNombre.getText().isEmpty()) {
 
             campo_Especilidad.setVisible(true);
 
             int tiempoVisible = 10000; // 20 segundos en milisegundos
             Timer temporizador = new Timer(tiempoVisible, e -> {
-               
 
-               campo_Especilidad.setVisible(false);
+                campo_Especilidad.setVisible(false);
             });
-          
+
             temporizador.setRepeats(false); // Solo se ejecutará una vez
             temporizador.start();
             JOptionPane.showMessageDialog(this, "Falta Completar el Campo:\n-Cuartel");
             return vacias;
-        
-        }else{
-            return vacias=true;
+
+        } else {
+            return vacias = true;
         }
-        
+
     }
-    
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         jCBCuarteles.setSelectedIndex(0);
         jCBEspecialidad.setSelectedIndex(0);
         tfNombre.setText("");
         jRBLibre.setSelected(false);
-    
+
     }
+
     private void armarCabecera() {
         modelo.addColumn("Codigo Brigada");
         modelo.addColumn("Nombre");
@@ -574,8 +591,36 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    
+
     public void cargarDatosTabla(List<Brigada> listaBrigadas) {
+        // Borra cualquier fila existente en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+
+        // Recorre la lista de Brigadas y agrega cada fila al modelo de tabla
+        for (Brigada brigada : listaBrigadas) {
+            Object[] fila = new Object[5]; // 5 columnas en este ejemplo
+
+            fila[0] = brigada.getCodBrigada();
+            fila[1] = brigada.getNombre_br();
+            fila[2] = brigada.getEspecialidad();
+            if (brigada.isLibre()) {
+                fila[3] = "Libre";
+
+            } else {
+                fila[3] = "Ocupada";
+            }
+
+            // Obtén el código de cuartel de la Brigada
+            int codCuartel = brigada.getCuartel() != null ? brigada.getCuartel().getCodCuartel() : -1;
+            fila[4] = codCuartel;
+
+            modelo.addRow(fila);
+        }
+
+    }
+    public void cargarDatosTablalibres(List<Brigada> listaBrigadas) {
     // Borra cualquier fila existente en la tabla
     while (modelo.getRowCount() > 0) {
         modelo.removeRow(0);
@@ -602,6 +647,5 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         modelo.addRow(fila);
     }
-}
-
+    }
 }
