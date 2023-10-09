@@ -151,6 +151,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         JRBTodas.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         JRBTodas.setText("Todas");
+        JRBTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JRBTodasActionPerformed(evt);
+            }
+        });
 
         JRBLibres.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         JRBLibres.setText("Libres");
@@ -162,6 +167,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         jRBOcupadas.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jRBOcupadas.setText("Ocupadas");
+        jRBOcupadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBOcupadasActionPerformed(evt);
+            }
+        });
 
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -388,13 +398,45 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private void JRBLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBLibresActionPerformed
         JRBTodas.setSelected(false);
         jRBOcupadas.setSelected(false);
+        
         JRBLibres.setEnabled(false);
+        
+        jRBOcupadas.setEnabled(true);
+        JRBTodas.setEnabled(true);
         modelo.setRowCount(0);
         BrigadaData BriData=new BrigadaData();
         List<Brigada> listaBrigadas2 = BriData.listarBrigadaslibres();
         cargarDatosTablalibres(listaBrigadas2);
 
     }//GEN-LAST:event_JRBLibresActionPerformed
+
+    private void jRBOcupadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBOcupadasActionPerformed
+        JRBTodas.setSelected(false);
+        
+        jRBOcupadas.setSelected(false);
+        JRBLibres.setEnabled(true);
+        JRBTodas.setEnabled(true);
+        jRBOcupadas.setEnabled(false);
+        
+        modelo.setRowCount(0);
+        BrigadaData BriData=new BrigadaData();
+        List<Brigada> listaBrigadas2 = BriData.listarBrigadasocupadas();
+        cargarDatosTablalibres(listaBrigadas2);
+    }//GEN-LAST:event_jRBOcupadasActionPerformed
+
+    private void JRBTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBTodasActionPerformed
+        JRBLibres.setSelected(false);
+        jRBOcupadas.setSelected(false);
+        
+        JRBLibres.setEnabled(true);
+        JRBTodas.setEnabled(false);
+        jRBOcupadas.setEnabled(true);
+        
+        modelo.setRowCount(0);
+        BrigadaData BriData=new BrigadaData();
+        List<Brigada> listaBrigadas2 = BriData.listarBrigadas2();
+        cargarDatosTablalibres(listaBrigadas2);
+    }//GEN-LAST:event_JRBTodasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
