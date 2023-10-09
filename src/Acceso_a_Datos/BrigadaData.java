@@ -199,8 +199,8 @@ public class BrigadaData {
         }
         return listaBrigadas;
     }
-    
-     public List<Brigada> listarBrigadaslibres() {
+
+    public List<Brigada> listarBrigadaslibres() {
         List<Brigada> listaBrigadas = new ArrayList<>();
         String sql = "SELECT * FROM brigada where libre=1";
 
@@ -241,8 +241,8 @@ public class BrigadaData {
         }
         return listaBrigadas;
     }
-     
-     public List<Brigada> listarBrigadasocupadas() {
+
+    public List<Brigada> listarBrigadasocupadas() {
         List<Brigada> listaBrigadas = new ArrayList<>();
         String sql = "SELECT * FROM brigada where libre=0";
 
@@ -282,6 +282,32 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
         }
         return listaBrigadas;
+    }
+
+    public boolean nombreNORepetido(String nombre) {
+        boolean texto = true;
+        String sql = "SELECT COUNT(*) FROM brigada WHERE nombre_br=?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1); // Obtiene el valor del recuento
+                if (count > 0) {
+                    JOptionPane.showMessageDialog(null, "ERROR!!!\nEl Nombre ya se encuentra en la base de datos");
+                    texto = false; // El nombre ya existe
+                }
+            } else {
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
+        }
+
+        return texto;
+
     }
 
 }

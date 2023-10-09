@@ -301,7 +301,7 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="7">
-                <StringItem index="0" value="--Seleccionar una Especialidad"/>
+                <StringItem index="0" value="--Seleccionar una Especialidad--"/>
                 <StringItem index="1" value="Incendios en viviendas, e industrias"/>
                 <StringItem index="2" value="Salvamento en derrumbes"/>
                 <StringItem index="3" value="Rescates en &#xe1;mbito monta&#xf1;a"/>

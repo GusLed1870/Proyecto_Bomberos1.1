@@ -22,9 +22,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         JRBTodas.setSelected(true);
         BrigadaData BriData = new BrigadaData();
         List<Brigada> listaBrigadas = BriData.listarBrigadas2();
-        
+
         cargarDatosTabla(listaBrigadas);
-        
 
     }
 
@@ -129,7 +128,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
-        jCBEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar una Especialidad", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
+        jCBEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar una Especialidad--", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
 
         jCBCuarteles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCBCuarteles.setSelectedIndex(-1);
@@ -348,31 +347,36 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
         if (todo_el_formulario_lleno()) {
-            JOptionPane.showMessageDialog(this, "Entro");
-        }
-        /*Cuartel_data cuar = new Cuartel_data();
-        Cuartel cuartel = new Cuartel();
-        BrigadaData briData = new BrigadaData();
+                Cuartel_data cuar = new Cuartel_data();
+                Cuartel cuartel = new Cuartel();
+                BrigadaData briData = new BrigadaData();
+            if (validaTexto() && briData.nombreNORepetido(tfNombre.getText())) {
+                
 
-        String selectedItemText = (String) jCBCuarteles.getSelectedItem();
-        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+                String selectedItemText = (String) jCBCuarteles.getSelectedItem();
+                int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
 
-        if (selectedItemText != null) {
-            // Dividir la cadena por espacios en blanco
-            String[] parts = selectedItemText.split(" ");
-            if (parts.length >= 4 && parts[0].equalsIgnoreCase("Código") && parts[1].equalsIgnoreCase("de") && parts[2].equalsIgnoreCase("Cuartel:")) {
-                try {
+                if (selectedItemText != null) {
+                    // Dividir la cadena por espacios en blanco
+                    String[] parts = selectedItemText.split(" ");
+                    if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                        try {
 
-                    codCuartel = Integer.parseInt(parts[3]);
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
-                }
+                            codCuartel = Integer.parseInt(parts[1]);
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                        }
+                    }
+                    System.out.println("ID " + codCuartel);
+                    cuartel = cuar.buscarCuartel(codCuartel);
+                    Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                    briData.guardarBrigada(bri);
+                    JRBTodasActionPerformed(evt);
+
+                } 
+
             }
-
-            cuartel = cuar.buscarCuartel(codCuartel);
-            Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
-            briData.guardarBrigada(bri);
-        }*/
+        }
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jCBCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBCuartelesActionPerformed
@@ -381,6 +385,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
     private void jBlimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarCamposActionPerformed
         limpiarCampos();
+        JRBTodasActionPerformed(evt);
     }//GEN-LAST:event_jBlimpiarCamposActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -398,13 +403,13 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private void JRBLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBLibresActionPerformed
         JRBTodas.setSelected(false);
         jRBOcupadas.setSelected(false);
-        
+
         JRBLibres.setEnabled(false);
-        
+
         jRBOcupadas.setEnabled(true);
         JRBTodas.setEnabled(true);
         modelo.setRowCount(0);
-        BrigadaData BriData=new BrigadaData();
+        BrigadaData BriData = new BrigadaData();
         List<Brigada> listaBrigadas2 = BriData.listarBrigadaslibres();
         cargarDatosTablalibres(listaBrigadas2);
 
@@ -412,14 +417,14 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
     private void jRBOcupadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBOcupadasActionPerformed
         JRBTodas.setSelected(false);
-        
-        jRBOcupadas.setSelected(false);
+
+        JRBLibres.setSelected(false);
         JRBLibres.setEnabled(true);
         JRBTodas.setEnabled(true);
         jRBOcupadas.setEnabled(false);
-        
+
         modelo.setRowCount(0);
-        BrigadaData BriData=new BrigadaData();
+        BrigadaData BriData = new BrigadaData();
         List<Brigada> listaBrigadas2 = BriData.listarBrigadasocupadas();
         cargarDatosTablalibres(listaBrigadas2);
     }//GEN-LAST:event_jRBOcupadasActionPerformed
@@ -427,13 +432,14 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private void JRBTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBTodasActionPerformed
         JRBLibres.setSelected(false);
         jRBOcupadas.setSelected(false);
-        
+        JRBTodas.setSelected(true);
+
         JRBLibres.setEnabled(true);
         JRBTodas.setEnabled(false);
         jRBOcupadas.setEnabled(true);
-        
+
         modelo.setRowCount(0);
-        BrigadaData BriData=new BrigadaData();
+        BrigadaData BriData = new BrigadaData();
         List<Brigada> listaBrigadas2 = BriData.listarBrigadas2();
         cargarDatosTablalibres(listaBrigadas2);
     }//GEN-LAST:event_JRBTodasActionPerformed
@@ -616,6 +622,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jCBEspecialidad.setSelectedIndex(0);
         tfNombre.setText("");
         jRBLibre.setSelected(false);
+        jRBLibre.setText("");
 
     }
 
@@ -662,32 +669,55 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         }
 
     }
+
     public void cargarDatosTablalibres(List<Brigada> listaBrigadas) {
-    // Borra cualquier fila existente en la tabla
-    while (modelo.getRowCount() > 0) {
-        modelo.removeRow(0);
-    }
-
-    // Recorre la lista de Brigadas y agrega cada fila al modelo de tabla
-    for (Brigada brigada : listaBrigadas) {
-        Object[] fila = new Object[5]; // 5 columnas en este ejemplo
-        
-        fila[0] = brigada.getCodBrigada();
-        fila[1] = brigada.getNombre_br();
-        fila[2] = brigada.getEspecialidad();
-        if(brigada.isLibre()){
-            fila[3]="Libre";
-        
-        }else{
-            fila[3]="Ocupada";
+        // Borra cualquier fila existente en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
         }
-        
-        
-        // Obtén el código de cuartel de la Brigada
-        int codCuartel = brigada.getCuartel() != null ? brigada.getCuartel().getCodCuartel() : -1;
-        fila[4] = codCuartel;
 
-        modelo.addRow(fila);
+        // Recorre la lista de Brigadas y agrega cada fila al modelo de tabla
+        for (Brigada brigada : listaBrigadas) {
+            Object[] fila = new Object[5]; // 5 columnas en este ejemplo
+
+            fila[0] = brigada.getCodBrigada();
+            fila[1] = brigada.getNombre_br();
+            fila[2] = brigada.getEspecialidad();
+            if (brigada.isLibre()) {
+                fila[3] = "Libre";
+
+            } else {
+                fila[3] = "Ocupada";
+            }
+
+            // Obtén el código de cuartel de la Brigada
+            int codCuartel = brigada.getCuartel() != null ? brigada.getCuartel().getCodCuartel() : -1;
+            fila[4] = codCuartel;
+
+            modelo.addRow(fila);
+        }
     }
+
+    public boolean validaTexto() {
+        boolean texto = false;
+        if (tfNombre.getText().matches("[a-zA-Z ]+")) {
+
+            return texto = true;
+
+        } else {
+            campo_nombre.setVisible(true);
+            campo_nombre.setText("Sólo se pueden incluir letras");
+            int tiempoVisible = 10000; // 20 segundos en milisegundos
+            Timer temporizador = new Timer(tiempoVisible, e -> {
+
+                campo_nombre.setVisible(false);
+                campo_nombre.setText("");
+            });
+            temporizador.setRepeats(false); // Solo se ejecutará una vez
+            temporizador.start();
+            JOptionPane.showMessageDialog(this, "ERROR!!!\nEn el campo nombre se aceptan letras");
+            return texto;
+        }
+
     }
 }
