@@ -133,6 +133,12 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Lista de Brigadas:");
 
+        jRBLibre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBLibreActionPerformed(evt);
+            }
+        });
+
         JRBTodas.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         JRBTodas.setText("jRadioButton2");
 
@@ -348,12 +354,20 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCBCuartelesActionPerformed
 
     private void jBlimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarCamposActionPerformed
-        // TODO add your handling code here:
+        limpiarCampos();
     }//GEN-LAST:event_jBlimpiarCamposActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jRBLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBLibreActionPerformed
+        if(jRBLibre.isSelected()){
+            jRBLibre.setText("SI, esta Libre");
+        }else{
+            jRBLibre.setText("NO, esta ocupada");
+        }
+    }//GEN-LAST:event_jRBLibreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -528,5 +542,13 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             return vacias=true;
         }
         
+    }
+    
+    public void limpiarCampos(){
+        jCBCuarteles.setSelectedIndex(0);
+        jCBEspecialidad.setSelectedIndex(0);
+        tfNombre.setText("");
+        jRBLibre.setSelected(false);
+    
     }
 }
