@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2023 a las 00:25:18
+-- Tiempo de generación: 09-10-2023 a las 21:01:08
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -50,12 +50,14 @@ INSERT INTO `bombero` (`id_bombero`, `dni`, `nombre_ape`, `fecha_nac`, `celular`
 (3, '28052510', 'Sebastián Ramírez', '2004-10-24', 1152367854, 2, 'AB-', 1),
 (4, '28632456', 'Hernán Gabriel Díaz', '2000-02-09', 1125473212, 4, '0+', 1),
 (5, '10000000', 'Lionel Messi', '2001-05-11', 1184563257, 6, 'A-', 1),
-(6, '10', 'Diego Armando Maradona', '1960-10-10', 1010101010, 10, '0+', 1),
+(6, '10', 'Diego Armando Maradona', '1960-10-30', 1125487625, 17, 'B+', 1),
 (7, '26789654', 'Marcos Andrés Rojo', '2000-10-26', 1124569874, 17, '0-', 1),
 (8, '29940865', 'Nahuel Leandro Insaurralde ', '1983-04-29', 1125468526, 20, 'AB-', 1),
 (9, '36854621', 'Federico Matías Lopardo', '2001-05-03', 1135856456, 22, 'A+', 1),
 (10, '27658159', 'Cristian Omar Altamirano', '1977-05-12', 1124563587, 28, 'B-', 1),
-(11, '10852654', 'Carlos Daniel Medina', '1985-10-15', 1125478632, 25, 'AB+', 1);
+(11, '10852654', 'Carlos Daniel Medina', '1985-10-15', 1125478632, 25, 'AB+', 1),
+(12, '12578632', 'Carlos Daniel Lipiejko', '2023-10-20', 1125368549, 12, 'B+', 1),
+(13, '24368951', 'Javier Omar Olmedo', '1975-10-18', 1165854525, 6, 'A+', 1);
 
 -- --------------------------------------------------------
 
@@ -193,7 +195,7 @@ ALTER TABLE `siniestro`
 -- AUTO_INCREMENT de la tabla `bombero`
 --
 ALTER TABLE `bombero`
-  MODIFY `id_bombero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_bombero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `brigada`
