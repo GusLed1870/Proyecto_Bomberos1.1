@@ -384,21 +384,25 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
     private void cargarCB() {
-        Cuartel_data cuartelData = new Cuartel_data();
-        ArrayList<Cuartel> listaCuarteles = (ArrayList<Cuartel>) cuartelData.listarCuarteles();
+    Cuartel_data cuartelData = new Cuartel_data();
+    ArrayList<Cuartel> listaCuarteles = (ArrayList<Cuartel>) cuartelData.listarCuarteles();
 
-        // Limpia el JComboBox si tiene elementos previos
-        jCBCuarteles.removeAllItems();
+    // Limpia el JComboBox si tiene elementos previos
+    jCBCuarteles.removeAllItems();
 
+    if (!listaCuarteles.isEmpty()) {
+        jCBCuarteles.addItem("--Seleccionar un cuartel--"); // Agrega el elemento cuando hay cuarteles
         for (Cuartel cuartel : listaCuarteles) {
-            // Agrega el nombre o algún atributo del alumno en el JComboBox
+            // Agrega el nombre o algún atributo del cuartel en el JComboBox
             jCBCuarteles.addItem(cuartel.toString());
         }
 
-        if (!listaCuarteles.isEmpty()) {
-            // Selecciona el primer alumno de la lista
-            jCBCuarteles.setSelectedItem(listaCuarteles.get(0).toString());
-        }
+        // Selecciona el primer elemento en la lista
+        jCBCuarteles.setSelectedIndex(0);
+    } else {
+        jCBCuarteles.addItem("--Seleccionar un cuartel--"); // Agrega el elemento cuando no hay cuarteles
+        jCBCuarteles.setSelectedIndex(0); // Establece la selección en la posición 0
+    }
     }
 
     private boolean vacias() {
