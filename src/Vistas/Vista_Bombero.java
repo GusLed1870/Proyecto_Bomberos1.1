@@ -4,7 +4,6 @@ import Acceso_a_Datos.BomberoData;
 import Acceso_a_Datos.BrigadaData;
 import Entidades.Bombero;
 import Entidades.Brigada;
-import Entidades.Cuartel;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ import javax.swing.JOptionPane;
 
 public class Vista_Bombero extends javax.swing.JInternalFrame {
 
-    private BomberoData bomberoData;
-    private BrigadaData brigadaData;
-    private Bombero bombero;
+    private final BomberoData bomberoData;
+    private final BrigadaData brigadaData;
+    private final Bombero bombero;
     private Brigada brigada;
 
     public Vista_Bombero() {
@@ -54,7 +53,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         calendarioOculto = new javax.swing.JLabel();
         jCBBrigadaAsignada = new javax.swing.JComboBox<>();
         jCBGrupoSanguineo = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jBBusquedaXDni = new javax.swing.JButton();
         jRBEstado = new javax.swing.JRadioButton();
 
         setClosable(true);
@@ -121,6 +120,11 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
         jBModificar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBModificar.setText("Modificar");
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModificarActionPerformed(evt);
+            }
+        });
 
         jBEliminar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBEliminar.setText("Eliminar");
@@ -139,7 +143,12 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
         jCBGrupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el grupo sanguíneo", "A-", "A+", "B-", "B+", "AB-", "AB+", "0+", "0-", " " }));
 
-        jButton1.setText("Búsqueda por DNI");
+        jBBusquedaXDni.setText("Búsqueda por DNI");
+        jBBusquedaXDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBusquedaXDniActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,7 +171,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTDNI)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))
+                                .addComponent(jBBusquedaXDni))
                             .addComponent(jCBBrigadaAsignada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +216,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
+                        .addComponent(jBBusquedaXDni)
                         .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -264,14 +273,13 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         int celular = Integer.parseInt(jTCelular.getText());
         String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
         boolean estado = jRBEstado.isSelected();
-        Cuartel cuartel = new Cuartel();
         Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
 
         Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
 
         bombero.setBrigada(brigadaSeleccionada);
 
-        Bombero bombero = new Bombero(dni, nombre, FechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
+        Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
 
         if (jTNombreApellido.getText().isEmpty() || jTDNI.getText().isEmpty() || jDCFechaNac.getDate() == null
                 || jTCelular.getText().isEmpty() || jCBGrupoSanguineo.getSelectedIndex() == 0
@@ -279,25 +287,54 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No debe dejar campos vacíos");
             return;
         }
-
-        bomberoData.guardarBombero(bombero);
-        JOptionPane.showMessageDialog(null, "Bombero agregado con éxito");
-
+        bomberoData.guardarBombero(bomb);
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        String nombre = jTNombreApellido.getText();
+        String dni = jTDNI.getText();
+        LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int celular = Integer.parseInt(jTCelular.getText());
+        String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
+        boolean estado = jRBEstado.isSelected();
+        Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
+
+        Bombero bomb = bomberoData.buscarBomberoPordni(dni);
+
+        if (bombero != null) {
+            
+            bombero.setNombre_ape(nombre);
+            bombero.setFecha_nac(FechaNacFormateada);
+            bombero.setCelular(celular);
+            bombero.setGrupoSanguineo(grupoSanguineo);
+            bombero.setEstado(estado);
+            bombero.setBrigada(brigadaSeleccionada);
+
+            bomberoData.modificarBombero(bomb);
+        } 
+    }//GEN-LAST:event_jBModificarActionPerformed
+
+    // Falta completar
+    private void jBBusquedaXDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusquedaXDniActionPerformed
+        String dni = jTDNI.getText();
+        Bombero bomb = bomberoData.buscarBomberoPordni(dni);
+        jTNombreApellido.setText(bomb.getNombre_ape());
+        jTCelular.setText(String.valueOf(bomb.getCelular()));
+        
+    }//GEN-LAST:event_jBBusquedaXDniActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel calendarioOculto;
     private javax.swing.JButton jBAgregar;
+    private javax.swing.JButton jBBusquedaXDni;
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<Brigada> jCBBrigadaAsignada;
     private javax.swing.JComboBox<String> jCBGrupoSanguineo;
     private com.toedter.calendar.JDateChooser jDCFechaNac;
@@ -330,13 +367,12 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private void CargarComboBox() {
         ArrayList<Brigada> listaBrigadas = (ArrayList<Brigada>) brigadaData.listarBrigadas();
 
-        // Limpia el JComboBox si tiene elementos previos
         DefaultComboBoxModel<Brigada> model = new DefaultComboBoxModel<>();
         jCBBrigadaAsignada.setModel(model);
 
-        for (Brigada brigada : listaBrigadas) {
-            model.addElement(brigada);
-        }
+        listaBrigadas.forEach((brig) -> {
+            model.addElement(brig);
+        });
     }
 
     private Brigada obtenerBrigadaSeleccionada() {

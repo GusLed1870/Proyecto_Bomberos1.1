@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class Bombero {
 
-    //Atributos
     private int id_bombero;
     private String dni;
     private String nombre_ape;
@@ -14,7 +13,6 @@ public class Bombero {
     private String grupoSanguineo;
     private boolean estado;
 
-    //Constructores
     public Bombero() {}
 
     public Bombero(String dni, String nombre_ape, LocalDate fecha_nac, int celular, Brigada brigada, String grupoSanguineo, boolean estado) {
@@ -38,7 +36,6 @@ public class Bombero {
         this.estado = estado;
     }
 
-    //Métodos getter y setter
     public int getId_bombero() {
         return id_bombero;
     }
@@ -103,12 +100,10 @@ public class Bombero {
         this.estado = estado;
     }
 
-    //Método toString
     @Override
     public String toString() {
-        return "Bombero" + "\nid_bombero: " + id_bombero + "\nDNI: " + dni 
-                + "\nNombre y Apellido: " + nombre_ape + "\nFecha de Nacimiento: " + fecha_nac 
-                + "\nCelular: " + celular + "\nCógigo de Brigada: " + brigada.getCodBrigada()
-                + "\nGrupo Sanguineo: " + grupoSanguineo + "\nEstado: " + estado;
+        return "ID: " + id_bombero + "    DNI: " + dni 
+                + "    " + nombre_ape + "    Fecha de Nacimiento: " + fecha_nac 
+                + "    Celular: " + celular + "    Grupo Sanguineo: " + grupoSanguineo + "    Estado: " + estado;
     }  
 }
