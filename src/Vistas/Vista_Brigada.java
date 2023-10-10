@@ -434,6 +434,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             int posicion = posicionCBOX(bri.getCuartel().getCodCuartel());
             //System.out.println("posicion en el combox "+posicion);
             jCBCuarteles.setSelectedIndex(posicion - 1);
+            jBAgregar.setEnabled(false);
+            jBModificar.setEnabled(true);
+
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
@@ -548,7 +551,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 }
                 
             
-            
+            jBAgregar.setEnabled(false);
         }
     }//GEN-LAST:event_jTablaMouseClicked
 
@@ -731,6 +734,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         tfNombre.setText("");
         jRBLibre.setSelected(false);
         jRBLibre.setText("");
+        jBAgregar.setEnabled(true);
+        jBModificar.setEnabled(false);
 
     }
 
