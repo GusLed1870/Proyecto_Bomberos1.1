@@ -185,12 +185,12 @@ public class BrigadaData {
                 Cuartel_data cuartelData = new Cuartel_data();
                 Cuartel cuartelAsociado = cuartelData.buscarCuartel(codCuartel);
 
-                if (cuartelAsociado != null) {
+               /* if (cuartelAsociado != null) {
                     cuartel.setNombre_cuartel(cuartelAsociado.getNombre_cuartel());
                     // Otros atributos del cuartel si es necesario
-                }
+                }*/
 
-                brigada.setCuartel(cuartel);
+                brigada.setCuartel(cuartelAsociado);
 
                 listaBrigadas.add(brigada);
             }
