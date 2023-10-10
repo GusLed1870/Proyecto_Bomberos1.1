@@ -336,4 +336,48 @@ public class BrigadaData {
         }
     }
 
+    public List<Brigada> listarBrigadasporNombre(String nom) {
+        List<Brigada> listaBrigadas = new ArrayList<>();
+        String sql = "SELECT * FROM brigada WHERE nombre_br LIKE ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            // Establecer el valor del parámetro en la consulta SQL
+            ps.setString(1, nom + "%"); // Usamos '%' para buscar nombres que contengan la cadena 'nom'
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Brigada brigada = new Brigada();
+                Cuartel cuartel = new Cuartel();
+
+                brigada.setCodBrigada(rs.getInt("codBrigada"));
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.setLibre(rs.getBoolean("libre"));
+
+                int codCuartel = rs.getInt("nro_cuartel");
+                cuartel.setCodCuartel(codCuartel);
+
+                // Ahora debes obtener el objeto Cuartel asociado al código del cuartel
+                Cuartel_data cuartelData = new Cuartel_data();
+                Cuartel cuartelAsociado = cuartelData.buscarCuartel(codCuartel);
+
+                /* if (cuartelAsociado != null) {
+                cuartel.setNombre_cuartel(cuartelAsociado.getNombre_cuartel());
+                // Otros atributos del cuartel si es necesario
+            }*/
+                brigada.setCuartel(cuartelAsociado);
+
+                listaBrigadas.add(brigada);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return listaBrigadas;
+    }
+
 }

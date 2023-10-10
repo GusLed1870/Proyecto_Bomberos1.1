@@ -126,6 +126,12 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         jCBEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar una Especialidad--", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
 
+        tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfNombreKeyReleased(evt);
+            }
+        });
+
         jCBCuarteles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCBCuarteles.setSelectedIndex(-1);
         jCBCuarteles.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +184,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTabla);
 
         campo_ID_Cuartel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -489,6 +500,24 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         }
             
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyReleased
+        String nombre=tfNombre.getText();
+        modelo.setRowCount(0);
+        BrigadaData BriData = new BrigadaData();
+        List<Brigada> listaBrigadas2 = BriData.listarBrigadasporNombre(nombre);
+        cargarDatosTablalibres(listaBrigadas2);
+        
+    }//GEN-LAST:event_tfNombreKeyReleased
+
+    private void jTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaMouseClicked
+        int filaSeleccionada = jTabla.getSelectedRow();
+    if (filaSeleccionada != -1) { // Asegurarse de que se haya seleccionado una fila válida
+        Object valorPrimeraColumna = jTabla.getValueAt(filaSeleccionada, 0);
+        
+        System.out.println("Valor de la primera columna: " + valorPrimeraColumna);
+    }
+    }//GEN-LAST:event_jTablaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
