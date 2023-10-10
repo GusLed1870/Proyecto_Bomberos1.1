@@ -528,6 +528,25 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             //System.out.println("posicion en el combox "+posicion);
             jCBCuarteles.setSelectedIndex(posicion - 1);
             tfNombre.setText(briga.getNombre_br());
+            ArrayList<String> combo = new ArrayList<>();
+                combo.add("Incendios en viviendas, e industrias");
+                combo.add("Salvamento en derrumbes");
+                combo.add("Rescates en ámbito montaña");
+                combo.add("Rescate de personas atrapadas en accidentes de tráfico");
+                combo.add("Socorrer inundaciones");
+                combo.add("Operativos de prevención");
+                int espe = combo.indexOf((briga.getEspecialidad()));
+
+                jCBEspecialidad.setSelectedIndex(espe + 1); //le sumo uno porque tiene el seleccionar
+                if (briga.isLibre()) {
+                    jRBLibre.setSelected(true);
+                    jRBLibre.setText("Libre");
+
+                } else {
+                    jRBLibre.setSelected(false);
+                    jRBLibre.setText("Ocupada");
+                }
+                
             
             
         }
