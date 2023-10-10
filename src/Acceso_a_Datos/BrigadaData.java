@@ -52,13 +52,13 @@ public class BrigadaData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                
+
                 codBrigada = rs.getInt("codBrigada");
-                
+
             } else {
                 ps.close();
             }
-          
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
         }
@@ -185,11 +185,10 @@ public class BrigadaData {
                 Cuartel_data cuartelData = new Cuartel_data();
                 Cuartel cuartelAsociado = cuartelData.buscarCuartel(codCuartel);
 
-               /* if (cuartelAsociado != null) {
+                /* if (cuartelAsociado != null) {
                     cuartel.setNombre_cuartel(cuartelAsociado.getNombre_cuartel());
                     // Otros atributos del cuartel si es necesario
                 }*/
-
                 brigada.setCuartel(cuartelAsociado);
 
                 listaBrigadas.add(brigada);
@@ -311,6 +310,30 @@ public class BrigadaData {
 
         return texto;
 
+    }
+
+    public void modificarBrigada(Brigada brigada) {
+        String sql = "UPDATE brigada SET nombre_br=?, especialidad=?, libre=?, nro_cuartel=? WHERE codBrigada=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, brigada.getNombre_br());
+            ps.setString(2, brigada.getEspecialidad());
+            ps.setBoolean(3, brigada.isLibre());
+            ps.setInt(4, brigada.getCuartel().getCodCuartel());
+            ps.setInt(5, brigada.getCodBrigada());
+
+            int filasActualizadas = ps.executeUpdate();
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
+        }
     }
 
 }

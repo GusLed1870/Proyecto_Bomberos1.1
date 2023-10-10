@@ -78,27 +78,21 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 720));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Brigadas");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("ID Cuartel:");
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nombre:");
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Especialidad:");
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Disponiblidad:");
 
         jBAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jBAgregar.setForeground(new java.awt.Color(0, 0, 0));
         jBAgregar.setText("Agregar");
         jBAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,11 +101,14 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jBBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jBBuscar.setForeground(new java.awt.Color(0, 0, 0));
         jBBuscar.setText("Buscar por Nombre");
         jBBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +117,6 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         });
 
         jBSalir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jBSalir.setForeground(new java.awt.Color(0, 0, 0));
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,8 +135,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Lista de Brigadas:");
+        jLabel6.setText("Lista de Brigadas (puedes hacer click en la tabla para editar alguna brigada de la lista)");
 
         jRBLibre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,7 +193,6 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         campo_nombre.setText("Faltó ingresar un nombre");
 
         jBlimpiarCampos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jBlimpiarCampos.setForeground(new java.awt.Color(0, 0, 0));
         jBlimpiarCampos.setText("Limpiar Campos");
         jBlimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,30 +234,28 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                                     .addComponent(campo_Especilidad)
                                     .addComponent(campo_ID_Cuartel, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(campo_nombre)))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1048, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(86, 86, 86)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JRBTodas)
-                            .addComponent(jBlimpiarCampos))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(195, 195, 195)
-                                .addComponent(JRBLibres)
-                                .addGap(153, 153, 153)
-                                .addComponent(jRBOcupadas))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1048, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(156, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(JRBTodas)
+                                    .addComponent(jBlimpiarCampos))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(72, 72, 72)
+                                        .addComponent(jBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(195, 195, 195)
+                                        .addComponent(JRBLibres)
+                                        .addGap(153, 153, 153)
+                                        .addComponent(jRBOcupadas)))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(444, 444, 444)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(393, 393, 393)
-                        .addComponent(jLabel6)))
+                .addGap(444, 444, 444)
+                .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -297,9 +289,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     .addComponent(jBAgregar)
                     .addComponent(jButton2)
                     .addComponent(jBSalir))
-                .addGap(62, 62, 62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JRBTodas)
                     .addComponent(jRBOcupadas)
@@ -313,13 +305,13 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1204, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE))
         );
 
         pack();
@@ -451,7 +443,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
                         }
                     }
-                    System.out.println("ID " + codCuartel);
+                    //System.out.println("ID " + codCuartel);
                     cuartel = cuar.buscarCuartel(codCuartel);
                     Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
                     briData.guardarBrigada(bri);
@@ -462,6 +454,41 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jBAgregarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(todo_el_formulario_lleno()){
+            Cuartel_data cuar = new Cuartel_data();
+            Cuartel cuartel = new Cuartel();
+            BrigadaData briData = new BrigadaData();
+           if (validaTexto() && briData.nombreNORepetido(tfNombre.getText())) {
+
+                String selectedItemText = (String) jCBCuarteles.getSelectedItem();
+                int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+                if (selectedItemText != null) {
+                    // Dividir la cadena por espacios en blanco
+                    String[] parts = selectedItemText.split(" ");
+                    if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                        try {
+
+                            codCuartel = Integer.parseInt(parts[1]);
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                        }
+                    }
+                    //System.out.println("ID " + codCuartel);
+                    cuartel = cuar.buscarCuartel(codCuartel);
+                    Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                    briData.modificarBrigada(bri);
+                    JRBTodasActionPerformed(evt);
+
+                }
+
+            }
+        
+        }
+            
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
