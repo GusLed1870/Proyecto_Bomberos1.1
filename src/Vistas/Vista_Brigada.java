@@ -22,7 +22,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         JRBTodas.setSelected(true);
         BrigadaData BriData = new BrigadaData();
         List<Brigada> listaBrigadas = BriData.listarBrigadas2();
-
+        jBModificar.setEnabled(false);
         cargarDatosTabla(listaBrigadas);
 
     }
@@ -58,6 +58,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         campo_Especilidad = new javax.swing.JLabel();
         campo_nombre = new javax.swing.JLabel();
         jBlimpiarCampos = new javax.swing.JButton();
+        id_brigada = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -211,6 +212,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
+        id_brigada.setBackground(new java.awt.Color(102, 255, 204));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -266,7 +269,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(444, 444, 444)
+                        .addComponent(id_brigada)
+                        .addGap(403, 403, 403)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -276,8 +280,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addComponent(id_brigada))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -496,7 +503,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     }
                     //System.out.println("ID " + codCuartel);
                     cuartel = cuar.buscarCuartel(codCuartel);
-                    Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                    Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()),tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
                     briData.modificarBrigada(bri);
                     JRBTodasActionPerformed(evt);
 
@@ -552,6 +559,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 
             
             jBAgregar.setEnabled(false);
+            jBModificar.setEnabled(true);
+            id_brigada.setText(String.valueOf(briga.getCodBrigada()));
         }
     }//GEN-LAST:event_jTablaMouseClicked
 
@@ -564,6 +573,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JLabel campo_Especilidad;
     private javax.swing.JLabel campo_ID_Cuartel;
     private javax.swing.JLabel campo_nombre;
+    private javax.swing.JLabel id_brigada;
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBModificar;
@@ -736,6 +746,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jRBLibre.setText("");
         jBAgregar.setEnabled(true);
         jBModificar.setEnabled(false);
+        id_brigada.setText("");
 
     }
 
