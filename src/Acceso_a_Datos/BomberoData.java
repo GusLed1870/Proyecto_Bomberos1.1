@@ -92,13 +92,19 @@ public class BomberoData {
 
             if (rs.next()) {
                 bombero = new Bombero();
+                brigada = new Brigada();
+                BrigadaData briData = new BrigadaData();
                 bombero.setId_bombero(rs.getInt("id_bombero"));
                 bombero.setDni(rs.getString("dni"));
                 bombero.setNombre_ape(rs.getString("nombre_ape"));
                 bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
+                bombero.setCelular(rs.getInt("celular"));
                 bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
                 bombero.setEstado(rs.getBoolean("estado"));
-
+                int codBri = rs.getInt("codBrigada");
+                brigada = briData.buscarBrigada(codBri);
+                bombero.setBrigada(brigada);
+                
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró un bombero con DNI: "+dni);
 

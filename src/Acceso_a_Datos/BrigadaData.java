@@ -126,35 +126,35 @@ public class BrigadaData {
         }
         return listaBrigadas;
     }
-    
+
     public Brigada buscarBrigada2(int codBrigada) {
-    Brigada brigada = null;
-    Cuartel_data cuartelData = new Cuartel_data();
-    String sql = "SELECT codBrigada, nombre_br, especialidad, libre, nro_cuartel FROM brigada WHERE codBrigada = ?";
-    PreparedStatement ps = null;
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, codBrigada);
-        ResultSet rs = ps.executeQuery();
+        Brigada brigada = null;
+        Cuartel_data cuartelData = new Cuartel_data();
+        String sql = "SELECT codBrigada, nombre_br, especialidad, libre, nro_cuartel FROM brigada WHERE codBrigada = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+            ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            brigada = new Brigada();
-            brigada.setCodBrigada(codBrigada);
-            brigada.setNombre_br(rs.getString("nombre_br"));
-            brigada.setEspecialidad(rs.getString("especialidad"));
-            brigada.setLibre(rs.getBoolean("libre"));
+            if (rs.next()) {
+                brigada = new Brigada();
+                brigada.setCodBrigada(codBrigada);
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.setLibre(rs.getBoolean("libre"));
 
-            int codCuartel = rs.getInt("nro_cuartel");
+                int codCuartel = rs.getInt("nro_cuartel");
 
-            Cuartel cuartel = cuartelData.buscarCuartel(codCuartel);
+                Cuartel cuartel = cuartelData.buscarCuartel(codCuartel);
 
-            brigada.setCuartel(cuartel);
-        } else {
-            ps.close();
+                brigada.setCuartel(cuartel);
+            } else {
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Brigada " + ex.getMessage());
+        return brigada;
     }
-    return brigada;
-}
 }
