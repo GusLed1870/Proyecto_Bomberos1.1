@@ -325,8 +325,76 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBlimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarCamposActionPerformed
+        limpiarCampos();
+        JRBTodasActionPerformed(evt);
+    }//GEN-LAST:event_jBlimpiarCamposActionPerformed
+
+    private void jRBOcupadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBOcupadasActionPerformed
+        JRBTodas.setSelected(false);
+
+        JRBLibres.setSelected(false);
+        JRBLibres.setEnabled(true);
+        JRBTodas.setEnabled(true);
+        jRBOcupadas.setEnabled(false);
+
+        modelo.setRowCount(0);
+        BrigadaData BriData = new BrigadaData();
+        List<Brigada> listaBrigadas2 = BriData.listarBrigadasocupadas();
+        cargarDatosTablalibres(listaBrigadas2);
+    }//GEN-LAST:event_jRBOcupadasActionPerformed
+
+    private void JRBLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBLibresActionPerformed
+        JRBTodas.setSelected(false);
+        jRBOcupadas.setSelected(false);
+
+        JRBLibres.setEnabled(false);
+
+        jRBOcupadas.setEnabled(true);
+        JRBTodas.setEnabled(true);
+        modelo.setRowCount(0);
+        BrigadaData BriData = new BrigadaData();
+        List<Brigada> listaBrigadas2 = BriData.listarBrigadaslibres();
+        cargarDatosTablalibres(listaBrigadas2);
+    }//GEN-LAST:event_JRBLibresActionPerformed
+
+    private void JRBTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBTodasActionPerformed
+        JRBLibres.setSelected(false);
+        jRBOcupadas.setSelected(false);
+        JRBTodas.setSelected(true);
+
+        JRBLibres.setEnabled(true);
+        JRBTodas.setEnabled(false);
+        jRBOcupadas.setEnabled(true);
+
+        modelo.setRowCount(0);
+        BrigadaData BriData = new BrigadaData();
+        List<Brigada> listaBrigadas2 = BriData.listarBrigadas2();
+        cargarDatosTablalibres(listaBrigadas2);
+    }//GEN-LAST:event_JRBTodasActionPerformed
+
+    private void jRBLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBLibreActionPerformed
+        if (jRBLibre.isSelected()) {
+            jRBLibre.setText("SI, esta Libre");
+        } else {
+            jRBLibre.setText("NO, esta ocupada");
+        }
+    }//GEN-LAST:event_jRBLibreActionPerformed
+
+    private void jCBCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBCuartelesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCBCuartelesActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
+
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        String nombre = tfNombre.getText();
+       if(tfNombre.getText().isEmpty()){
+           JOptionPane.showMessageDialog(this, "No Ingresaste un nombre");
+           return;
+       }else{
+            String nombre = tfNombre.getText();
         BrigadaData briData = new BrigadaData();
         int id = briData.buscarBrigada(nombre);
         if (id == -1) {
@@ -358,6 +426,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         int posicion =posicionCBOX(bri.getCuartel().getCodCuartel());
         //System.out.println("posicion en el combox "+posicion);
         jCBCuarteles.setSelectedIndex(posicion-1);
+       }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
@@ -392,71 +461,6 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jBAgregarActionPerformed
-
-    private void jCBCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBCuartelesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCBCuartelesActionPerformed
-
-    private void jBlimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarCamposActionPerformed
-        limpiarCampos();
-        JRBTodasActionPerformed(evt);
-    }//GEN-LAST:event_jBlimpiarCamposActionPerformed
-
-    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_jBSalirActionPerformed
-
-    private void jRBLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBLibreActionPerformed
-        if (jRBLibre.isSelected()) {
-            jRBLibre.setText("SI, esta Libre");
-        } else {
-            jRBLibre.setText("NO, esta ocupada");
-        }
-    }//GEN-LAST:event_jRBLibreActionPerformed
-
-    private void JRBLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBLibresActionPerformed
-        JRBTodas.setSelected(false);
-        jRBOcupadas.setSelected(false);
-
-        JRBLibres.setEnabled(false);
-
-        jRBOcupadas.setEnabled(true);
-        JRBTodas.setEnabled(true);
-        modelo.setRowCount(0);
-        BrigadaData BriData = new BrigadaData();
-        List<Brigada> listaBrigadas2 = BriData.listarBrigadaslibres();
-        cargarDatosTablalibres(listaBrigadas2);
-
-    }//GEN-LAST:event_JRBLibresActionPerformed
-
-    private void jRBOcupadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBOcupadasActionPerformed
-        JRBTodas.setSelected(false);
-
-        JRBLibres.setSelected(false);
-        JRBLibres.setEnabled(true);
-        JRBTodas.setEnabled(true);
-        jRBOcupadas.setEnabled(false);
-
-        modelo.setRowCount(0);
-        BrigadaData BriData = new BrigadaData();
-        List<Brigada> listaBrigadas2 = BriData.listarBrigadasocupadas();
-        cargarDatosTablalibres(listaBrigadas2);
-    }//GEN-LAST:event_jRBOcupadasActionPerformed
-
-    private void JRBTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBTodasActionPerformed
-        JRBLibres.setSelected(false);
-        jRBOcupadas.setSelected(false);
-        JRBTodas.setSelected(true);
-
-        JRBLibres.setEnabled(true);
-        JRBTodas.setEnabled(false);
-        jRBOcupadas.setEnabled(true);
-
-        modelo.setRowCount(0);
-        BrigadaData BriData = new BrigadaData();
-        List<Brigada> listaBrigadas2 = BriData.listarBrigadas2();
-        cargarDatosTablalibres(listaBrigadas2);
-    }//GEN-LAST:event_JRBTodasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
