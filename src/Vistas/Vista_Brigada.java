@@ -394,11 +394,12 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
            JOptionPane.showMessageDialog(this, "No Ingresaste un nombre");
            return;
        }else{
-            String nombre = tfNombre.getText();
+        String nombre = tfNombre.getText();
         BrigadaData briData = new BrigadaData();
         int id = briData.buscarBrigada(nombre);
         if (id == -1) {
             JOptionPane.showMessageDialog(this, "El nombre no se encuentra en la base de datos revisa la tabla con todos los nombres");
+            return;
         } else {
             Brigada bri = briData.buscarBrigada2(id);
 
