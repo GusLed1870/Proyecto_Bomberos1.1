@@ -41,7 +41,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jBAgregar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
         jBBuscar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
         jCBEspecialidad = new javax.swing.JComboBox<>();
@@ -100,11 +100,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setText("Modificar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBModificar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBModificar.setText("Modificar");
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBModificarActionPerformed(evt);
             }
         });
 
@@ -238,7 +238,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                                         .addComponent(jCBCuarteles, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(331, 331, 331)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,7 +298,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBlimpiarCampos)
                     .addComponent(jBAgregar)
-                    .addComponent(jButton2)
+                    .addComponent(jBModificar)
                     .addComponent(jBSalir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jLabel6)
@@ -393,44 +393,44 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-       if(tfNombre.getText().isEmpty()){
-           JOptionPane.showMessageDialog(this, "No Ingresaste un nombre");
-           return;
-       }else{
-        String nombre = tfNombre.getText();
-        BrigadaData briData = new BrigadaData();
-        int id = briData.buscarBrigada(nombre);
-        if (id == -1) {
-            JOptionPane.showMessageDialog(this, "El nombre no se encuentra en la base de datos revisa la tabla con todos los nombres");
+        if (tfNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ingresaste un nombre");
             return;
         } else {
-            Brigada bri = briData.buscarBrigada2(id);
-
-            tfNombre.setText(bri.getNombre_br());
-            ArrayList<String> combo = new ArrayList<>();
-            combo.add("Incendios en viviendas, e industrias");
-            combo.add("Salvamento en derrumbes");
-            combo.add("Rescates en ámbito montaña");
-            combo.add("Rescate de personas atrapadas en accidentes de tráfico");
-            combo.add("Socorrer inundaciones");
-            combo.add("Operativos de prevención");
-            int espe = combo.indexOf((bri.getEspecialidad()));
-
-            jCBEspecialidad.setSelectedIndex(espe + 1); //le sumo uno porque tiene el seleccionar
-            if (bri.isLibre()) {
-                jRBLibre.setSelected(true);
-                jRBLibre.setText("Libre");
-
+            String nombre = tfNombre.getText();
+            BrigadaData briData = new BrigadaData();
+            int id = briData.buscarBrigada(nombre);
+            if (id == -1) {
+                JOptionPane.showMessageDialog(this, "El nombre no se encuentra en la base de datos revisa la tabla con todos los nombres");
+                return;
             } else {
-                jRBLibre.setSelected(false);
-                jRBLibre.setText("Ocupada");
+                Brigada bri = briData.buscarBrigada2(id);
+
+                tfNombre.setText(bri.getNombre_br());
+                ArrayList<String> combo = new ArrayList<>();
+                combo.add("Incendios en viviendas, e industrias");
+                combo.add("Salvamento en derrumbes");
+                combo.add("Rescates en ámbito montaña");
+                combo.add("Rescate de personas atrapadas en accidentes de tráfico");
+                combo.add("Socorrer inundaciones");
+                combo.add("Operativos de prevención");
+                int espe = combo.indexOf((bri.getEspecialidad()));
+
+                jCBEspecialidad.setSelectedIndex(espe + 1); //le sumo uno porque tiene el seleccionar
+                if (bri.isLibre()) {
+                    jRBLibre.setSelected(true);
+                    jRBLibre.setText("Libre");
+
+                } else {
+                    jRBLibre.setSelected(false);
+                    jRBLibre.setText("Ocupada");
+                }
             }
+            Brigada bri = briData.buscarBrigada2(id);
+            int posicion = posicionCBOX(bri.getCuartel().getCodCuartel());
+            //System.out.println("posicion en el combox "+posicion);
+            jCBCuarteles.setSelectedIndex(posicion - 1);
         }
-        Brigada bri = briData.buscarBrigada2(id);
-        int posicion =posicionCBOX(bri.getCuartel().getCodCuartel());
-        //System.out.println("posicion en el combox "+posicion);
-        jCBCuarteles.setSelectedIndex(posicion-1);
-       }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
@@ -466,12 +466,12 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBAgregarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(todo_el_formulario_lleno()){
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        if (todo_el_formulario_lleno()) {
             Cuartel_data cuar = new Cuartel_data();
             Cuartel cuartel = new Cuartel();
             BrigadaData briData = new BrigadaData();
-           if (validaTexto() && briData.nombreNORepetido(tfNombre.getText())) {
+            if (validaTexto() && briData.nombreNORepetido(tfNombre.getText())) {
 
                 String selectedItemText = (String) jCBCuarteles.getSelectedItem();
                 int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
@@ -496,27 +496,32 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 }
 
             }
-        
+
         }
-            
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_jBModificarActionPerformed
 
     private void tfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyReleased
-        String nombre=tfNombre.getText();
+        String nombre = tfNombre.getText();
         modelo.setRowCount(0);
         BrigadaData BriData = new BrigadaData();
         List<Brigada> listaBrigadas2 = BriData.listarBrigadasporNombre(nombre);
         cargarDatosTablalibres(listaBrigadas2);
-        
+
     }//GEN-LAST:event_tfNombreKeyReleased
 
     private void jTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaMouseClicked
         int filaSeleccionada = jTabla.getSelectedRow();
-    if (filaSeleccionada != -1) { // Asegurarse de que se haya seleccionado una fila válida
-        Object valorPrimeraColumna = jTabla.getValueAt(filaSeleccionada, 0);
-        
-        System.out.println("Valor de la primera columna: " + valorPrimeraColumna);
-    }
+          BrigadaData briData = new BrigadaData();
+            Brigada briga = new Brigada();
+        if (filaSeleccionada != -1) { // Asegurarse de que se haya seleccionado una fila válida
+            Object valorPrimeraColumna = jTabla.getValueAt(filaSeleccionada, 0);
+
+            int id = Integer.parseInt(valorPrimeraColumna.toString());
+          
+            briga = briData.buscarBrigada(id);
+            
+        }
     }//GEN-LAST:event_jTablaMouseClicked
 
 
@@ -530,9 +535,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JLabel campo_nombre;
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBlimpiarCampos;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCBCuarteles;
     private javax.swing.JComboBox<String> jCBEspecialidad;
     private javax.swing.JLabel jLabel1;
@@ -797,21 +802,21 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }
 
     public int posicionCBOX(int id) {
-        int count=0;
+        int count = 0;
         for (int i = 0; i < jCBCuarteles.getItemCount(); i++) {
             String item = jCBCuarteles.getItemAt(i).toString();
-            String [] partes=item.split(" ");
+            String[] partes = item.split(" ");
             count++;
             //System.out.println("CONTADOR NORMAL "+count);
-            try{
-                int codBrigada=Integer.parseInt(partes[1]);
-                if(codBrigada==id){
+            try {
+                int codBrigada = Integer.parseInt(partes[1]);
+                if (codBrigada == id) {
                     //System.out.println("AQUI ENTRO "+count);
                     return count;
-                  
+
                 }
-            }catch(NumberFormatException e){
-                
+            } catch (NumberFormatException e) {
+
             }
         }
         return count;
