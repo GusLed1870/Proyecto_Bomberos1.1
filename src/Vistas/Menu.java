@@ -120,7 +120,12 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu8.setText("Emergencias");
 
-        jbEmergencias.setText("Click");
+        jbEmergencias.setText("Siniestro");
+        jbEmergencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEmergenciasActionPerformed(evt);
+            }
+        });
         jMenu8.add(jbEmergencias);
 
         jMenuBar3.add(jMenu8);
@@ -204,7 +209,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jBcuartelesActionPerformed
 
     private void CalificaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalificaciónActionPerformed
-          escritorio.removeAll();
+        escritorio.removeAll();
         escritorio.repaint();
 
         Ranking vc = new Ranking();
@@ -213,6 +218,17 @@ public class Menu extends javax.swing.JFrame {
         escritorio.moveToFront(vc);
         vc.setVisible(true);
     }//GEN-LAST:event_CalificaciónActionPerformed
+
+    private void jbEmergenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEmergenciasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        Vista_Siniestro vs = new Vista_Siniestro();
+        
+        escritorio.add(vs);
+        escritorio.moveToFront(vs);
+        vs.setVisible(true);
+    }//GEN-LAST:event_jbEmergenciasActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

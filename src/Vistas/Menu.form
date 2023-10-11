@@ -149,8 +149,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jbEmergencias">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Click"/>
+                <Property name="text" type="java.lang.String" value="Siniestro"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEmergenciasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
