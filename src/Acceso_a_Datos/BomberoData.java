@@ -104,15 +104,10 @@ public class BomberoData {
                 int codBri = rs.getInt("codBrigada");
                 brigada = briData.buscarBrigada(codBri);
                 bombero.setBrigada(brigada);
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró un bombero con DNI: "+dni);
-
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
-
         }
         return bombero;
     }

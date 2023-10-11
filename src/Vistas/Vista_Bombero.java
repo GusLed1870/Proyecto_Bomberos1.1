@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.DocumentFilter.FilterBypass;
 
 public class Vista_Bombero extends javax.swing.JInternalFrame {
 
@@ -27,6 +32,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         CargarComboBox();
         jBModificar.setEnabled(false);
         jBEliminar.setEnabled(false);
+      
     }
 
     @SuppressWarnings("unchecked")
@@ -34,6 +40,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
+        jSpinField1 = new com.toedter.components.JSpinField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -155,6 +162,13 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jBBusquedaXDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBBusquedaXDniActionPerformed(evt);
+            }
+        });
+
+        jRBEstado.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jRBEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBEstadoActionPerformed(evt);
             }
         });
 
@@ -308,52 +322,94 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         String nombre = jTNombreApellido.getText();
         String dni = jTDNI.getText();
-        LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int celular = Integer.parseInt(jTCelular.getText());
         String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
         boolean estado = jRBEstado.isSelected();
-        Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
 
         Bombero bomb = bomberoData.buscarBomberoPordni(dni);
 
-        if (bombero != null) {
+        if (bomb != null) {
 
-            bombero.setNombre_ape(nombre);
-            bombero.setFecha_nac(FechaNacFormateada);
-            bombero.setCelular(celular);
-            bombero.setGrupoSanguineo(grupoSanguineo);
-            bombero.setEstado(estado);
-            bombero.setBrigada(brigadaSeleccionada);
+            bomb.setNombre_ape(nombre);
+            bomb.setFecha_nac(fechaNacFormateada);
+            bomb.setCelular(celular);
+            bomb.setGrupoSanguineo(grupoSanguineo);
+            bomb.setEstado(estado);
+
+            Object objeto = jCBBrigadaAsignada.getSelectedItem();
+            String obj = objeto.toString();
+            int codBrigada = -1;
+            Brigada brigada = null;
+
+            if (objeto != null) {
+
+                String[] parts = obj.split(" ");
+                if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                    try {
+                        codBrigada = Integer.parseInt(parts[1]);
+                        BrigadaData briData = new BrigadaData();
+                        brigada = briData.buscarBrigada(codBrigada);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                    }
+                }
+            }
+
+            if (brigada != null) {
+                bomb.setBrigada(brigada);
+            } else {
+                JOptionPane.showMessageDialog(this, "La brigada seleccionada no es válida.");
+            }
 
             bomberoData.modificarBombero(bomb);
         }
+
     }//GEN-LAST:event_jBModificarActionPerformed
-     ////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////
-   /// Falta que se marque y desmarque el estado del bombero como activo o inactivo ///
-  //////////////////////////////////////////////////////////////////////////////////// 
- ////////////////////////////////////////////////////////////////////////////////////   
+
     private void jBBusquedaXDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusquedaXDniActionPerformed
         String dni = jTDNI.getText();
-        Bombero bomb = bomberoData.buscarBomberoPordni(dni);
-        jTNombreApellido.setText(bomb.getNombre_ape());
-        jTCelular.setText(String.valueOf(bomb.getCelular()));
+        try {
+            Bombero bomb = bomberoData.buscarBomberoPordni(dni);
 
-        // Seteo grupo sanguíneo
-        String sangre = bomb.getGrupoSanguineo();
-        int pos = listaGruposSanguineos(sangre);
-        jCBGrupoSanguineo.setSelectedIndex(pos + 1);
-        jDCFechaNac.setDate(java.sql.Date.valueOf(bomb.getFecha_nac()));
+            jTNombreApellido.setText(bomb.getNombre_ape());
+            jTCelular.setText(String.valueOf(bomb.getCelular()));
 
-        // Seteo Brigada al a que pertenece
-        int nroBrigada = bomb.getBrigada().getCodBrigada();
+            // Seteo el grupo sanguíneo
+            String sangre = bomb.getGrupoSanguineo();
+            int pos = listaGruposSanguineos(sangre);
+            jCBGrupoSanguineo.setSelectedIndex(pos + 1);
+            jDCFechaNac.setDate(java.sql.Date.valueOf(bomb.getFecha_nac()));
 
-        // Recorre los elementos del ComboBox para encontrar la posición de la brigada
-        for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {
-            Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);
-            if (brigadaSeleccionada != null && brigadaSeleccionada.getCodBrigada() == nroBrigada) {
-                jCBBrigadaAsignada.setSelectedIndex(i);
-                break;  // Sale del bucle una vez que se encuentra la brigada
+            // Seteo la Brigada a la que pertenece el bombero
+            int nroBrigada = bomb.getBrigada().getCodBrigada();
+
+            // Recorro los elementos del ComboBox para encontrar la posición de la brigada
+            for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {
+                Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);
+                if (brigadaSeleccionada != null && brigadaSeleccionada.getCodBrigada() == nroBrigada) {
+                    jCBBrigadaAsignada.setSelectedIndex(i);
+                    break;  // Me saca del bucle una vez que se encuentra la brigada
+                }
+            }
+            // Seteo el Estado
+            if (bomb.isEstado()) {
+                jRBEstado.setSelected(true);
+                jRBEstado.setText("Activo");
+                jBEliminar.setEnabled(true);
+            } else {
+                jRBEstado.setSelected(false);
+                jRBEstado.setText("Inactivo");
+                jBEliminar.setEnabled(false);
+            }
+            jBModificar.setEnabled(true);
+            jBAgregar.setEnabled(false);
+        } catch (NullPointerException e) {
+            if (jTDNI.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "No ingresó ningún DNI");
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No se encontró el bombero con DNI: " + dni);
             }
         }
     }//GEN-LAST:event_jBBusquedaXDniActionPerformed
@@ -363,6 +419,17 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         int idBombero = bomberoData.buscarBomberoIdPorDni(dni);
         bomberoData.eliminarBombero(idBombero);
     }//GEN-LAST:event_jBEliminarActionPerformed
+
+    private void jRBEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBEstadoActionPerformed
+        if (jRBEstado.isSelected()) {
+            jRBEstado.setText("Activo");
+            jBEliminar.setEnabled(true);
+        } else {
+            jRBEstado.setText("Inactivo");
+            jBEliminar.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_jRBEstadoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel calendarioOculto;
@@ -385,6 +452,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRBEstado;
+    private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField jTCelular;
     private javax.swing.JTextField jTDNI;
@@ -393,14 +461,37 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
     private void limpiarCampos() {
         jTNombreApellido.setText(null);
-        jTDNI.setText(null);
         jDCFechaNac.setDate(null);
         jCBBrigadaAsignada.setSelectedItem(null);
         jTCelular.setText(null);
         jRBEstado.setText(null);
         jRBEstado.setSelected(false);
+        jCBGrupoSanguineo.setSelectedIndex(0);
+        jBAgregar.setEnabled(true);
+        jBModificar.setEnabled(false);
+        prohibirIngresoLetras();
+        jTDNI.setText("");
     }
-
+    
+    public void prohibirIngresoLetras(){
+          ((AbstractDocument) jTDNI.getDocument()).setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                // Solo permitir números
+                if (string.matches("[0-9]+")) {
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Solo permitir números
+                if (text.matches("[0-9]+")) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+    }
+       
     private void CargarComboBox() {
         ArrayList<Brigada> listaBrigadas = (ArrayList<Brigada>) brigadaData.listarBrigadas();
 
@@ -413,7 +504,25 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }
 
     private Brigada obtenerBrigadaSeleccionada() {
-        return (Brigada) jCBBrigadaAsignada.getSelectedItem();
+        Object objeto = jCBBrigadaAsignada.getSelectedItem();
+        String obj = objeto.toString();
+        int codBrigada = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+        if (objeto != null) {
+            // Dividir la cadena por espacios en blanco
+            String[] parts = obj.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                try {
+                    codBrigada = Integer.parseInt(parts[1]);
+                    BrigadaData briData = new BrigadaData();
+                    Brigada brigada = new Brigada();
+                    brigada = briData.buscarBrigada2(codBrigada);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                }
+            }
+        }
+        return brigada;
     }
 
     private int listaGruposSanguineos(String grupoSanguineo) {
