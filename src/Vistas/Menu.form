@@ -113,12 +113,12 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jBbrigada">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Administracion"/>
+            <Property name="text" type="java.lang.String" value="Administraci&#xf3;n"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jBbombero">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bomberos."/>
+                <Property name="text" type="java.lang.String" value="Bomberos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBbomberoActionPerformed"/>
@@ -126,7 +126,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jBbrigadas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Brigadas."/>
+                <Property name="text" type="java.lang.String" value="Brigadas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBbrigadasActionPerformed"/>
@@ -134,7 +134,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jBcuarteles">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cuarteles."/>
+                <Property name="text" type="java.lang.String" value="Cuarteles"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBcuartelesActionPerformed"/>
@@ -149,7 +149,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jbEmergencias">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Click."/>
+                <Property name="text" type="java.lang.String" value="Click"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -161,19 +161,19 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jBen_proceso">
               <Properties>
-                <Property name="text" type="java.lang.String" value="En progreso."/>
+                <Property name="text" type="java.lang.String" value="En progreso"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jBfinalizado">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Finalizado."/>
+                <Property name="text" type="java.lang.String" value="Finalizado"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Calificacion"/>
+            <Property name="text" type="java.lang.String" value="Calificaci&#xf3;n"/>
           </Properties>
         </Menu>
       </SubComponents>
@@ -219,16 +219,21 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="escritorio">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1100, 820]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1000" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1100" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="720" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="820" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

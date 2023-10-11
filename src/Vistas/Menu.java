@@ -76,20 +76,22 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        escritorio.setPreferredSize(new java.awt.Dimension(1100, 820));
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGap(0, 820, Short.MAX_VALUE)
         );
 
-        jBbrigada.setText("Administracion");
+        jBbrigada.setText("Administración");
 
-        jBbombero.setText("Bomberos.");
+        jBbombero.setText("Bomberos");
         jBbombero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBbomberoActionPerformed(evt);
@@ -97,7 +99,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jBbrigada.add(jBbombero);
 
-        jBbrigadas.setText("Brigadas.");
+        jBbrigadas.setText("Brigadas");
         jBbrigadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBbrigadasActionPerformed(evt);
@@ -105,7 +107,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jBbrigada.add(jBbrigadas);
 
-        jBcuarteles.setText("Cuarteles.");
+        jBcuarteles.setText("Cuarteles");
         jBcuarteles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBcuartelesActionPerformed(evt);
@@ -117,22 +119,22 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu8.setText("Emergencias");
 
-        jbEmergencias.setText("Click.");
+        jbEmergencias.setText("Click");
         jMenu8.add(jbEmergencias);
 
         jMenuBar3.add(jMenu8);
 
         jMenu9.setText("Estado");
 
-        jBen_proceso.setText("En progreso.");
+        jBen_proceso.setText("En progreso");
         jMenu9.add(jBen_proceso);
 
-        jBfinalizado.setText("Finalizado.");
+        jBfinalizado.setText("Finalizado");
         jMenu9.add(jBfinalizado);
 
         jMenuBar3.add(jMenu9);
 
-        jMenu1.setText("Calificacion");
+        jMenu1.setText("Calificación");
         jMenuBar3.add(jMenu1);
 
         setJMenuBar(jMenuBar3);
@@ -156,7 +158,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBbomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbomberoActionPerformed
-        
+         
         escritorio.removeAll();
         escritorio.repaint();
 
@@ -172,7 +174,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
 
-        Vistas_Brigada vb = new Vistas_Brigada();
+        Vista_Brigada vb = new Vista_Brigada();
 
         escritorio.add(vb);
         escritorio.moveToFront(vb);
