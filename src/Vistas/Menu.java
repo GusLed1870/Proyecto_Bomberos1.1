@@ -41,6 +41,7 @@ public class Menu extends javax.swing.JFrame {
         jBen_proceso = new javax.swing.JMenuItem();
         jBfinalizado = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        Calificación = new javax.swing.JMenuItem();
 
         jMenu5.setText("File");
         jMenuBar2.add(jMenu5);
@@ -135,6 +136,15 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar3.add(jMenu9);
 
         jMenu1.setText("Calificación");
+
+        Calificación.setText("Ranking por Brigada");
+        Calificación.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CalificaciónActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Calificación);
+
         jMenuBar3.add(jMenu1);
 
         setJMenuBar(jMenuBar3);
@@ -193,6 +203,17 @@ public class Menu extends javax.swing.JFrame {
         vc.setVisible(true);
     }//GEN-LAST:event_jBcuartelesActionPerformed
 
+    private void CalificaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalificaciónActionPerformed
+          escritorio.removeAll();
+        escritorio.repaint();
+
+        Ranking vc = new Ranking();
+
+        escritorio.add(vc);
+        escritorio.moveToFront(vc);
+        vc.setVisible(true);
+    }//GEN-LAST:event_CalificaciónActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -227,6 +248,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Calificación;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem jBbombero;
     private javax.swing.JMenu jBbrigada;
