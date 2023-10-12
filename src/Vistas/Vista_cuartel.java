@@ -167,28 +167,39 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTyActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String vacios[] = new String[4];
+        String vacios[] = new String[7];
 
         try {
 
             if (jTnombre.getText().isEmpty()) {
-                vacios[1] = "Nombre";
+                vacios[0] = "Rellenar el campo NOMBRE";
             }
             if (jTdireccion.getText().isEmpty()) {
-                vacios[2] = "Direccion";
+                vacios[1] = "Rellenar el campo DIRECCION";
+            }
+           if(jTdireccion.getText()!="1234567890" ){
+                vacios[6] = "jaja";
             }
             if (jTtelefono.getText().isEmpty()) {
-                vacios[3] = "Telefono";
+                vacios[2] = "Rellenar el campo TELEFONO";
             }
-            
+            if (jTCorreo.getText().isEmpty()) {
+                vacios[3] = "Rellenar el campo CORREO";
 
-            if (jTdireccion.getText().isEmpty() || jTnombre.getText().isEmpty() || jTtelefono.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, vacios );
-                        
+            }
+            if (jTx.getText().isEmpty()) {
+                vacios[4] = "Rellenar el campo LATITUD";
 
+            }
+            if (jTy.getText().isEmpty()) {
+                vacios[5] = "Rellenar el campo LONGITUD";
+
+            }
+
+            if (jTdireccion.getText().isEmpty() || jTnombre.getText().isEmpty() || jTtelefono.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTx.getText().isEmpty() || jTy.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, vacios);
                 return;
             }
-
             String nombre_cuartel = jTnombre.getText();
             String direccion = jTdireccion.getText();
             String telefono = jTtelefono.getText();
@@ -196,10 +207,14 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             int coord_X = Integer.parseInt(jTx.getText());
             int coord_Y = Integer.parseInt(jTy.getText());
             Cuartel cua = new Cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
+
             cuar.cargarCuartel(cua);
+
             JOptionPane.showMessageDialog(this, "cuartel añadido con éxito");
+
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Ingresar valores numericos");
+            JOptionPane.showMessageDialog(this, "Ingresar valores numericos"
+                    + "(Latitud - Longitud)");
 
     }//GEN-LAST:event_jButton1ActionPerformed
     }
@@ -229,8 +244,4 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTx.setText(null);
         jTy.setText(null);
     }
-
-    public void AprendiLoDelMetodo(Vista_cuartel vista) {
-    }
-
 }
