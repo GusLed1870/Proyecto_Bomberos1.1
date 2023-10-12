@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -25,14 +26,15 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
     public Vista_Bombero() {
         initComponents();
+        jTDNI.setText("");
+        jTCelular.setText("");
         limpiarCampos();
         bomberoData = new BomberoData();
         brigadaData = new BrigadaData();
         bombero = new Bombero();
         CargarComboBox();
         jBModificar.setEnabled(false);
-        jBEliminar.setEnabled(false);
-      
+        jBEliminar.setEnabled(false); 
     }
 
     @SuppressWarnings("unchecked")
@@ -463,35 +465,87 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jTNombreApellido.setText(null);
         jDCFechaNac.setDate(null);
         jCBBrigadaAsignada.setSelectedItem(null);
-        jTCelular.setText(null);
+        jTCelular.setText("");
         jRBEstado.setText(null);
         jRBEstado.setSelected(false);
         jCBGrupoSanguineo.setSelectedIndex(0);
         jBAgregar.setEnabled(true);
         jBModificar.setEnabled(false);
-        prohibirIngresoLetras();
+        permitirSoloLetras(jTDNI);
         jTDNI.setText("");
+        permitirSoloNumeros(jTDNI); 
+        permitirSoloLetras(jTCelular);
+        jTCelular.setText("");
+        permitirSoloNumeros(jTCelular);
     }
-    
-    public void prohibirIngresoLetras(){
-          ((AbstractDocument) jTDNI.getDocument()).setDocumentFilter(new DocumentFilter() {
+
+    public void permitirSoloNumeros(JTextField textField) {
+        AbstractDocument doc = (AbstractDocument) textField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
             @Override
             public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                // Solo permitir números
-                if (string.matches("[0-9]+")) {
-                    super.insertString(fb, offset, string, attr);
+                try {
+                    if (string.matches("[0-9]+")) {
+                        super.insertString(fb, offset, string, attr);
+                        // Después de aplicar el filtro, establece el campo jTDNI en una cadena vacía
+                        jTDNI.setText("");
+                    }
+                } catch (BadLocationException e) {
+                    // Manejar la excepción BadLocationException, por ejemplo, mostrar un mensaje de error.
+                    System.err.println("Error al insertar texto: " + e.getMessage());
                 }
             }
+
             @Override
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                // Solo permitir números
-                if (text.matches("[0-9]+")) {
-                    super.replace(fb, offset, length, text, attrs);
+                try {
+                    if (text.matches("[0-9]+")) {
+                        super.replace(fb, offset, length, text, attrs);
+                        // Después de aplicar el filtro, establece el campo jTDNI en una cadena vacía
+                        jTDNI.setText("");
+                    }
+                } catch (Exception e) {
+                    // Manejar la excepción BadLocationException, por ejemplo, mostrar un mensaje de error.
+                    System.err.println("Error al reemplazar texto: " + e.getMessage());
                 }
             }
         });
     }
-       
+
+    public void permitirSoloLetras(JTextField textField) {
+        AbstractDocument doc = (AbstractDocument) textField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if (string == null) {
+                    return;
+                }
+                if (contieneSoloLetras(string)) {
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if (text == null) {
+                    return;
+                }
+                if (contieneSoloLetras(text)) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+
+            private boolean contieneSoloLetras(String text) {
+                for (char c : text.toCharArray()) {
+                    if (!Character.isLetter(c)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
     private void CargarComboBox() {
         ArrayList<Brigada> listaBrigadas = (ArrayList<Brigada>) brigadaData.listarBrigadas();
 

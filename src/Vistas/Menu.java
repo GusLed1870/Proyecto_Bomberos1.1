@@ -173,7 +173,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBbomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbomberoActionPerformed
-         
+
         escritorio.removeAll();
         escritorio.repaint();
 
@@ -185,7 +185,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jBbomberoActionPerformed
 
     private void jBbrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbrigadasActionPerformed
-        
+
         escritorio.removeAll();
         escritorio.repaint();
 
@@ -197,7 +197,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jBbrigadasActionPerformed
 
     private void jBcuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcuartelesActionPerformed
-        
+
         escritorio.removeAll();
         escritorio.repaint();
 
@@ -222,9 +222,9 @@ public class Menu extends javax.swing.JFrame {
     private void jbEmergenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEmergenciasActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         Vista_Siniestro vs = new Vista_Siniestro();
-        
+
         escritorio.add(vs);
         escritorio.moveToFront(vs);
         vs.setVisible(true);
