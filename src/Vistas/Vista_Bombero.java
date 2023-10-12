@@ -25,13 +25,17 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
     public Vista_Bombero() {
         initComponents();
-        limpiarCampos();
+        //limpiarCampos();
         bomberoData = new BomberoData();
         brigadaData = new BrigadaData();
         bombero = new Bombero();
         CargarComboBox();
         jBModificar.setEnabled(false);
         jBEliminar.setEnabled(false);
+        
+        
+        
+        
       
     }
 
@@ -110,6 +114,17 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Estado:");
+
+        jTDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTDNIActionPerformed(evt);
+            }
+        });
+        jTDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTDNIKeyReleased(evt);
+            }
+        });
 
         jBLimpiar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBLimpiar.setText("Limpiar");
@@ -281,7 +296,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
         );
 
         pack();
@@ -431,6 +446,14 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRBEstadoActionPerformed
 
+    private void jTDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDNIActionPerformed
+       // prohibirIngresoLetras();
+    }//GEN-LAST:event_jTDNIActionPerformed
+
+    private void jTDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDNIKeyReleased
+        prohibirIngresoLetras();
+    }//GEN-LAST:event_jTDNIKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel calendarioOculto;
     private javax.swing.JButton jBAgregar;
@@ -469,28 +492,31 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jCBGrupoSanguineo.setSelectedIndex(0);
         jBAgregar.setEnabled(true);
         jBModificar.setEnabled(false);
-        prohibirIngresoLetras();
-        jTDNI.setText("");
+        //prohibirIngresoLetras();
+        jTDNI.setText(" ");
     }
     
-    public void prohibirIngresoLetras(){
-          ((AbstractDocument) jTDNI.getDocument()).setDocumentFilter(new DocumentFilter() {
-            @Override
-            public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                // Solo permitir números
-                if (string.matches("[0-9]+")) {
-                    super.insertString(fb, offset, string, attr);
-                }
+public void prohibirIngresoLetras() {
+    AbstractDocument doc = (AbstractDocument) jTDNI.getDocument();
+    doc.setDocumentFilter(new DocumentFilter() {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+            // Solo permitir números
+            if (string.matches("[0-9] +")) {
+                super.insertString(fb, offset, string, attr);
             }
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                // Solo permitir números
-                if (text.matches("[0-9]+")) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+            // Solo permitir números
+            if (text.matches("[0-9]+")) {
+                super.replace(fb, offset, length, text, attrs);
             }
-        });
-    }
+        }
+    });
+}
+
        
     private void CargarComboBox() {
         ArrayList<Brigada> listaBrigadas = (ArrayList<Brigada>) brigadaData.listarBrigadas();
