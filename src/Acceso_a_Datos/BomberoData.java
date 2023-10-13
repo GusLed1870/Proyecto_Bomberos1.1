@@ -51,30 +51,35 @@ public class BomberoData {
 
     public Bombero buscarBomberoPorID(int id) {
 
-        Bombero bombero = null;
+     Bombero bombero = null;
         String sql = "SELECT * FROM bombero WHERE id_bombero = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, id);
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 bombero = new Bombero();
-                bombero.setId_bombero(id);
+                brigada = new Brigada();
+                BrigadaData briData = new BrigadaData();
+                bombero.setId_bombero(rs.getInt("id_bombero"));
                 bombero.setDni(rs.getString("dni"));
                 bombero.setNombre_ape(rs.getString("nombre_ape"));
                 bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
+                bombero.setCelular(rs.getInt("celular"));
                 bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
                 bombero.setEstado(rs.getBoolean("estado"));
-
-            } else {
-                ps.close();
+                int codBri = rs.getInt("codBrigada");
+                brigada = briData.buscarBrigada(codBri);
+                bombero.setBrigada(brigada);
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
         }
-
         return bombero;
     }
 

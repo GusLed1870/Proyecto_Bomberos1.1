@@ -29,12 +29,16 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jTDNI.setText("");
         jTCelular.setText("");
         limpiarCampos();
+        permitirSoloLetras(jTNombreApellido);
+        permitirSoloNumeros(jTIdBombero);
         bomberoData = new BomberoData();
         brigadaData = new BrigadaData();
         bombero = new Bombero();
         CargarComboBox();
+        jCBBrigadaAsignada.setSelectedItem(null);
         jBModificar.setEnabled(false);
-        jBEliminar.setEnabled(false); 
+        jBEliminar.setEnabled(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -61,11 +65,14 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jBModificar = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
-        calendarioOculto = new javax.swing.JLabel();
         jCBBrigadaAsignada = new javax.swing.JComboBox<>();
         jCBGrupoSanguineo = new javax.swing.JComboBox<>();
-        jBBusquedaXDni = new javax.swing.JButton();
+        jBBusquedaXNombre = new javax.swing.JButton();
         jRBEstado = new javax.swing.JRadioButton();
+        jLID = new javax.swing.JLabel();
+        jTIdBombero = new javax.swing.JTextField();
+        jBBusquedaXId = new javax.swing.JButton();
+        jBBusquedaXDni = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -153,17 +160,13 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             }
         });
 
-        calendarioOculto.setBackground(new java.awt.Color(112, 12, 19));
-        calendarioOculto.setForeground(new java.awt.Color(112, 11, 19));
-        calendarioOculto.setText("jLabel9");
-
         jCBGrupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el grupo sanguíneo", "A-", "A+", "B-", "B+", "AB-", "AB+", "0-", "0+", " " }));
 
-        jBBusquedaXDni.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jBBusquedaXDni.setText("Búsqueda por DNI");
-        jBBusquedaXDni.addActionListener(new java.awt.event.ActionListener() {
+        jBBusquedaXNombre.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jBBusquedaXNombre.setText("Búsqueda por Nombre");
+        jBBusquedaXNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBBusquedaXDniActionPerformed(evt);
+                jBBusquedaXNombreActionPerformed(evt);
             }
         });
 
@@ -174,124 +177,323 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             }
         });
 
+        jLID.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLID.setForeground(new java.awt.Color(255, 255, 255));
+        jLID.setText("ID:");
+
+        jBBusquedaXId.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jBBusquedaXId.setText("Búsqueda por ID");
+        jBBusquedaXId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBusquedaXIdActionPerformed(evt);
+            }
+        });
+
+        jBBusquedaXDni.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jBBusquedaXDni.setText("Búsqueda por DNI");
+        jBBusquedaXDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBusquedaXDniActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTDNI)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBBusquedaXDni))
-                            .addComponent(jCBBrigadaAsignada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRBEstado)
-                                    .addComponent(jCBGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTNombreApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jBLimpiar)
-                        .addGap(68, 68, 68)
-                        .addComponent(jBAgregar)
-                        .addGap(76, 76, 76)
-                        .addComponent(jBModificar)
-                        .addGap(73, 73, 73)
-                        .addComponent(jBEliminar)
-                        .addGap(71, 71, 71)
-                        .addComponent(jBSalir)
-                        .addGap(26, 26, 26)))
-                .addGap(146, 146, 146))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(calendarioOculto)
-                .addGap(384, 384, 384)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(458, 458, 458))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLID)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jTNombreApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                                                .addComponent(jTIdBombero, javax.swing.GroupLayout.Alignment.LEADING))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jBBusquedaXId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jBBusquedaXNombre)
+                                                    .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jBBusquedaXDni, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
+                                    .addComponent(jCBBrigadaAsignada, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCBGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jRBEstado)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(113, 113, 113)
+                                .addComponent(jBLimpiar)
+                                .addGap(74, 74, 74)
+                                .addComponent(jBAgregar)
+                                .addGap(80, 80, 80)
+                                .addComponent(jBModificar)
+                                .addGap(76, 76, 76)
+                                .addComponent(jBEliminar)
+                                .addGap(68, 68, 68)
+                                .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(calendarioOculto))
-                .addGap(25, 25, 25)
+                    .addComponent(jTIdBombero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLID)
+                    .addComponent(jBBusquedaXId))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTNombreApellido))
+                    .addComponent(jTNombreApellido)
+                    .addComponent(jBBusquedaXNombre))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBBusquedaXDni)
-                        .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBBusquedaXDni)
+                    .addComponent(jLabel3))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBBrigadaAsignada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTCelular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(24, 24, 24)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jCBGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBSalir)
-                            .addComponent(jBEliminar)
-                            .addComponent(jBModificar)
-                            .addComponent(jBAgregar)
-                            .addComponent(jBLimpiar))
-                        .addGap(42, 42, 42))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRBEstado)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCBGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(jRBEstado))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBLimpiar)
+                    .addComponent(jBAgregar)
+                    .addComponent(jBModificar)
+                    .addComponent(jBEliminar)
+                    .addComponent(jBSalir))
+                .addGap(127, 127, 127))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 36, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-        limpiarCampos();
-    }//GEN-LAST:event_jBLimpiarActionPerformed
+    private void jBBusquedaXIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusquedaXIdActionPerformed
+        int idBombero;
+
+        try {
+            idBombero = Integer.parseInt(jTIdBombero.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "No ingresó ningún ID para buscar");
+            return;
+        }
+
+        try {
+            Bombero bombero = bomberoData.buscarBomberoPorID(idBombero);
+
+            if (bombero == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró el bombero con ID: " + idBombero);
+                return;
+            }
+
+            // Seteo el Nombre y Apellido
+            jTNombreApellido.setText(bombero.getNombre_ape());
+
+            // Seteo el DNI
+            jTDNI.setText(bombero.getDni());
+
+            // Seteo la Brigada a la que pertenece el bombero
+            int nroBrigada = bombero.getBrigada().getCodBrigada();
+
+            for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {
+                Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);
+                if (brigadaSeleccionada != null && brigadaSeleccionada.getCodBrigada() == nroBrigada) {
+                    jCBBrigadaAsignada.setSelectedIndex(i);
+                    break; // Me saca del bucle una vez que se encuentra la brigada
+                }
+            }
+
+            // Seteo el celular
+            jTCelular.setText(String.valueOf(bombero.getCelular()));
+
+            // Seteo la Fecha de Nacimiento
+            try {
+                jDCFechaNac.setDate(java.sql.Date.valueOf(bombero.getFecha_nac()));
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(this, "La fecha de nacimiento es nula o inválida.");
+                return;
+            }
+
+            // Seteo el grupo sanguíneo
+            String sangre = bombero.getGrupoSanguineo();
+            int pos = listaGruposSanguineos(sangre);
+            jCBGrupoSanguineo.setSelectedIndex(pos + 1);
+
+            // Seteo el Estado
+            if (bombero.isEstado()) {
+                jRBEstado.setSelected(true);
+                jRBEstado.setText("Activo");
+                jBEliminar.setEnabled(true);
+            } else {
+                jRBEstado.setSelected(false);
+                jRBEstado.setText("Inactivo");
+                jBEliminar.setEnabled(false);
+            }
+
+            jBModificar.setEnabled(true);
+            jBAgregar.setEnabled(false);
+
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No se encontró el bombero con ID: " + idBombero);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error al buscar el bombero por ID: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jBBusquedaXIdActionPerformed
+
+    private void jRBEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBEstadoActionPerformed
+        if (jRBEstado.isSelected()) {
+            jRBEstado.setText("Activo");
+            jBEliminar.setEnabled(true);
+        } else {
+            jRBEstado.setText("Inactivo");
+            jBEliminar.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_jRBEstadoActionPerformed
+
+    private void jBBusquedaXNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusquedaXNombreActionPerformed
+
+    }//GEN-LAST:event_jBBusquedaXNombreActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
+        String dni = jTDNI.getText();
+        int idBombero = bomberoData.buscarBomberoIdPorDni(dni);
+        bomberoData.eliminarBombero(idBombero);
+    }//GEN-LAST:event_jBEliminarActionPerformed
+
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        String nombre = jTNombreApellido.getText();
+        String dni = jTDNI.getText();
+        int celular = 0;
+        LocalDate fechaNacFormateada = null;
+        int codBrigada = -1;
+        brigada = null;
+        String gs = "0+";
+        try {
+            celular = Integer.parseInt(jTCelular.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error al ingresar el número de celular.");
+            return; // Sale del método si hay un error en el celular
+        }
+
+        try {
+            Date fechaNac = jDCFechaNac.getDate();
+            if (fechaNac != null) {
+                fechaNacFormateada = fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione una fecha de nacimiento válida.");
+                return; // Sale del método si no se ha seleccionado una fecha
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al ingresar la fecha de nacimiento.");
+            return; // Sale del método si hay un error en la fecha de nacimiento
+        }
+        try {
+            gs = jCBGrupoSanguineo.getSelectedItem().toString();
+            if (!gs.equalsIgnoreCase("Seleccione el grupo sanguíneo")) {
+                gs = jCBGrupoSanguineo.getSelectedItem().toString();
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un grupo sanguíneo");
+                return;
+            }
+        } catch (NullPointerException e) {
+            return;
+        }
+
+        Object objeto = jCBBrigadaAsignada.getSelectedItem();
+        String obj = objeto.toString();
+
+        if (obj != null) {
+            String[] parts = obj.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                try {
+                    codBrigada = Integer.parseInt(parts[1]);
+                    BrigadaData briData = new BrigadaData();
+                    brigada = briData.buscarBrigada(codBrigada);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar el código de brigada.");
+                    return; // Sale del método si hay un error en el código de brigada
+                }
+            }
+        }
+
+        Bombero bomb = bomberoData.buscarBomberoPordni(dni);
+
+        if (bomb != null) {
+            bomb.setNombre_ape(nombre);
+            bomb.setFecha_nac(fechaNacFormateada);
+            bomb.setCelular(celular);
+            bomb.setGrupoSanguineo(gs);
+            bomb.setEstado(jRBEstado.isSelected());
+
+            if (brigada != null) {
+                bomb.setBrigada(brigada);
+            } else {
+                JOptionPane.showMessageDialog(this, "La brigada seleccionada no es válida.");
+                return; // Sale del método si no se ha seleccionado una brigada válida
+            }
+
+            bomberoData.modificarBombero(bomb);
+        } else {
+            JOptionPane.showMessageDialog(this, "Bombero no encontrado.");
+        }
+    }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
         String nombre = jTNombreApellido.getText();
@@ -317,71 +519,20 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         bomberoData.guardarBombero(bomb);
     }//GEN-LAST:event_jBAgregarActionPerformed
 
-    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_jBSalirActionPerformed
-
-    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        String nombre = jTNombreApellido.getText();
-        String dni = jTDNI.getText();
-        LocalDate fechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int celular = Integer.parseInt(jTCelular.getText());
-        String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
-        boolean estado = jRBEstado.isSelected();
-
-        Bombero bomb = bomberoData.buscarBomberoPordni(dni);
-
-        if (bomb != null) {
-
-            bomb.setNombre_ape(nombre);
-            bomb.setFecha_nac(fechaNacFormateada);
-            bomb.setCelular(celular);
-            bomb.setGrupoSanguineo(grupoSanguineo);
-            bomb.setEstado(estado);
-
-            Object objeto = jCBBrigadaAsignada.getSelectedItem();
-            String obj = objeto.toString();
-            int codBrigada = -1;
-            Brigada brigada = null;
-
-            if (objeto != null) {
-
-                String[] parts = obj.split(" ");
-                if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
-                    try {
-                        codBrigada = Integer.parseInt(parts[1]);
-                        BrigadaData briData = new BrigadaData();
-                        brigada = briData.buscarBrigada(codBrigada);
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
-                    }
-                }
-            }
-
-            if (brigada != null) {
-                bomb.setBrigada(brigada);
-            } else {
-                JOptionPane.showMessageDialog(this, "La brigada seleccionada no es válida.");
-            }
-
-            bomberoData.modificarBombero(bomb);
-        }
-
-    }//GEN-LAST:event_jBModificarActionPerformed
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_jBLimpiarActionPerformed
 
     private void jBBusquedaXDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusquedaXDniActionPerformed
         String dni = jTDNI.getText();
         try {
             Bombero bomb = bomberoData.buscarBomberoPordni(dni);
 
+            // Seteo Nombre y Apellido del bombero
             jTNombreApellido.setText(bomb.getNombre_ape());
-            jTCelular.setText(String.valueOf(bomb.getCelular()));
 
-            // Seteo el grupo sanguíneo
-            String sangre = bomb.getGrupoSanguineo();
-            int pos = listaGruposSanguineos(sangre);
-            jCBGrupoSanguineo.setSelectedIndex(pos + 1);
-            jDCFechaNac.setDate(java.sql.Date.valueOf(bomb.getFecha_nac()));
+            // Seteo el celular del bombero
+            jTCelular.setText(String.valueOf(bomb.getCelular()));
 
             // Seteo la Brigada a la que pertenece el bombero
             int nroBrigada = bomb.getBrigada().getCodBrigada();
@@ -391,9 +542,21 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);
                 if (brigadaSeleccionada != null && brigadaSeleccionada.getCodBrigada() == nroBrigada) {
                     jCBBrigadaAsignada.setSelectedIndex(i);
-                    break;  // Me saca del bucle una vez que se encuentra la brigada
+                    break; // Me saca del bucle una vez que se encuentra la brigada
                 }
             }
+
+            // Seteo el idBombero
+            jTIdBombero.setText(String.valueOf(bomb.getId_bombero())); // Usar String.valueOf para convertir a texto
+
+            // Seteo el grupo sanguíneo
+            String sangre = bomb.getGrupoSanguineo();
+            int pos = listaGruposSanguineos(sangre); // Asumo que listaGruposSanguineos está definido
+            jCBGrupoSanguineo.setSelectedIndex(pos + 1);
+
+            // Seteo la Fecha de Nacimiento
+            jDCFechaNac.setDate(java.sql.Date.valueOf(bomb.getFecha_nac()));
+
             // Seteo el Estado
             if (bomb.isEstado()) {
                 jRBEstado.setSelected(true);
@@ -406,37 +569,21 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             }
             jBModificar.setEnabled(true);
             jBAgregar.setEnabled(false);
+
         } catch (NullPointerException e) {
-            if (jTDNI.getText().equals("")) {
+            if (jTDNI.getText().isEmpty()) { // Usar isEmpty() para comprobar si está vacío
                 JOptionPane.showMessageDialog(null, "No ingresó ningún DNI");
             } else {
-
                 JOptionPane.showMessageDialog(null, "No se encontró el bombero con DNI: " + dni);
             }
         }
     }//GEN-LAST:event_jBBusquedaXDniActionPerformed
 
-    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        String dni = jTDNI.getText();
-        int idBombero = bomberoData.buscarBomberoIdPorDni(dni);
-        bomberoData.eliminarBombero(idBombero);
-    }//GEN-LAST:event_jBEliminarActionPerformed
-
-    private void jRBEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBEstadoActionPerformed
-        if (jRBEstado.isSelected()) {
-            jRBEstado.setText("Activo");
-            jBEliminar.setEnabled(true);
-        } else {
-            jRBEstado.setText("Inactivo");
-            jBEliminar.setEnabled(false);
-
-        }
-    }//GEN-LAST:event_jRBEstadoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel calendarioOculto;
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBBusquedaXDni;
+    private javax.swing.JButton jBBusquedaXId;
+    private javax.swing.JButton jBBusquedaXNombre;
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBModificar;
@@ -444,6 +591,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Brigada> jCBBrigadaAsignada;
     private javax.swing.JComboBox<String> jCBGrupoSanguineo;
     private com.toedter.calendar.JDateChooser jDCFechaNac;
+    private javax.swing.JLabel jLID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -458,6 +606,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField jTCelular;
     private javax.swing.JTextField jTDNI;
+    private javax.swing.JTextField jTIdBombero;
     private javax.swing.JTextField jTNombreApellido;
     // End of variables declaration//GEN-END:variables
 
@@ -473,10 +622,16 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jBModificar.setEnabled(false);
         permitirSoloLetras(jTDNI);
         jTDNI.setText("");
-        permitirSoloNumeros(jTDNI); 
+        permitirSoloNumeros(jTDNI);
         permitirSoloLetras(jTCelular);
         jTCelular.setText("");
         permitirSoloNumeros(jTCelular);
+        permitirSoloLetras(jTNombreApellido);
+        jTNombreApellido.setText("");
+        permitirSoloLetras(jTIdBombero);
+        jTIdBombero.setText("");
+        permitirSoloNumeros(jTIdBombero);
+
     }
 
     public void permitirSoloNumeros(JTextField textField) {
@@ -520,7 +675,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 if (string == null) {
                     return;
                 }
-                if (contieneSoloLetras(string)) {
+                if (contieneSoloLetrasYEspacios(string)) {
                     super.insertString(fb, offset, string, attr);
                 }
             }
@@ -530,14 +685,14 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 if (text == null) {
                     return;
                 }
-                if (contieneSoloLetras(text)) {
+                if (contieneSoloLetrasYEspacios(text)) {
                     super.replace(fb, offset, length, text, attrs);
                 }
             }
 
-            private boolean contieneSoloLetras(String text) {
+            private boolean contieneSoloLetrasYEspacios(String text) {
                 for (char c : text.toCharArray()) {
-                    if (!Character.isLetter(c)) {
+                    if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
                         return false;
                     }
                 }
@@ -560,6 +715,8 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private Brigada obtenerBrigadaSeleccionada() {
         Object objeto = jCBBrigadaAsignada.getSelectedItem();
         String obj = objeto.toString();
+        BrigadaData briData = new BrigadaData();
+        Brigada brigada = new Brigada();
         int codBrigada = -1; // Valor predeterminado si no se encuentra el código de Cuartel
 
         if (objeto != null) {
@@ -568,9 +725,8 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
                 try {
                     codBrigada = Integer.parseInt(parts[1]);
-                    BrigadaData briData = new BrigadaData();
-                    Brigada brigada = new Brigada();
                     brigada = briData.buscarBrigada2(codBrigada);
+                    // return brigada;
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
                 }
@@ -593,4 +749,5 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         pos = lista.indexOf(grupoSanguineo);
         return pos;
     }
+
 }
