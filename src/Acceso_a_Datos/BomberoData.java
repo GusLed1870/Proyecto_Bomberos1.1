@@ -22,6 +22,10 @@ public class BomberoData {
     }
 
     public void guardarBombero(Bombero bombero) {
+        if (bombero.getBrigada() == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada antes de guardar el bombero.");
+            return;
+        }
 
         String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -38,20 +42,17 @@ public class BomberoData {
 
             if (rs.next()) {
                 bombero.setId_bombero(rs.getInt(1));
-
                 JOptionPane.showMessageDialog(null, "Bombero añadido con éxito. Legajo: " + bombero.getId_bombero());
-
             }
             ps.close();
-
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al guardar el bombero: " + ex.getMessage());
         }
     }
 
     public Bombero buscarBomberoPorID(int id) {
 
-     Bombero bombero = null;
+        Bombero bombero = null;
         String sql = "SELECT * FROM bombero WHERE id_bombero = ?";
 
         try {
@@ -78,7 +79,7 @@ public class BomberoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
         }
         return bombero;
     }
@@ -147,7 +148,7 @@ public class BomberoData {
     }
 
     public void modificarBombero(Bombero bombero) {
-        
+
         String sql = "UPDATE bombero SET dni = ?, nombre_ape = ?, fecha_nac = ?, celular = ?, codBrigada = ?, grupoSanguineo = ?, estado = ? WHERE id_bombero = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -164,7 +165,7 @@ public class BomberoData {
             if (modificado == 1) {
                 JOptionPane.showMessageDialog(null, "Bombero modificado con éxito");
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró un bombero con DNI: "+bombero.getDni());
+                JOptionPane.showMessageDialog(null, "No se encontró un bombero con DNI: " + bombero.getDni());
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Bombero " + ex.getMessage());
