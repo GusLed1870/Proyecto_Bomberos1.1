@@ -4,6 +4,7 @@ import Acceso_a_Datos.BomberoData;
 import Acceso_a_Datos.BrigadaData;
 import Entidades.Bombero;
 import Entidades.Brigada;
+import java.awt.Color;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,6 +30,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         initComponents();
         jTDNI.setText("");
         jTCelular.setText("");
+        jTIdBombero.setForeground(Color.GRAY);
         limpiarCampos();
         permitirSoloLetras(jTNombreApellido);
         permitirSoloNumeros(jTIdBombero);
@@ -74,12 +76,14 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jTIdBombero = new javax.swing.JTextField();
         jBBusquedaXId = new javax.swing.JButton();
         jBBusquedaXDni = new javax.swing.JButton();
+        jLIdBombero = new javax.swing.JLabel();
 
         setClosable(true);
+        setPreferredSize(new java.awt.Dimension(1100, 678));
 
         jPanel1.setBackground(new java.awt.Color(112, 11, 19));
         jPanel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jPanel1.setPreferredSize(new java.awt.Dimension(900, 520));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 520));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
@@ -180,7 +184,13 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
         jLID.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLID.setForeground(new java.awt.Color(255, 255, 255));
-        jLID.setText("ID:");
+        jLID.setText("Legajo/ID:");
+
+        jTIdBombero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTIdBomberoMouseClicked(evt);
+            }
+        });
 
         jBBusquedaXId.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBBusquedaXId.setText("Búsqueda por ID");
@@ -198,69 +208,74 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             }
         });
 
+        jLIdBombero.setForeground(new java.awt.Color(112, 11, 19));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(458, 458, 458))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4)
+                            .addComponent(jLID)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLID)
-                                    .addComponent(jLabel8))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jTNombreApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-                                                .addComponent(jTIdBombero, javax.swing.GroupLayout.Alignment.LEADING))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jBBusquedaXId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(jBBusquedaXNombre)
-                                                    .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(jTNombreApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                                        .addComponent(jTIdBombero, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jBBusquedaXId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jBBusquedaXDni, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
-                                    .addComponent(jCBBrigadaAsignada, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCBGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jRBEstado)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addComponent(jBLimpiar)
-                                .addGap(74, 74, 74)
-                                .addComponent(jBAgregar)
-                                .addGap(80, 80, 80)
-                                .addComponent(jBModificar)
-                                .addGap(76, 76, 76)
-                                .addComponent(jBEliminar)
-                                .addGap(68, 68, 68)
-                                .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(31, 31, 31))))
+                                            .addComponent(jBBusquedaXNombre)
+                                            .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jBBusquedaXDni, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
+                            .addComponent(jCBBrigadaAsignada, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCBGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRBEstado)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jBLimpiar)
+                        .addGap(74, 74, 74)
+                        .addComponent(jBAgregar)
+                        .addGap(80, 80, 80)
+                        .addComponent(jBModificar)
+                        .addGap(76, 76, 76)
+                        .addComponent(jBEliminar)
+                        .addGap(68, 68, 68)
+                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(456, 456, 456)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLIdBombero)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addComponent(jLIdBombero)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel1)
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTIdBombero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLID)
@@ -302,20 +317,18 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     .addComponent(jBModificar)
                     .addComponent(jBEliminar)
                     .addComponent(jBSalir))
-                .addGap(127, 127, 127))
+                .addGap(61, 61, 61))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1098, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 36, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
         );
 
         pack();
@@ -497,80 +510,89 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        try {
-            String nombre = jTNombreApellido.getText();
-            String dni = jTDNI.getText();
-            LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            int celular = Integer.parseInt(jTCelular.getText());
-            String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
-            boolean estado = jRBEstado.isSelected();
-            Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
+        if (!jTIdBombero.getText().equals("No ingrese datos si va a agregar un bombero") && (!jLIdBombero.getText().equals(jTIdBombero.getText()))) {
+            JOptionPane.showMessageDialog(null, "El legajo no se puede modificar");
+        } else {
+            try {
+                String nombre = jTNombreApellido.getText();
+                String dni = jTDNI.getText();
+                LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                int celular = Integer.parseInt(jTCelular.getText());
+                String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
+                boolean estado = jRBEstado.isSelected();
+                Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
 
-            if (jCBBrigadaAsignada.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog(null, "Debe asignar una brigada");
-                return;
-            }
-            // Si faltan todos de los campos
-            if (jTNombreApellido.getText().isEmpty() && jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
-                    && jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() == 0
-                    && obtenerBrigadaSeleccionada() == null && jRBEstado.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
-                return;
-            }
-            // Si falta el nombre
-            if (jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
-                    && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
-                    && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el Nombre y Apellido");
-                return;
-            }
-            // Si falta el DNI
-            if (!jTNombreApellido.getText().isEmpty() && jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
-                    && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
-                    && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el DNI");
-                return;
-            }
-            // Si falta el grupo sanguíneo
-            if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
-                    && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() == 0
-                    && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el grupo sanguíneo");
-                return;
-            }
-            // Si falta el estado
-            if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
-                    && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
-                    && obtenerBrigadaSeleccionada() != null && !jRBEstado.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
-                return;
-            }
+                if (jCBBrigadaAsignada.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe asignar una brigada");
+                    return;
+                }
+                // Si faltan todos de los campos
+                if (jTNombreApellido.getText().isEmpty() && jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
+                        && jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() == 0
+                        && obtenerBrigadaSeleccionada() == null && jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+                    return;
+                }
+                // Si falta el nombre
+                if (jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el Nombre y Apellido");
+                    return;
+                }
+                // Si falta el DNI
+                if (!jTNombreApellido.getText().isEmpty() && jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el DNI");
+                    return;
+                }
+                // Si falta el grupo sanguíneo
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() == 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el grupo sanguíneo");
+                    return;
+                }
+                // Si falta el estado
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && !jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
+                    return;
+                }
 
-            Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
+                Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
 
-            bombero.setBrigada(brigadaSeleccionada);
+                bombero.setBrigada(brigadaSeleccionada);
 
-            Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
+                Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
 
-            bomberoData.guardarBombero(bomb);
+                if(bomberoData.buscarBomberoPordni(dni)!=null){
+                    JOptionPane.showMessageDialog(null, "El DNI que quiere agregar ya se encuentra en la base de datos");
+                    return;
+                }
+                
+                bomberoData.guardarBombero(bomb);
 
-        } catch (DateTimeException e) {
-            JOptionPane.showMessageDialog(null, "La fecha de nacimiento es inválida");
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Debe completar el celular");
-        } catch (Exception e) {
-            // Si falta la fecha de nacimiento
-            if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
-                    && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
-                    && obtenerBrigadaSeleccionada() != null) {
-                JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
-            } // Si falta la brigada 
-            else if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
-                    && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
-                    && obtenerBrigadaSeleccionada() == null) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
-            } else {
-                JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+            } catch (DateTimeException e) {
+                JOptionPane.showMessageDialog(null, "La fecha de nacimiento es inválida");
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, "Debe completar el celular");
+            } catch (Exception e) {
+                // Si falta la fecha de nacimiento
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null) {
+                    JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
+                } // Si falta la brigada 
+                else if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+                }
             }
         }
     }//GEN-LAST:event_jBAgregarActionPerformed
@@ -598,16 +620,16 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);
                 if (brigadaSeleccionada != null && brigadaSeleccionada.getCodBrigada() == nroBrigada) {
                     jCBBrigadaAsignada.setSelectedIndex(i);
-                    break; // Me saca del bucle una vez que se encuentra la brigada
+                    break;
                 }
             }
 
             // Seteo el idBombero
-            jTIdBombero.setText(String.valueOf(bomb.getId_bombero())); // Usar String.valueOf para convertir a texto
+            jTIdBombero.setText(String.valueOf(bomb.getId_bombero()));
 
             // Seteo el grupo sanguíneo
             String sangre = bomb.getGrupoSanguineo();
-            int pos = listaGruposSanguineos(sangre); // Asumo que listaGruposSanguineos está definido
+            int pos = listaGruposSanguineos(sangre);
             jCBGrupoSanguineo.setSelectedIndex(pos + 1);
 
             // Seteo la Fecha de Nacimiento
@@ -627,13 +649,20 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             jBAgregar.setEnabled(false);
 
         } catch (NullPointerException e) {
-            if (jTDNI.getText().isEmpty()) { // Usar isEmpty() para comprobar si está vacío
+            if (jTDNI.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No ingresó ningún DNI");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el bombero con DNI: " + dni);
             }
         }
     }//GEN-LAST:event_jBBusquedaXDniActionPerformed
+
+    private void jTIdBomberoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTIdBomberoMouseClicked
+        permitirSoloLetras(jTIdBombero);
+        jTIdBombero.setText("");
+        jTIdBombero.setForeground(Color.BLACK);
+        permitirSoloNumeros(jTIdBombero);
+    }//GEN-LAST:event_jTIdBomberoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregar;
@@ -648,6 +677,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jCBGrupoSanguineo;
     private com.toedter.calendar.JDateChooser jDCFechaNac;
     private javax.swing.JLabel jLID;
+    private javax.swing.JLabel jLIdBombero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -685,8 +715,9 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         permitirSoloLetras(jTNombreApellido);
         jTNombreApellido.setText("");
         permitirSoloLetras(jTIdBombero);
-        jTIdBombero.setText("");
+        jTIdBombero.setText("No ingrese datos si va a agregar un bombero");
         permitirSoloNumeros(jTIdBombero);
+        jTIdBombero.setForeground(Color.GRAY);
 
     }
 
