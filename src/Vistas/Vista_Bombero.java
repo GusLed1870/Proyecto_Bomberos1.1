@@ -41,7 +41,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jCBBrigadaAsignada.setSelectedItem(null);
         jBModificar.setEnabled(false);
         jBEliminar.setEnabled(false);
-
+        jTNombreApellido.requestFocus();
     }
 
     @SuppressWarnings("unchecked")
@@ -306,11 +306,11 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jRBEstado))
-                .addGap(55, 55, 55)
+                .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBLimpiar)
                     .addComponent(jBAgregar)
@@ -328,7 +328,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
         );
 
         pack();
@@ -510,22 +510,15 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        if (!jTIdBombero.getText().equals("No ingrese datos si va a agregar un bombero") && (!jLIdBombero.getText().equals(jTIdBombero.getText()))) {
+        if (!jTIdBombero.getText().equals("Para agregar un bombero no es necesario colocar el ID") && (!jLIdBombero.getText().equals(jTIdBombero.getText()))) {
             JOptionPane.showMessageDialog(null, "El legajo no se puede modificar");
         } else {
             try {
                 String nombre = jTNombreApellido.getText();
                 String dni = jTDNI.getText();
-                LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                int celular = Integer.parseInt(jTCelular.getText());
                 String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
                 boolean estado = jRBEstado.isSelected();
-                Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
 
-                if (jCBBrigadaAsignada.getSelectedItem() == null) {
-                    JOptionPane.showMessageDialog(null, "Debe asignar una brigada");
-                    return;
-                }
                 // Si faltan todos de los campos
                 if (jTNombreApellido.getText().isEmpty() && jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
                         && jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() == 0
@@ -533,11 +526,16 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
                     return;
                 }
+                // Si falta asignar la brigada
+                if (jCBBrigadaAsignada.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe asignar una brigada");
+                    return;
+                }
                 // Si falta el nombre
                 if (jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
                         && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
                         && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
-                    JOptionPane.showMessageDialog(null, "Debe completar el Nombre y Apellido");
+                    JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
                     return;
                 }
                 // Si falta el DNI
@@ -545,6 +543,13 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                         && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
                         && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el DNI");
+                    return;
+                }
+                // Si falta el celular
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el celular");
                     return;
                 }
                 // Si falta el grupo sanguíneo
@@ -561,6 +566,30 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
                     return;
                 }
+                // Si falta la fecha de nacimiento
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null) {
+                    JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
+                    return;
+                }
+                // Si falta la brigada 
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
+                }
+                // Si faltan algunos campos por completar     
+                if (jTNombreApellido.getText().isEmpty() || jTDNI.getText().isEmpty() || jDCFechaNac.getDate() == null
+                        || jTCelular.getText().isEmpty() || jCBGrupoSanguineo.getSelectedIndex() == 0
+                        || obtenerBrigadaSeleccionada() == null || jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Faltan campos por completar");
+                    return;
+                }   
+                LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
+
+                int celular = Integer.parseInt(jTCelular.getText());
 
                 Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
 
@@ -568,31 +597,15 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
                 Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
 
-                if(bomberoData.buscarBomberoPordni(dni)!=null){
+                if (bomberoData.buscarBomberoPordni(dni) != null) {
                     JOptionPane.showMessageDialog(null, "El DNI que quiere agregar ya se encuentra en la base de datos");
                     return;
                 }
-                
+
                 bomberoData.guardarBombero(bomb);
 
-            } catch (DateTimeException e) {
-                JOptionPane.showMessageDialog(null, "La fecha de nacimiento es inválida");
-            } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "Debe completar el celular");
             } catch (Exception e) {
-                // Si falta la fecha de nacimiento
-                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
-                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
-                        && obtenerBrigadaSeleccionada() != null) {
-                    JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
-                } // Si falta la brigada 
-                else if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
-                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
-                        && obtenerBrigadaSeleccionada() == null) {
-                    JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
-                }
+                JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
             }
         }
     }//GEN-LAST:event_jBAgregarActionPerformed
@@ -715,10 +728,10 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         permitirSoloLetras(jTNombreApellido);
         jTNombreApellido.setText("");
         permitirSoloLetras(jTIdBombero);
-        jTIdBombero.setText("No ingrese datos si va a agregar un bombero");
+        jTIdBombero.setText("Para agregar un bombero no es necesario colocar el ID");
         permitirSoloNumeros(jTIdBombero);
         jTIdBombero.setForeground(Color.GRAY);
-
+        jTNombreApellido.requestFocus();
     }
 
     public void permitirSoloNumeros(JTextField textField) {
