@@ -328,16 +328,17 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBsalirActionPerformed
 
-    private void jTyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTyActionPerformed
+    private void jTyActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
-    }//GEN-LAST:event_jTyActionPerformed
+    private void jBguardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarDatosActionPerformed
+    }//GEN-LAST:event_jBguardarDatosActionPerformed
+
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
         String vacios[] = new String[6];
 
         try {
-
-           
 
             if (jTdireccion.getText().isEmpty() || jTnombre.getText().isEmpty() || jTtelefono.getText().isEmpty() || jTcorreo.getText().isEmpty() || jTx.getText().isEmpty() || jTy.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, vacios);
@@ -356,7 +357,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Cuartel añadido con éxito");
 
         } catch (NumberFormatException nfe) {
-            
+
         }
     }//GEN-LAST:event_jBguardarActionPerformed
 
@@ -366,7 +367,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTnombreKeyReleased
 
     private void jTnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnombreKeyTyped
-         validacionCaracteres(evt);
+        validacionCaracteres(evt);
     }//GEN-LAST:event_jTnombreKeyTyped
 
     private void jTdireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdireccionKeyReleased
@@ -444,7 +445,4 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTx.setText(null);
         jTy.setText(null);
     }
-
-   
 }
-

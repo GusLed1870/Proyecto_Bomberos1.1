@@ -1,4 +1,7 @@
+
 package Vistas;
+
+
 
 public class Menu extends javax.swing.JFrame {
 
@@ -7,6 +10,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null); //Centrar ventana.
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
