@@ -21,34 +21,53 @@ public class BomberoData {
         con = Conexion.getConexion();
     }
 
-    public void guardarBombero(Bombero bombero) {
-        if (bombero.getBrigada() == null) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada antes de guardar el bombero.");
-            return;
-        }
+public void guardarBombero(Bombero bombero) {
+    int brigadaId = bombero.getBrigada().getCodBrigada();
+    int cantidadBomberosEnBrigada = contarBomberosEnBrigada(brigadaId);
 
-        String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, bombero.getDni());
-            ps.setString(2, bombero.getNombre_ape());
-            ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
-            ps.setInt(4, bombero.getCelular());
-            ps.setInt(5, bombero.getBrigada().getCodBrigada());
-            ps.setString(6, bombero.getGrupoSanguineo());
-            ps.setBoolean(7, bombero.isEstado());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-
-            if (rs.next()) {
-                bombero.setId_bombero(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Bombero añadido con éxito. Legajo: " + bombero.getId_bombero());
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el bombero: " + ex.getMessage());
-        }
+    if (cantidadBomberosEnBrigada >= 5) {
+        JOptionPane.showMessageDialog(null, "La brigada ya tiene al menos 5 bomberos. No se puede agregar más.");
+        return;
     }
+
+    String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, bombero.getDni());
+        ps.setString(2, bombero.getNombre_ape());
+        ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
+        ps.setInt(4, bombero.getCelular());
+        ps.setInt(5, brigadaId);
+        ps.setString(6, bombero.getGrupoSanguineo());
+        ps.setBoolean(7, bombero.isEstado());
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+
+        if (rs.next()) {
+            bombero.setId_bombero(rs.getInt(1));
+            JOptionPane.showMessageDialog(null, "Bombero añadido con éxito. Legajo: " + bombero.getId_bombero());
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al guardar el bombero: " + ex.getMessage());
+    }
+}
+
+private int contarBomberosEnBrigada(int brigadaId) {
+    String consulta = "SELECT COUNT(*) FROM bomberos WHERE codBrigada = ?";
+    try {
+        PreparedStatement ps1 = con.prepareStatement(consulta);
+        ps1.setInt(1, brigadaId);
+        ResultSet rs = ps1.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al contar los bomberos en la brigada: " + ex.getMessage());
+    }
+    return 0; // En caso de error, se asume que no hay bomberos en la brigada.
+}
 
     public Bombero buscarBomberoPorID(int id) {
 
