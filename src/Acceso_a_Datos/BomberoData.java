@@ -105,7 +105,7 @@ private int contarBomberosEnBrigada(int brigadaId) {
 
     public Bombero buscarBomberoPordni(String dni) {
 
-        Bombero bombero = null;
+        Bombero bombero = new Bombero();
         String sql = "SELECT * FROM bombero WHERE dni = ?";
 
         try {
@@ -247,7 +247,12 @@ private int contarBomberosEnBrigada(int brigadaId) {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                bomb = true;
+                int count = rs.getInt(1);  // Obtener el valor COUNT(*) del resultado
+
+            if (count > 0) {
+                bomb = true;  // Si count es mayor que 0, se encontró un bombero
+                return bomb;
+            }
 
             }
 

@@ -510,6 +510,9 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+        BomberoData bomData=new BomberoData();
+        BrigadaData briData=new BrigadaData();
+        Brigada bri=new Brigada();
         if (!jTIdBombero.getText().equals("Para agregar un bombero no es necesario colocar el ID") && (!jLIdBombero.getText().equals(jTIdBombero.getText()))) {
             JOptionPane.showMessageDialog(null, "El legajo no se puede modificar");
         } else {
@@ -548,21 +551,26 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
                     return;
                 }
+                System.out.println("DNI "+dni);
                 // Si se llega aquí, todos los campos están completos
                 LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
                 int celular = Integer.parseInt(jTCelular.getText());
-                Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
-                bombero.setBrigada(brigadaSeleccionada);
-
-                Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
-
-                if (bomberoData.buscarBomberoPordni(dni) != null) {
+                bri = obtenerBrigadaSeleccionada();
+                bombero.setBrigada(bri);
+               
+                Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, bri, grupoSanguineo, estado);
+                String dni2=jTDNI.getText();
+                dni2 =""; 
+                dni2=jTDNI.getText();
+                System.out.println("ESTA "+bomData.buscarBomberoIdPorDni2(dni2));
+                System.out.println("DNI "+dni2);
+                if (bomData.buscarBomberoIdPorDni2(dni2)) {
                     JOptionPane.showMessageDialog(null, "El DNI que quiere agregar ya se encuentra en la base de datos");
                     return;
                 }
 
-                bomberoData.guardarBombero(bomb);
+                bomData.guardarBombero(bomb);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
