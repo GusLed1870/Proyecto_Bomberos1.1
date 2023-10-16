@@ -674,8 +674,8 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jDCFechaNac.setDate(null);
         jCBBrigadaAsignada.setSelectedItem(null);
         jTCelular.setText("");
-        jRBEstado.setText(null);
-        jRBEstado.setSelected(false);
+        jRBEstado.setText("Activo");
+        jRBEstado.setSelected(true);
         jCBGrupoSanguineo.setSelectedIndex(0);
         jBAgregar.setEnabled(true);
         jBModificar.setEnabled(false);

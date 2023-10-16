@@ -26,7 +26,7 @@ public void guardarBombero(Bombero bombero) {
     int cantidadBomberosEnBrigada = contarBomberosEnBrigada(brigadaId);
 
     if (cantidadBomberosEnBrigada >= 5) {
-        JOptionPane.showMessageDialog(null, "La brigada ya tiene al menos 5 bomberos. No se puede agregar más.");
+        JOptionPane.showMessageDialog(null, "La brigada ya tiene 5 bomberos. Debe asignar otra brigada.");
         return;
     }
 
@@ -54,9 +54,9 @@ public void guardarBombero(Bombero bombero) {
 }
 
 private int contarBomberosEnBrigada(int brigadaId) {
-    String consulta = "SELECT COUNT(*) FROM bombero WHERE codBrigada = ?";
+    String cantBomberos = "SELECT COUNT(*) FROM bombero WHERE codBrigada = ?";
     try {
-        PreparedStatement ps1 = con.prepareStatement(consulta);
+        PreparedStatement ps1 = con.prepareStatement(cantBomberos);
         ps1.setInt(1, brigadaId);
         ResultSet rs = ps1.executeQuery();
 
@@ -110,7 +110,6 @@ private int contarBomberosEnBrigada(int brigadaId) {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps = con.prepareStatement(sql);
             ps.setString(1, dni);
 
             ResultSet rs = ps.executeQuery();
