@@ -439,6 +439,36 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         int codBrigada = -1;
         brigada = null;
         String gs = "0+";
+        
+                // Realizo validaciones de campos individuales
+                if (jTNombreApellido.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
+                    return;
+                }
+                if (jTDNI.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el DNI");
+                    return;
+                }
+                if (obtenerBrigadaSeleccionada() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
+                    return;
+                }
+                if (jTCelular.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el celular");
+                    return;
+                }
+                if (jDCFechaNac.getDate() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
+                    return;
+                }
+                if (jCBGrupoSanguineo.getSelectedIndex() == 0) {
+                    JOptionPane.showMessageDialog(null, "Debe completar el grupo sanguíneo");
+                    return;
+                }
+                if (!jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
+                    return;
+                }
         try {
             celular = Integer.parseInt(jTCelular.getText());
         } catch (NumberFormatException e) {
@@ -519,7 +549,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
                 boolean estado = jRBEstado.isSelected();
 
-                // Realiza validaciones de campos individuales
+                // Realizo validaciones de campos individuales
                 if (jTNombreApellido.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
                     return;

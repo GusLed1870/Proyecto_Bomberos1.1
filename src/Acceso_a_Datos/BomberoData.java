@@ -21,53 +21,53 @@ public class BomberoData {
         con = Conexion.getConexion();
     }
 
-public void guardarBombero(Bombero bombero) {
-    int brigadaId = bombero.getBrigada().getCodBrigada();
-    int cantidadBomberosEnBrigada = contarBomberosEnBrigada(brigadaId);
+    public void guardarBombero(Bombero bombero) {
+        int brigadaId = bombero.getBrigada().getCodBrigada();
+        int cantidadBomberosEnBrigada = contarBomberosEnBrigada(brigadaId);
 
-    if (cantidadBomberosEnBrigada >= 5) {
-        JOptionPane.showMessageDialog(null, "La brigada ya tiene 5 bomberos. Debe asignar otra brigada.");
-        return;
-    }
-
-    String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    try {
-        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, bombero.getDni());
-        ps.setString(2, bombero.getNombre_ape());
-        ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
-        ps.setInt(4, bombero.getCelular());
-        ps.setInt(5, brigadaId);
-        ps.setString(6, bombero.getGrupoSanguineo());
-        ps.setBoolean(7, bombero.isEstado());
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-
-        if (rs.next()) {
-            bombero.setId_bombero(rs.getInt(1));
-            JOptionPane.showMessageDialog(null, "Bombero añadido con éxito. Legajo: " + bombero.getId_bombero());
+        if (cantidadBomberosEnBrigada >= 5) {
+            JOptionPane.showMessageDialog(null, "La brigada ya tiene 5 bomberos. Debe asignar otra brigada.");
+            return;
         }
-        ps.close();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al guardar el bombero: " + ex.getMessage());
-    }
-}
 
-private int contarBomberosEnBrigada(int brigadaId) {
-    String cantBomberos = "SELECT COUNT(*) FROM bombero WHERE codBrigada = ?";
-    try {
-        PreparedStatement ps1 = con.prepareStatement(cantBomberos);
-        ps1.setInt(1, brigadaId);
-        ResultSet rs = ps1.executeQuery();
+        String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, bombero.getDni());
+            ps.setString(2, bombero.getNombre_ape());
+            ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
+            ps.setInt(4, bombero.getCelular());
+            ps.setInt(5, brigadaId);
+            ps.setString(6, bombero.getGrupoSanguineo());
+            ps.setBoolean(7, bombero.isEstado());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
 
-        if (rs.next()) {
-            return rs.getInt(1);
+            if (rs.next()) {
+                bombero.setId_bombero(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Bombero añadido con éxito. Legajo: " + bombero.getId_bombero());
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar el bombero: " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al contar los bomberos en la brigada: " + ex.getMessage());
     }
-    return 0; // En caso de error, se asume que no hay bomberos en la brigada.
-}
+
+    private int contarBomberosEnBrigada(int brigadaId) {
+        String cantBomberos = "SELECT COUNT(*) FROM bombero WHERE codBrigada = ?";
+        try {
+            PreparedStatement ps1 = con.prepareStatement(cantBomberos);
+            ps1.setInt(1, brigadaId);
+            ResultSet rs = ps1.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al contar los bomberos en la brigada: " + ex.getMessage());
+        }
+        return 0; // En caso de error, se asume que no hay bomberos en la brigada.
+    }
 
     public Bombero buscarBomberoPorID(int id) {
 
@@ -166,7 +166,13 @@ private int contarBomberosEnBrigada(int brigadaId) {
     }
 
     public void modificarBombero(Bombero bombero) {
+        int brigadaId = bombero.getBrigada().getCodBrigada();
+        int cantidadBomberosEnBrigada = contarBomberosEnBrigada(brigadaId);
 
+        if (cantidadBomberosEnBrigada >= 5) {
+            JOptionPane.showMessageDialog(null, "La brigada ya tiene 5 bomberos. Debe asignar otra brigada.");
+            return;
+        }
         String sql = "UPDATE bombero SET dni = ?, nombre_ape = ?, fecha_nac = ?, celular = ?, codBrigada = ?, grupoSanguineo = ?, estado = ? WHERE id_bombero = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
