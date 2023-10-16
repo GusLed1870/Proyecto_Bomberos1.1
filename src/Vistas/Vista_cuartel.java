@@ -13,6 +13,65 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     public Vista_cuartel() {
         initComponents();
         cuar = new Cuartel_data();
+        jBguardar.setEnabled(false);
+    }
+
+    public void validacionNumeros(java.awt.event.KeyEvent evento) {
+        if (evento.getKeyChar() >= 32 && evento.getKeyChar() <= 47
+                || evento.getKeyChar() >= 58 && evento.getKeyChar() <= 255) {
+            evento.consume();
+            JOptionPane.showInternalMessageDialog(this, "Ingrese solo numeros");
+        }
+    }
+
+    public void validacionCaracteres(java.awt.event.KeyEvent evento) {
+        if (evento.getKeyChar() >= 33 && evento.getKeyChar() <= 47
+                || evento.getKeyChar() >= 58 && evento.getKeyChar() <= 64
+                || evento.getKeyChar() >= 91 && evento.getKeyChar() <= 96
+                || evento.getKeyChar() >= 123 && evento.getKeyChar() <= 208
+                || evento.getKeyChar() >= 210 && evento.getKeyChar() <= 240
+                || evento.getKeyChar() >= 242 && evento.getKeyChar() <= 255) {
+            evento.consume();
+            JOptionPane.showInternalMessageDialog(this, "Caracter no permitido");
+        }
+    }
+
+    public void validacionSoloLetras(java.awt.event.KeyEvent evento) {
+        if (evento.getKeyChar() >= 33 && evento.getKeyChar() <= 64
+                || evento.getKeyChar() >= 91 && evento.getKeyChar() <= 96
+                || evento.getKeyChar() >= 123 && evento.getKeyChar() <= 208
+                || evento.getKeyChar() >= 210 && evento.getKeyChar() <= 240
+                || evento.getKeyChar() >= 242 && evento.getKeyChar() <= 255) {
+            evento.consume();
+            JOptionPane.showInternalMessageDialog(this, "Caracter no permitido");
+        }
+    }
+
+    public void validarCorreo(java.awt.event.KeyEvent evento) {
+        if (evento.getKeyChar() >= 32 && evento.getKeyChar() <= 44
+                || evento.getKeyChar() == 47
+                || evento.getKeyChar() >= 58 && evento.getKeyChar() <= 63
+                || evento.getKeyChar() == 96
+                || evento.getKeyChar() >= 123 && evento.getKeyChar() <= 255) {
+            evento.consume();
+            JOptionPane.showInternalMessageDialog(this, "Caracter no permitido");
+        }
+    }
+
+    public void habilitarBoton() {
+        if (jTnombre.getText().isEmpty()
+                || jTdireccion.getText().isEmpty()
+                || jTx.getText().isEmpty()
+                || jTy.getText().isEmpty()
+                || jTtelefono.getText().isEmpty()
+                || jTcorreo.getText().isEmpty()
+                || !jLcorreo.getText().isEmpty()) {
+
+            jBguardar.setEnabled(false);
+
+        } else {
+            jBguardar.setEnabled(true);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -30,22 +89,55 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTy = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTtelefono = new javax.swing.JTextField();
-        jTCorreo = new javax.swing.JTextField();
+        jTcorreo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jBsalir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBguardar = new javax.swing.JButton();
+        jLnombre = new javax.swing.JLabel();
+        jLdireccion = new javax.swing.JLabel();
+        jLtelefono = new javax.swing.JLabel();
+        jLcorreo = new javax.swing.JLabel();
+        jLy = new javax.swing.JLabel();
+        jLx = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(51, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(102, 0, 102));
         jPanel1.setForeground(new java.awt.Color(0, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("NOMBRE:");
 
+        jTnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTnombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTnombreKeyTyped(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("DIRECCION:");
 
+        jTdireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTdireccionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTdireccionKeyTyped(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("LATITUD:");
+
+        jTx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("LONGITUD:");
@@ -55,13 +147,40 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                 jTyActionPerformed(evt);
             }
         });
+        jTy.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTyKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTyKeyTyped(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("TELEFONO:");
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setText("CORREO");
+        jTtelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTtelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTtelefonoKeyTyped(evt);
+            }
+        });
 
+        jTcorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTcorreoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTcorreoKeyTyped(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setText("CORREO:");
+
+        jBsalir.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
         jBsalir.setText("Salir");
         jBsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,47 +188,71 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Guardar cuartel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBguardar.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+        jBguardar.setText("Guardar cuartel");
+        jBguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBguardarActionPerformed(evt);
             }
         });
+
+        jLnombre.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+        jLnombre.setForeground(new java.awt.Color(204, 0, 0));
+
+        jLdireccion.setForeground(new java.awt.Color(204, 0, 0));
+
+        jLtelefono.setForeground(new java.awt.Color(204, 0, 0));
+
+        jLcorreo.setForeground(new java.awt.Color(204, 0, 0));
+
+        jLy.setForeground(new java.awt.Color(204, 0, 0));
+
+        jLx.setForeground(new java.awt.Color(204, 0, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(224, 224, 224)
+                .addComponent(jBsalir)
+                .addGap(39, 39, 39))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(192, 192, 192)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTnombre)
                             .addComponent(jTdireccion)
-                            .addComponent(jTCorreo)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(64, 64, 64)
-                                .addComponent(jLabel5)
-                                .addGap(36, 36, 36)
-                                .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTcorreo)
+                            .addComponent(jTtelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLnombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLdireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(406, 406, 406)
-                        .addComponent(jBsalir)))
-                .addContainerGap(134, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(271, 271, 271))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLy, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,37 +260,60 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(32, 32, 32)
-                .addComponent(jBsalir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(23, 23, 23))
+                    .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLnombre))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLdireccion)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLx))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLy, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLtelefono, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTtelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jBsalir)
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLcorreo))
+                        .addGap(34, 34, 34)
+                        .addComponent(jBguardar)
+                        .addGap(31, 31, 31))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,58 +328,108 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBsalirActionPerformed
 
-    private void jTyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTyActionPerformed
+    private void jTyActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
-    }//GEN-LAST:event_jTyActionPerformed
+    private void jBguardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarDatosActionPerformed
+    }//GEN-LAST:event_jBguardarDatosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String vacios[] = new String[4];
+
+    private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+        String vacios[] = new String[6];
 
         try {
 
-            if (jTnombre.getText().isEmpty()) {
-                vacios[1] = "Nombre";
-            }
-            if (jTdireccion.getText().isEmpty()) {
-                vacios[2] = "Direccion";
-            }
-            if (jTtelefono.getText().isEmpty()) {
-                vacios[3] = "Telefono";
-            }
-            
-
-            if (jTdireccion.getText().isEmpty() || jTnombre.getText().isEmpty() || jTtelefono.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, vacios );
-                        
-
+            if (jTdireccion.getText().isEmpty() || jTnombre.getText().isEmpty() || jTtelefono.getText().isEmpty() || jTcorreo.getText().isEmpty() || jTx.getText().isEmpty() || jTy.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, vacios);
                 return;
             }
-
             String nombre_cuartel = jTnombre.getText();
             String direccion = jTdireccion.getText();
             String telefono = jTtelefono.getText();
-            String correo = jTCorreo.getText();
+            String correo = jTcorreo.getText();
             int coord_X = Integer.parseInt(jTx.getText());
             int coord_Y = Integer.parseInt(jTy.getText());
             Cuartel cua = new Cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
-            cuar.cargarCuartel(cua);
-            JOptionPane.showMessageDialog(this, "cuartel añadido con éxito");
-        } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Ingresar valores numericos");
 
-    }//GEN-LAST:event_jButton1ActionPerformed
-    }
+            cuar.cargarCuartel(cua);
+
+            JOptionPane.showMessageDialog(this, "Cuartel añadido con éxito");
+
+        } catch (NumberFormatException nfe) {
+
+        }
+    }//GEN-LAST:event_jBguardarActionPerformed
+
+    private void jTnombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnombreKeyReleased
+        habilitarBoton();
+
+    }//GEN-LAST:event_jTnombreKeyReleased
+
+    private void jTnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnombreKeyTyped
+        validacionCaracteres(evt);
+    }//GEN-LAST:event_jTnombreKeyTyped
+
+    private void jTdireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdireccionKeyReleased
+        habilitarBoton();
+
+    }//GEN-LAST:event_jTdireccionKeyReleased
+
+    private void jTdireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdireccionKeyTyped
+        validacionCaracteres(evt);
+    }//GEN-LAST:event_jTdireccionKeyTyped
+
+    private void jTtelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTtelefonoKeyReleased
+        habilitarBoton();
+
+    }//GEN-LAST:event_jTtelefonoKeyReleased
+
+    private void jTtelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTtelefonoKeyTyped
+        validacionNumeros(evt);
+    }//GEN-LAST:event_jTtelefonoKeyTyped
+
+    private void jTcorreoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTcorreoKeyReleased
+        habilitarBoton();
+
+    }//GEN-LAST:event_jTcorreoKeyReleased
+
+    private void jTcorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTcorreoKeyTyped
+        validarCorreo(evt);
+    }//GEN-LAST:event_jTcorreoKeyTyped
+
+    private void jTxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxKeyReleased
+        habilitarBoton();
+    }//GEN-LAST:event_jTxKeyReleased
+
+    private void jTxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxKeyTyped
+        validacionNumeros(evt);
+    }//GEN-LAST:event_jTxKeyTyped
+
+    private void jTyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTyKeyReleased
+        habilitarBoton();
+    }//GEN-LAST:event_jTyKeyReleased
+
+    private void jTyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTyKeyTyped
+        validacionNumeros(evt);
+    }//GEN-LAST:event_jTyKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBguardar;
     private javax.swing.JButton jBsalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLcorreo;
+    private javax.swing.JLabel jLdireccion;
+    private javax.swing.JLabel jLnombre;
+    private javax.swing.JLabel jLtelefono;
+    private javax.swing.JLabel jLx;
+    private javax.swing.JLabel jLy;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTCorreo;
+    private javax.swing.JTextField jTcorreo;
     private javax.swing.JTextField jTdireccion;
     private javax.swing.JTextField jTnombre;
     private javax.swing.JTextField jTtelefono;
@@ -223,14 +439,10 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
 
     public void limpiarCampos() {
         jTnombre.setText(null);
-        jTCorreo.setText(null);
+        jTcorreo.setText(null);
         jTtelefono.setText(null);
         jTdireccion.setText(null);
         jTx.setText(null);
         jTy.setText(null);
     }
-
-    public void AprendiLoDelMetodo(Vista_cuartel vista) {
-    }
-
 }
