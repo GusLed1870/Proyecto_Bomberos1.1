@@ -54,7 +54,7 @@ public void guardarBombero(Bombero bombero) {
 }
 
 private int contarBomberosEnBrigada(int brigadaId) {
-    String consulta = "SELECT COUNT(*) FROM bomberos WHERE codBrigada = ?";
+    String consulta = "SELECT COUNT(*) FROM bombero WHERE codBrigada = ?";
     try {
         PreparedStatement ps1 = con.prepareStatement(consulta);
         ps1.setInt(1, brigadaId);
