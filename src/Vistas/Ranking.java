@@ -6,6 +6,7 @@
 package Vistas;
 
 import Acceso_a_Datos.BrigadaData;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +22,7 @@ public class Ranking extends javax.swing.JInternalFrame {
     public Ranking() {
         initComponents();
         armarCabecera();
+        cargarTabla();
     }
 
     /**
@@ -164,14 +166,17 @@ public class Ranking extends javax.swing.JInternalFrame {
         }
     };
     
-    private void cargarTabla() {
+private void cargarTabla() {
     DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
     modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
     BrigadaData bri=new BrigadaData();
     List<String> listaValores = bri.listarValoresSiniestros();
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     for (String fila : listaValores) {
         String[] valores = fila.split(", ");
+        // Formatea la puntuación con dos decimales
+        valores[4] = decimalFormat.format(Double.parseDouble(valores[4]));
         modelo.addRow(valores);
     }
 
