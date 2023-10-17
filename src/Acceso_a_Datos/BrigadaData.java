@@ -380,4 +380,37 @@ public class BrigadaData {
         return listaBrigadas;
     }
 
+    public List<String> listarValoresSiniestros() {
+        List<String> listaValores = new ArrayList<>();
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, brigada.nro_cuartel, cuartel.nombre_cuartel, AVG(siniestro.puntuacion) as Promedio_Puntuacion "
+                + "FROM siniestro "
+                + "JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
+                + "JOIN cuartel ON brigada.nro_cuartel = cuartel.codCuartel "
+                + "WHERE siniestro.puntuacion > 0 "
+                + "GROUP BY brigada.codBrigada";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                StringBuilder valores = new StringBuilder();
+                valores.append(rs.getString("Nºbrigada")).append(", ");
+                valores.append(rs.getString("Nombre_Brigada")).append(", ");
+                valores.append(rs.getString("nro_cuartel")).append(", ");
+                valores.append(rs.getString("nombre_cuartel")).append(", ");
+                valores.append(rs.getString("Promedio_Puntuacion"));
+
+                listaValores.add(valores.toString());
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return listaValores;
+    }
+
 }

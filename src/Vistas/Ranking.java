@@ -5,6 +5,8 @@
  */
 package Vistas;
 
+import Acceso_a_Datos.BrigadaData;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -108,9 +110,9 @@ public class Ranking extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(96, 96, 96)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
                 .addComponent(jLabel4)
                 .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -161,5 +163,19 @@ public class Ranking extends javax.swing.JInternalFrame {
             return false;
         }
     };
+    
+    private void cargarTabla() {
+    DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
+    modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
+    BrigadaData bri=new BrigadaData();
+    List<String> listaValores = bri.listarValoresSiniestros();
+
+    for (String fila : listaValores) {
+        String[] valores = fila.split(", ");
+        modelo.addRow(valores);
+    }
+
+    jTabla.setModel(modelo);
+}
 
 }
