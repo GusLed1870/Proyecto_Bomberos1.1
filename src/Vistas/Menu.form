@@ -149,8 +149,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jbEmergencias">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Click"/>
+                <Property name="text" type="java.lang.String" value="Siniestro"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEmergenciasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -175,6 +178,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Calificaci&#xf3;n"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="Calificaci&#xf3;n">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ranking por Brigada"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Calificaci&#xf3;nActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

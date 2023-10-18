@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class BrigadaData {
@@ -379,5 +381,68 @@ public class BrigadaData {
         }
         return listaBrigadas;
     }
+
+    public List<String> listarValoresSiniestros() {
+        List<String> listaValores = new ArrayList<>();
+    String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, brigada.nro_cuartel, cuartel.nombre_cuartel, COUNT(siniestro.tipo) as Cant_Siniestros, AVG(siniestro.puntuacion) as Promedio_Puntuacion " +
+                 "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada JOIN cuartel ON brigada.nro_cuartel = cuartel.codCuartel " +
+                 "WHERE siniestro.puntuacion > 0 GROUP BY brigada.codBrigada ORDER BY AVG(siniestro.puntuacion) DESC";
+                
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                StringBuilder valores = new StringBuilder();
+                valores.append(rs.getString("Nºbrigada")).append(", ");
+                valores.append(rs.getString("Nombre_Brigada")).append(", ");
+                valores.append(rs.getString("nro_cuartel")).append(", ");
+                valores.append(rs.getString("nombre_cuartel")).append(", ");
+                valores.append(rs.getString("Cant_Siniestros")).append(", ");
+                
+                valores.append(rs.getString("Promedio_Puntuacion"));
+
+                listaValores.add(valores.toString());
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return listaValores;
+    }
+    
+    public Map<Integer, Integer> obtenerCantidadSiniestrosPorMes(int año) {
+    Map<Integer, Integer> resultados = new HashMap<>();
+    ResultSet rs = null;
+
+    try {
+        // Crear la consulta SQL
+        String sql = "SELECT MONTH(fecha_siniestro) AS Mes, COUNT(*) AS CantidadSiniestros " +
+                     "FROM siniestro " +
+                     "WHERE YEAR(fecha_siniestro) = ? " +
+                     "GROUP BY MONTH(fecha_siniestro)";
+        
+        // Crear la sentencia preparada
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, año);
+
+        // Ejecutar la consulta
+        rs = ps.executeQuery();
+
+        // Almacenar los resultados en el Map
+        while (rs.next()) {
+            int mes = rs.getInt("Mes");
+            int cantidadSiniestros = rs.getInt("CantidadSiniestros");
+            resultados.put(mes, cantidadSiniestros);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } 
+    return resultados;
+}
 
 }
