@@ -4,7 +4,7 @@ import Acceso_a_Datos.BrigadaData;
 import Acceso_a_Datos.SiniestroData;
 import Entidades.Brigada;
 import Entidades.Siniestro;
-import java.sql.Date;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 
 public class Vista_Siniestro extends javax.swing.JInternalFrame {
@@ -28,14 +28,14 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlTipoEmergencia = new javax.swing.JLabel();
         jcbTipoEmergencia = new javax.swing.JComboBox<>();
         jlFechaSiniestro = new javax.swing.JLabel();
-        jtfFechaSiniestro = new javax.swing.JTextField();
+        jdcFechaSiniestro = new com.toedter.calendar.JDateChooser();
         jlCoord_X = new javax.swing.JLabel();
         jtfCoord_X = new javax.swing.JTextField();
         jlCoord_Y = new javax.swing.JLabel();
         jtfCoord_Y = new javax.swing.JTextField();
         jlDetalles = new javax.swing.JLabel();
         jlFechaResolucion = new javax.swing.JLabel();
-        jtfFechaResolucion = new javax.swing.JTextField();
+        jdcFechaResolucion = new com.toedter.calendar.JDateChooser();
         jlBrigada = new javax.swing.JLabel();
         jcbBrigada = new javax.swing.JComboBox<>();
         jbLimpiarCampos = new javax.swing.JButton();
@@ -44,11 +44,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtAreaDetalles = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
 
+        jPanel1.setBackground(new java.awt.Color(255, 153, 51));
         jPanel1.setPreferredSize(new java.awt.Dimension(931, 666));
 
         jlTipoEmergencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -59,8 +58,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
         jlFechaSiniestro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jlFechaSiniestro.setText("Fecha de Siniestro:");
-
-        jtfFechaSiniestro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jlCoord_X.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jlCoord_X.setText("Coordenada X:");
@@ -77,8 +74,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
         jlFechaResolucion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jlFechaResolucion.setText("Fecha de Resolución:");
-
-        jtfFechaResolucion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jlBrigada.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jlBrigada.setText("Brigada:");
@@ -140,10 +135,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jlTipoEmergencia)
-                        .addGap(31, 31, 31)
-                        .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jlCoord_X)
                         .addGap(18, 18, 18)
@@ -158,16 +149,16 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jlFechaResolucion)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jlFechaSiniestro)
-                        .addGap(39, 39, 39)
-                        .addComponent(jtfFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlTipoEmergencia)
+                            .addComponent(jlFechaSiniestro))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,14 +172,14 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jlTipoEmergencia))
                     .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(22, 22, 22)
                         .addComponent(jlFechaSiniestro))
-                    .addComponent(jtfFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -207,23 +198,23 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlFechaResolucion))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlBrigada)
-                            .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbLimpiarCampos)
-                            .addComponent(jbCargar)
-                            .addComponent(jbSalir)))
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(jlFechaResolucion))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlBrigada)
+                    .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbLimpiarCampos)
+                    .addComponent(jbCargar)
+                    .addComponent(jbSalir))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,11 +249,11 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
             Siniestro siniestro = new Siniestro();
             siniestro.setTipo(jcbBrigada.getSelectedItem().toString());
-            siniestro.setFecha_siniestro(Date.valueOf(jtfFechaSiniestro.getText()).toLocalDate());
+            siniestro.setFecha_siniestro(jdcFechaSiniestro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             siniestro.setCoord_X(Integer.parseInt(jtfCoord_X.getText()));
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
-            siniestro.setFecha_resol(Date.valueOf(jtfFechaResolucion.getText()).toLocalDate());
+            siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             siniestro.setBrigada((Brigada)jcbBrigada.getSelectedItem());
 
             siniestroData.cargarSiniestro(siniestro);
@@ -275,8 +266,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbCargarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -285,6 +274,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Brigada> jcbBrigada;
     private javax.swing.JComboBox<String> jcbTipoEmergencia;
+    private com.toedter.calendar.JDateChooser jdcFechaResolucion;
+    private com.toedter.calendar.JDateChooser jdcFechaSiniestro;
     private javax.swing.JLabel jlBrigada;
     private javax.swing.JLabel jlCoord_X;
     private javax.swing.JLabel jlCoord_Y;
@@ -295,8 +286,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jtAreaDetalles;
     private javax.swing.JTextField jtfCoord_X;
     private javax.swing.JTextField jtfCoord_Y;
-    private javax.swing.JTextField jtfFechaResolucion;
-    private javax.swing.JTextField jtfFechaSiniestro;
     // End of variables declaration//GEN-END:variables
     
     private void llenarCombo(){ 
@@ -308,18 +297,16 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     private void limpiarCampos(){
         
         jcbTipoEmergencia.setSelectedIndex(0);
-        jtfFechaSiniestro.setText(null);
+        jdcFechaSiniestro.setDate(null);
         jtfCoord_X.setText(null);
         jtfCoord_Y.setText(null);
         jtAreaDetalles.setText(null);
+        jdcFechaResolucion.setDate(null);
         jcbBrigada.setSelectedIndex(0);
     }
     
     private boolean validacionCamposVacios(){
-        if(jcbTipoEmergencia.getSelectedItem().toString().equalsIgnoreCase("Seleccione el tipo de emergencia") || jtfFechaSiniestro.getText().isEmpty() || jtfCoord_X.getText().isEmpty() ||
-           jtfCoord_Y.getText().isEmpty() || jtAreaDetalles.getText().isEmpty()){
-            return true;
-        }        
-        return false;
+        return jcbTipoEmergencia.getSelectedItem().toString().equalsIgnoreCase("Seleccione el tipo de emergencia") || jtfCoord_X.getText().isEmpty() ||
+                jtfCoord_Y.getText().isEmpty() || jtAreaDetalles.getText().isEmpty();
     }
 }
