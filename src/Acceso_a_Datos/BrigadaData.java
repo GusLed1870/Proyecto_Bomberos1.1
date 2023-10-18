@@ -382,12 +382,10 @@ public class BrigadaData {
 
     public List<String> listarValoresSiniestros() {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, brigada.nro_cuartel, cuartel.nombre_cuartel, AVG(siniestro.puntuacion) as Promedio_Puntuacion "
-                + "FROM siniestro "
-                + "JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "JOIN cuartel ON brigada.nro_cuartel = cuartel.codCuartel "
-                + "WHERE siniestro.puntuacion > 0 "
-                + "GROUP BY brigada.codBrigada";
+    String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, brigada.nro_cuartel, cuartel.nombre_cuartel, AVG(siniestro.puntuacion) as Promedio_Puntuacion " +
+                 "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada JOIN cuartel ON brigada.nro_cuartel = cuartel.codCuartel " +
+                 "WHERE siniestro.puntuacion > 0 GROUP BY brigada.codBrigada ORDER BY AVG(siniestro.puntuacion) DESC";
+                
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
