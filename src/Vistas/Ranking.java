@@ -156,6 +156,7 @@ public class Ranking extends javax.swing.JInternalFrame {
         modelo.addColumn("Nombre de la Brigada");
         modelo.addColumn("Nro de Cuartel");
         modelo.addColumn("Nombre del Cuartel");
+        modelo.addColumn("Cantidad de Siniestros");
         modelo.addColumn("Puntuación");
         jTabla.setModel(modelo);
     }
@@ -176,7 +177,7 @@ public class Ranking extends javax.swing.JInternalFrame {
         for (String fila : listaValores) {
             String[] valores = fila.split(", ");
             // Formatea la puntuación con dos decimales
-            valores[4] = decimalFormat.format(Double.parseDouble(valores[4]));
+            valores[5] = decimalFormat.format(Double.parseDouble(valores[5]));
             modelo.addRow(valores);
         }
 
