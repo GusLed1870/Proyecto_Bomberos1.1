@@ -415,16 +415,16 @@ public class BrigadaData {
         return listaValores;
     }
     
-    public Map<Integer, Integer> obtenerCantidadSiniestrosPorMes(Connection con, int año) {
+    public Map<Integer, Integer> obtenerCantidadSiniestrosPorMes(int año) {
     Map<Integer, Integer> resultados = new HashMap<>();
     ResultSet rs = null;
 
     try {
         // Crear la consulta SQL
-        String sql = "SELECT MONTH(fecha) AS Mes, COUNT(*) AS CantidadSiniestros " +
+        String sql = "SELECT MONTH(fecha_siniestro) AS Mes, COUNT(*) AS CantidadSiniestros " +
                      "FROM siniestro " +
-                     "WHERE YEAR(fecha) = ? " +
-                     "GROUP BY MONTH(fecha)";
+                     "WHERE YEAR(fecha_siniestro) = ? " +
+                     "GROUP BY MONTH(fecha_siniestro)";
         
         // Crear la sentencia preparada
         PreparedStatement ps = con.prepareStatement(sql);

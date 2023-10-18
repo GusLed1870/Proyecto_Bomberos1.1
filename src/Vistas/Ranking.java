@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 
 
 /**
@@ -27,6 +28,8 @@ public class Ranking extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         cargarTabla();
+        armarCabecera2();
+        llenarTabla();
     }
 
     /**
@@ -43,7 +46,7 @@ public class Ranking extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
         jBuscar = new javax.swing.JButton();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        anio = new com.toedter.calendar.JYearChooser();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabla1 = new javax.swing.JTable();
@@ -69,6 +72,11 @@ public class Ranking extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTabla);
 
         jBuscar.setText("Buscar");
+        jBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Cantidad de Siniestros por año");
@@ -102,7 +110,7 @@ public class Ranking extends javax.swing.JInternalFrame {
                         .addGap(306, 306, 306)
                         .addComponent(jBuscar)
                         .addGap(18, 18, 18)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(anio, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(68, Short.MAX_VALUE)
@@ -123,10 +131,10 @@ public class Ranking extends javax.swing.JInternalFrame {
                 .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jYearChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(anio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(179, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,8 +151,14 @@ public class Ranking extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
+        
+        llenarTabla();
+    }//GEN-LAST:event_jBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JYearChooser anio;
     private javax.swing.JButton jBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
@@ -153,18 +167,47 @@ public class Ranking extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTabla;
     private javax.swing.JTable jTabla1;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
     // End of variables declaration//GEN-END:variables
+     private void armarCabecera2() {
+        modelo2.addColumn("Ene");
+        modelo2.addColumn("Feb");
+        modelo2.addColumn("Mar");
+        modelo2.addColumn("Abr");
+        modelo2.addColumn("May");
+        modelo2.addColumn("Jun");
+        modelo2.addColumn("Jul");
+        modelo2.addColumn("Ago");
+        modelo2.addColumn("Sep");
+        modelo2.addColumn("Oct");
+        modelo2.addColumn("Nov");
+        modelo2.addColumn("Dic");
+     
+        jTabla1.setModel(modelo2);
+    } 
+    
+    
+    
+    
+    
+    
+    
+    
     private void armarCabecera() {
-        modelo.addColumn("Codigo Brigada");
+       modelo.addColumn("Codigo Brigada");
         modelo.addColumn("Nombre de la Brigada");
         modelo.addColumn("Nro de Cuartel");
         modelo.addColumn("Nombre del Cuartel");
         modelo.addColumn("Cantidad de Siniestros");
         modelo.addColumn("Puntuación");
         jTabla.setModel(modelo);
-    }
+    } 
     private DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+    private DefaultTableModel modelo2 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
             return false;
@@ -188,38 +231,52 @@ public class Ranking extends javax.swing.JInternalFrame {
         jTabla.setModel(modelo);
     }
 
+    private void llenarTabla() {
+    int anio2=0;
+    try{
+        LocalDate fechaActual = LocalDate.now();
+        int fechahoy=fechaActual.getYear();
+        anio2=anio.getYear();
+        if(fechahoy-anio2<0){
+            JOptionPane.showMessageDialog(this, "ERROR!!!\nRecorda que todavia estamos en el año "+fechahoy);
+            return;
+        }
+           if(anio2<1990){
+            JOptionPane.showMessageDialog(this, "ERROR!!!\nNo hay registros tan antiguos, el ultimo registro es el año 1991");
+            return;
+        }
+        
+    }catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(this, "No Ingreso un numero");
+    }
+    
+    BrigadaData bri=new BrigadaData();
+    modelo2.setRowCount(0); // Limpia la tabla antes de llenarla nuevamente
+
+    Map<Integer, Integer> datos = bri.obtenerCantidadSiniestrosPorMes(anio2);
+
+        Object[] fila = new Object[12]; // Crear una fila con 12 columnas
+
+    // Inicializa todas las columnas en 0
+    for (int i = 0; i < 12; i++) {
+        fila[i] = 0;
+    }
+
+    for (Map.Entry<Integer, Integer> entry : datos.entrySet()) {
+        int mes = entry.getKey();
+        int cantidadSiniestros = entry.getValue();
+
+        // La columna correspondiente al mes obtiene su valor
+        fila[mes - 1] = cantidadSiniestros;
+    }
+
+    modelo2.addRow(fila); // Agrega la fila a tu modelo de tabla
+
+}
 
 
-//private void crearGraficoCantidadSiniestros(Map<Integer, Integer> resultados) {
-//    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//
-//    for (Map.Entry<Integer, Integer> entry : resultados.entrySet()) {
-//        int mes = entry.getKey();
-//        int cantidadSiniestros = entry.getValue();
-//        dataset.addValue(cantidadSiniestros, "Cantidad de Siniestros", "Mes " + mes);
-//    }
-//
-//    JFreeChart chart = ChartFactory.createLineChart(
-//        "Cantidad de Siniestros por Mes",
-//        "Mes",
-//        "Cantidad de Siniestros",
-//        dataset,
-//        PlotOrientation.VERTICAL,
-//        true,  // Mostrar leyenda
-//        true,  // Usar tooltips
-//        false  // Usar URLs
-//    );
-//
-//    CategoryPlot plot = (CategoryPlot) chart.getPlot();
-//    // Personaliza el gráfico si es necesario
-//
-//    ChartPanel chartPanel = new ChartPanel(chart);
-//    chartPanel.setPreferredSize(new java.awt.Dimension(800, 600));
-//
-//    // Agregar el gráfico al RankingInternalFrame
-//    this.setContentPane(chartPanel);
-//    this.pack();
-//}
+
+
 
 
     
