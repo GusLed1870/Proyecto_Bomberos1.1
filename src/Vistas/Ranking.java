@@ -165,22 +165,53 @@ public class Ranking extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    
-private void cargarTabla() {
-    DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
-    modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
-    BrigadaData bri=new BrigadaData();
-    List<String> listaValores = bri.listarValoresSiniestros();
-    DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
-    for (String fila : listaValores) {
-        String[] valores = fila.split(", ");
-        // Formatea la puntuación con dos decimales
-        valores[4] = decimalFormat.format(Double.parseDouble(valores[4]));
-        modelo.addRow(valores);
+    private void cargarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
+        modelo.setRowCount(0); // Limpia la tabla antes de cargar nuevos datos
+        BrigadaData bri = new BrigadaData();
+        List<String> listaValores = bri.listarValoresSiniestros();
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+        for (String fila : listaValores) {
+            String[] valores = fila.split(", ");
+            // Formatea la puntuación con dos decimales
+            valores[4] = decimalFormat.format(Double.parseDouble(valores[4]));
+            modelo.addRow(valores);
+        }
+
+        jTabla.setModel(modelo);
     }
 
-    jTabla.setModel(modelo);
-}
+/*private void crearGraficoCantidadSiniestros(Map<Integer, Integer> resultados) {
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+    for (Map.Entry<Integer, Integer> entry : resultados.entrySet()) {
+        int mes = entry.getKey();
+        int cantidadSiniestros = entry.getValue();
+        dataset.addValue(cantidadSiniestros, "Cantidad de Siniestros", "Mes " + mes);
+    }
+
+    JFreeChart chart = ChartFactory.createBarChart(
+        "Cantidad de Siniestros por Mes",
+        "Mes",
+        "Cantidad de Siniestros",
+        dataset,
+        PlotOrientation.VERTICAL,
+        true,
+        true,
+        false
+    );
+
+    CategoryPlot plot = (CategoryPlot) chart.getPlot();
+    // Personaliza el gráfico si es necesario
+
+    ChartPanel chartPanel = new ChartPanel(chart);
+    chartPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+    
+    // Agrega el gráfico a tu interfaz gráfica (por ejemplo, a un JFrame)
+    // frame.add(chartPanel);
+    // frame.setVisible(true);
+}*/
 
 }

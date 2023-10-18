@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class BrigadaData {
@@ -410,5 +412,35 @@ public class BrigadaData {
         }
         return listaValores;
     }
+    
+    public Map<Integer, Integer> obtenerCantidadSiniestrosPorMes(Connection con, int año) {
+    Map<Integer, Integer> resultados = new HashMap<>();
+    ResultSet rs = null;
+
+    try {
+        // Crear la consulta SQL
+        String sql = "SELECT MONTH(fecha) AS Mes, COUNT(*) AS CantidadSiniestros " +
+                     "FROM siniestro " +
+                     "WHERE YEAR(fecha) = ? " +
+                     "GROUP BY MONTH(fecha)";
+        
+        // Crear la sentencia preparada
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, año);
+
+        // Ejecutar la consulta
+        rs = ps.executeQuery();
+
+        // Almacenar los resultados en el Map
+        while (rs.next()) {
+            int mes = rs.getInt("Mes");
+            int cantidadSiniestros = rs.getInt("CantidadSiniestros");
+            resultados.put(mes, cantidadSiniestros);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } 
+    return resultados;
+}
 
 }
