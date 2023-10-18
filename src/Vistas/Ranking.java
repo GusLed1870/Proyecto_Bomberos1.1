@@ -8,7 +8,11 @@ package Vistas;
 import Acceso_a_Datos.BrigadaData;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
+import java.awt.*;
+
 
 /**
  *
@@ -184,35 +188,39 @@ public class Ranking extends javax.swing.JInternalFrame {
         jTabla.setModel(modelo);
     }
 
-/*private void crearGraficoCantidadSiniestros(Map<Integer, Integer> resultados) {
-    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-    for (Map.Entry<Integer, Integer> entry : resultados.entrySet()) {
-        int mes = entry.getKey();
-        int cantidadSiniestros = entry.getValue();
-        dataset.addValue(cantidadSiniestros, "Cantidad de Siniestros", "Mes " + mes);
-    }
 
-    JFreeChart chart = ChartFactory.createBarChart(
-        "Cantidad de Siniestros por Mes",
-        "Mes",
-        "Cantidad de Siniestros",
-        dataset,
-        PlotOrientation.VERTICAL,
-        true,
-        true,
-        false
-    );
+//private void crearGraficoCantidadSiniestros(Map<Integer, Integer> resultados) {
+//    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//
+//    for (Map.Entry<Integer, Integer> entry : resultados.entrySet()) {
+//        int mes = entry.getKey();
+//        int cantidadSiniestros = entry.getValue();
+//        dataset.addValue(cantidadSiniestros, "Cantidad de Siniestros", "Mes " + mes);
+//    }
+//
+//    JFreeChart chart = ChartFactory.createLineChart(
+//        "Cantidad de Siniestros por Mes",
+//        "Mes",
+//        "Cantidad de Siniestros",
+//        dataset,
+//        PlotOrientation.VERTICAL,
+//        true,  // Mostrar leyenda
+//        true,  // Usar tooltips
+//        false  // Usar URLs
+//    );
+//
+//    CategoryPlot plot = (CategoryPlot) chart.getPlot();
+//    // Personaliza el gráfico si es necesario
+//
+//    ChartPanel chartPanel = new ChartPanel(chart);
+//    chartPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+//
+//    // Agregar el gráfico al RankingInternalFrame
+//    this.setContentPane(chartPanel);
+//    this.pack();
+//}
 
-    CategoryPlot plot = (CategoryPlot) chart.getPlot();
-    // Personaliza el gráfico si es necesario
 
-    ChartPanel chartPanel = new ChartPanel(chart);
-    chartPanel.setPreferredSize(new java.awt.Dimension(800, 600));
     
-    // Agrega el gráfico a tu interfaz gráfica (por ejemplo, a un JFrame)
-    // frame.add(chartPanel);
-    // frame.setVisible(true);
-}*/
-
 }
