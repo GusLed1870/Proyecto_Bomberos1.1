@@ -543,6 +543,9 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+        BomberoData bomData = new BomberoData();
+        BrigadaData briData = new BrigadaData();
+        Brigada bri = new Brigada();
         if (!jTIdBombero.getText().equals("Para agregar un bombero no es necesario colocar el ID") && (!jLIdBombero.getText().equals(jTIdBombero.getText()))) {
             JOptionPane.showMessageDialog(null, "El legajo no se puede modificar");
         } else {
@@ -552,7 +555,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
                 boolean estado = jRBEstado.isSelected();
 
-                // Realizo validaciones de campos individuales
+                // Realiza validaciones de campos individuales
                 if (jTNombreApellido.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
                     return;
@@ -582,36 +585,24 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     return;
                 }
                 // Si se llega aquí, todos los campos están completos
-                LocalDate fechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
+                int celular = Integer.parseInt(jTCelular.getText());
+                bri = obtenerBrigadaSeleccionada();
+                bombero.setBrigada(bri);
 
-                try {
-                    Date fechaNac = java.sql.Date.valueOf(fechaNacFormateada);
-                    if (fechaNac != null) {
-                        fechaNacFormateada = fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                              
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Seleccione una fecha de nacimiento válida.");
-                        return; // Sale del método si no se ha seleccionado una fecha
-                    }
-
-                    int celular = Integer.parseInt(jTCelular.getText());
-                    Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
-                    bombero.setBrigada(brigadaSeleccionada);
-
-                    Bombero bomb = new Bombero(dni, nombre, fechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
-
-                    if (bomberoData.buscarBomberoPordni(dni) != null) {
-                        JOptionPane.showMessageDialog(null, "El DNI que quiere agregar ya se encuentra en la base de datos");
-                        return;
-                    }
-
-                    bomberoData.guardarBombero(bomb);
- 
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error en el formato de fecha ingresado");             
+                Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, bri, grupoSanguineo, estado);
+                String dni2 = jTDNI.getText();
+               
+                if (bomData.buscarBomberoIdPorDni2(dni2)) {
+                    JOptionPane.showMessageDialog(null, "El DNI que quiere agregar ya se encuentra en la base de datos");
+                    return;
                 }
+
+                bomData.guardarBombero(bomb);
+
             } catch (Exception e) {
-                // Manejo de excepciones generales en el método
+                JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
             }
         }
     }//GEN-LAST:event_jBAgregarActionPerformed

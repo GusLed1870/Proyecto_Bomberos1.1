@@ -242,20 +242,19 @@ public class BomberoData {
     }
 
     public boolean buscarBomberoIdPorDni2(String dni) {
-
         boolean bomb = false;
         String sql = "SELECT COUNT(*) FROM bombero WHERE dni = ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, dni);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
-                bomb = true;
-
+                int count = rs.getInt(1);  // Obtener el valor COUNT(*) del resultado
+                if (count > 0) {
+                    bomb = true;  // Si count es mayor que 0, se encontró un bombero
+                    return bomb;
+                }
             }
-
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla bombero " + ex.getMessage());
