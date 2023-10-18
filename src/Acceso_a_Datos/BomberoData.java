@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -261,4 +262,30 @@ public class BomberoData {
         }
         return bomb;
     }
+    public List<Bombero> listarBomberos2(String apell) {
+         
+        List<Bombero> bomberos = new ArrayList<>();
+        try {
+            String sql = "SELECT id_Bombero, dni, nombre_ape, celular FROM bombero WHERE nombre_ape like ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, apell+"%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bombero bomb = new Bombero();
+
+                bomb.setId_bombero(rs.getInt("id_bombero"));
+                bomb.setDni(rs.getString("dni"));
+                bomb.setNombre_ape(rs.getString("nombre_ape"));
+                bomb.setCelular(rs.getInt("celular"));
+                
+                bomberos.add(bomb);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Bombero. Error: " + ex.getMessage());
+        } 
+        return bomberos;
+     }
 }
+    

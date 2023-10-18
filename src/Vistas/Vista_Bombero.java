@@ -5,14 +5,24 @@ import Acceso_a_Datos.BrigadaData;
 import Entidades.Bombero;
 import Entidades.Brigada;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -418,7 +428,61 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRBEstadoActionPerformed
 
     private void jBBusquedaXNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusquedaXNombreActionPerformed
+        // Crear y configurar la ventana de búsqueda
+        String apellido = jTNombreApellido.getText();
+        JDialog ventanaBusqueda = new JDialog();
+        ventanaBusqueda.setTitle("Ventana de Búsqueda");
+        ventanaBusqueda.setSize(440, 153);
+        ventanaBusqueda.setLocation(762, 352);
 
+        // Crea la tabla y el modelo de datos
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre y Apellido");
+        modelo.addColumn("Documento");
+        modelo.addColumn("Celular");
+        JTable tabla = new JTable(modelo);
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        ventanaBusqueda.add(scrollPane);
+
+        // Realizar la consulta SQL con el apellido y obtener la lista de alumnos
+        BomberoData bomb = new BomberoData();
+        List<Bombero> bomberos = bomb.listarBomberos2(apellido);
+
+        // Llenar el modelo de la tabla con los resultados
+        for (Bombero bombero : bomberos) {
+            modelo.addRow(new Object[]{
+                bombero.getId_bombero(),
+                bombero.getNombre_ape(),
+                bombero.getDni(),
+                bombero.getCelular()
+            });
+        }
+        // Hacer visible la ventana de búsqueda
+        ventanaBusqueda.setVisible(true);
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Obtiene la fila seleccionada
+                int filaSeleccionada = tabla.getSelectedRow();
+
+                // Verifica si se hizo clic en una fila válida
+                if (filaSeleccionada >= 0) {
+                    // Obtiene el valor de la columna "ID" en la fila seleccionada
+                    Object idSeleccionado = modelo.getValueAt(filaSeleccionada, 0);
+                    // Comprueba si el valor es válido (no nulo)
+                    if (idSeleccionado != null) {
+                        idSeleccionado = Integer.parseInt(idSeleccionado.toString());
+                        // Ya obtuve el ID y puedo traerme todo lo demás
+                        jTIdBombero.setText(String.valueOf(idSeleccionado));
+                        jTIdBombero.setEnabled(false);
+                        ventanaBusqueda.dispose();
+                        // Invoco al método que me va a crea la tabla en una ventana extra para mostrarme todos los alumnos
+                        completarTabla(Integer.parseInt(idSeleccionado.toString()));
+                    }
+                }
+            }
+        });
     }//GEN-LAST:event_jBBusquedaXNombreActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -593,7 +657,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
                 Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, bri, grupoSanguineo, estado);
                 String dni2 = jTDNI.getText();
-               
+
                 if (bomData.buscarBomberoIdPorDni2(dni2)) {
                     JOptionPane.showMessageDialog(null, "El DNI que quiere agregar ya se encuentra en la base de datos");
                     return;
@@ -846,6 +910,54 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         lista.add("0+");
         pos = lista.indexOf(grupoSanguineo);
         return pos;
+    }
+
+    private void completarTabla(int id) {
+        Bombero bomb = bomberoData.buscarBomberoPorID(id);
+        jTIdBombero.setText(String.valueOf(bomb.getId_bombero()));
+        jTNombreApellido.setText(bomb.getNombre_ape());
+        jTDNI.setText(bomb.getDni());
+        jTCelular.setText(String.valueOf(bomb.getCelular()));
+        jDCFechaNac.setDate(java.sql.Date.valueOf(bomb.getFecha_nac()));
+        int nroBrigada = bomb.getBrigada().getCodBrigada();
+        for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {
+            Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);
+            if (brigadaSeleccionada != null && brigadaSeleccionada.getCodBrigada() == nroBrigada) {
+                jCBBrigadaAsignada.setSelectedIndex(i);
+                break; // Me saca del bucle una vez que se encuentra la brigada
+            }
+            String sangre = bomb.getGrupoSanguineo();
+            int pos = listaGruposSanguineos(sangre);
+            jCBGrupoSanguineo.setSelectedIndex(pos + 1);
+        }
+        jBModificar.setEnabled(true);
+        jBEliminar.setEnabled(true);
+        jBAgregar.setEnabled(false);
+
+        jTIdBombero.setEnabled(false);
+
+        if (bomb.isEstado()) {
+            BomberoActivo(); // Marca el radio button activo y deshabilita y habilita otros botones declarados en el método 
+
+        } else {
+            alumnoInactivo(); // Marca el radio button inactivo y deshabilita y habilita otros botones declarados en el método 
+        }
+    }
+
+    public void BomberoActivo() {
+        jRBEstado.setText("Activo");
+        jRBEstado.setSelected(true);
+        jBModificar.setEnabled(true);
+        jBEliminar.setEnabled(true);
+        jBAgregar.setEnabled(false);
+    }
+
+    public void alumnoInactivo() {
+        jRBEstado.setText("Inactivo");
+        jRBEstado.setSelected(false);
+        jBAgregar.setEnabled(false);
+        jBModificar.setEnabled(true);
+        jBEliminar.setEnabled(false);
     }
 
 }
