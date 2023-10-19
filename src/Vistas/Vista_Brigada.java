@@ -24,6 +24,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         List<Brigada> listaBrigadas = BriData.listarBrigadas2();
         jBModificar.setEnabled(false);
         cargarDatosTabla(listaBrigadas);
+        jRBLibre.setText("SI, esta Libre");
+        jRBLibre.setSelected(true);
 
     }
 
@@ -769,12 +771,12 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         } else if (jCBCuarteles.getSelectedIndex() == 0 && jCBEspecialidad.getSelectedIndex() != 0 && !tfNombre.getText().isEmpty()) {
 
-            campo_Especilidad.setVisible(true);
+            campo_ID_Cuartel.setVisible(true);
 
             int tiempoVisible = 10000; // 20 segundos en milisegundos
             Timer temporizador = new Timer(tiempoVisible, e -> {
 
-                campo_Especilidad.setVisible(false);
+                campo_ID_Cuartel.setVisible(false);
             });
 
             temporizador.setRepeats(false); // Solo se ejecutará una vez
