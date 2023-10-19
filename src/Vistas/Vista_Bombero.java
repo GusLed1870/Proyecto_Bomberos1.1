@@ -793,6 +793,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         permitirSoloNumeros(jTIdBombero);
         jTIdBombero.setForeground(Color.GRAY);
         jTNombreApellido.requestFocus();
+        jTIdBombero.setEnabled(true);
     }
 
     public void permitirSoloNumeros(JTextField textField) {
@@ -926,10 +927,10 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 jCBBrigadaAsignada.setSelectedIndex(i);
                 break; // Me saca del bucle una vez que se encuentra la brigada
             }
-            String sangre = bomb.getGrupoSanguineo();
-            int pos = listaGruposSanguineos(sangre);
-            jCBGrupoSanguineo.setSelectedIndex(pos + 1);
         }
+        String sangre = bomb.getGrupoSanguineo();
+        int pos = listaGruposSanguineos(sangre);
+        jCBGrupoSanguineo.setSelectedIndex(pos + 1);
         jBModificar.setEnabled(true);
         jBEliminar.setEnabled(true);
         jBAgregar.setEnabled(false);
