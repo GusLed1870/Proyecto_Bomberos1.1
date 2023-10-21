@@ -7,12 +7,8 @@ import Entidades.Brigada;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -445,7 +441,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         JScrollPane scrollPane = new JScrollPane(tabla);
         ventanaBusqueda.add(scrollPane);
 
-        // Realizar la consulta SQL con el apellido y obtener la lista de alumnos
+        // Realizar la consulta SQL con el apellido y obtener la lista de bomberos
         BomberoData bomb = new BomberoData();
         List<Bombero> bomberos = bomb.listarBomberos2(apellido);
 
@@ -496,20 +492,25 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        LocalDate fechaNacFormateada = null;
+        int codBrigada;
+        int idBombero = Integer.parseInt(jTIdBombero.getText());
         String nombre = jTNombreApellido.getText();
         String dni = jTDNI.getText();
-        int celular = 0;
-        LocalDate fechaNacFormateada = null;
-        int codBrigada = -1;
-        brigada = null;
-        String gs = "0+";
+        Date fechaNac = jDCFechaNac.getDate();   
+        Brigada bri = obtenerBrigadaSeleccionada();
+        String celu = jTCelular.getText();
+        String gs;
+        boolean estado = jRBEstado.isSelected();
+        BomberoData bombData = new BomberoData();
+        BrigadaData briData = new BrigadaData();
 
         // Realizo validaciones de campos individuales
-        if (jTNombreApellido.getText().isEmpty()) {
+        if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
             return;
         }
-        if (jTDNI.getText().isEmpty()) {
+        if (dni.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar el DNI");
             return;
         }
@@ -521,8 +522,20 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe completar el celular");
             return;
         }
+         int celular = Integer.parseInt(celu);
+
         if (jDCFechaNac.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
+            return;
+        }
+        try {
+            LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
+            if (!esFechaValida(FechaNacFormateada)) {
+                return;
+            }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Error al procesar la fecha: " + e.getMessage());
             return;
         }
         if (jCBGrupoSanguineo.getSelectedIndex() == 0) {
@@ -533,28 +546,8 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
             return;
         }
-        try {
-            celular = Integer.parseInt(jTCelular.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error al ingresar el número de celular.");
-            return; // Sale del método si hay un error en el celular
-        }
-
-        try {
-            Date fechaNac = jDCFechaNac.getDate();
-            if (fechaNac != null) {
-                fechaNacFormateada = fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            } else {
-                JOptionPane.showMessageDialog(this, "Seleccione una fecha de nacimiento válida.");
-                return; // Sale del método si no se ha seleccionado una fecha
-            }
-        } catch (DateTimeException e) {
-            JOptionPane.showMessageDialog(this, "Error al ingresar la fecha de nacimiento: " + e.getMessage());
-            return; // Sale del método si hay un error en la fecha de nacimiento
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al ingresar la fecha de nacimiento.");
-            return; // Sale del método si hay un error en la fecha de nacimiento
-        }
+        LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
         try {
             gs = jCBGrupoSanguineo.getSelectedItem().toString();
             if (!gs.equalsIgnoreCase("Seleccione el grupo sanguíneo")) {
@@ -575,35 +568,15 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
                 try {
                     codBrigada = Integer.parseInt(parts[1]);
-                    BrigadaData briData = new BrigadaData();
                     brigada = briData.buscarBrigada(codBrigada);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Error al ingresar el código de brigada.");
-                    return; // Sale del método si hay un error en el código de brigada
+                    return; 
                 }
             }
         }
-
-        Bombero bomb = bomberoData.buscarBomberoPordni(dni);
-
-        if (bomb != null) {
-            bomb.setNombre_ape(nombre);
-            bomb.setFecha_nac(fechaNacFormateada);
-            bomb.setCelular(celular);
-            bomb.setGrupoSanguineo(gs);
-            bomb.setEstado(jRBEstado.isSelected());
-
-            if (brigada != null) {
-                bomb.setBrigada(brigada);
-            } else {
-                JOptionPane.showMessageDialog(this, "La brigada seleccionada no es válida.");
-                return; // Sale del método si no se ha seleccionado una brigada válida
-            }
-
-            bomberoData.modificarBombero(bomb);
-        } else {
-            JOptionPane.showMessageDialog(this, "Bombero no encontrado.");
-        }
+        Bombero bomb = new Bombero(idBombero, dni, nombre, FechaNacFormateada, celular, bri, gs, estado);
+        bombData.modificarBombero(bomb);
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
@@ -649,6 +622,17 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     return;
                 }
                 // Si se llega aquí, todos los campos están completos
+
+                try {
+                    LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
+                    if (!esFechaValida(FechaNacFormateada)) {
+                        return;
+                    }
+                } catch (IllegalArgumentException e) {
+                    JOptionPane.showMessageDialog(null, "Error al procesar la fecha: " + e.getMessage());
+                    return;
+                }
                 LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
                 int celular = Integer.parseInt(jTCelular.getText());
@@ -961,4 +945,17 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jBEliminar.setEnabled(false);
     }
 
+    public boolean esFechaValida(LocalDate FechaNacFormateada) {
+        LocalDate fechaNac = FechaNacFormateada;
+
+        // Fecha máxima permitida: 31/01/2100
+        LocalDate fechaMaxima = LocalDate.of(2100, 1, 31);
+
+        if (fechaNac.isAfter(fechaMaxima)) {
+            JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede superar el 31/01/2100");
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
