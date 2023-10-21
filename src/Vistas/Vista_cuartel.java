@@ -218,9 +218,9 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
 
         jLx.setForeground(new java.awt.Color(204, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Candara", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Cuartel");
+        jLabel1.setText("Cuarteles");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
