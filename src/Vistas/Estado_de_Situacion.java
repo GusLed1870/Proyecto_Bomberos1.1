@@ -259,11 +259,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     
     
         private void armarCabecera() {
-        modelo.addColumn("Codigo Brigada");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Especialidad");
-        modelo.addColumn("Disponibilidad");
-        modelo.addColumn("Nro de Cuartel");
+        modelo.addColumn("Cod. Brigada");
+        modelo.addColumn("Nom. Brigada");
+        modelo.addColumn("ID_Siniestro");
+        modelo.addColumn("Fecha Siniestro");
+        //modelo.addColumn("Detalle");
         modelo.addColumn("Puntuacion");
         jTabla.setModel(modelo);
     }
