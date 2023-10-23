@@ -10,6 +10,8 @@ import Acceso_a_Datos.Cuartel_data;
 import Entidades.Brigada;
 import Entidades.Cuartel;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,9 +26,10 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     public Estado_de_Situacion() {
         initComponents();
         cargarCB();
-        jRBEnProgreso.setSelected(true);
+
         armarCabecera();
-        
+        llenarTabla();
+
     }
 
     /**
@@ -93,6 +96,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jBLimpiarCampos.setText("Limpiar Campos");
 
         jCBrigadas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBrigadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBrigadasActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Seleccione una brigada");
@@ -103,6 +111,21 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Estado del Siniestro");
+
+        jYearChooser1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                jYearChooser1AncestorMoved(evt);
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jYearChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jYearChooser1MouseExited(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Seleccione un año");
@@ -202,20 +225,43 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRBEnProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBEnProgresoActionPerformed
-        if(jRBEnProgreso.isSelected()){
+        if (jRBEnProgreso.isSelected()) {
+            
             jRBFinalizado.setSelected(false);
-        }else{
-             jRBFinalizado.setSelected(true);
+            if(jCBrigadas.getSelectedIndex() == 0){
+                llenarTabla();
+            }else{
+                
+            }
+        } else {
+            jRBFinalizado.setSelected(true);
         }
     }//GEN-LAST:event_jRBEnProgresoActionPerformed
 
     private void jRBFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFinalizadoActionPerformed
-         if(jRBFinalizado.isSelected()){
+        if (jRBFinalizado.isSelected()) {
             jRBEnProgreso.setSelected(false);
-        }else{
-             jRBEnProgreso.setSelected(true);
+        } else {
+            jRBEnProgreso.setSelected(true);
         }
     }//GEN-LAST:event_jRBFinalizadoActionPerformed
+
+    private void jYearChooser1AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jYearChooser1AncestorMoved
+        llenarTabla();
+    }//GEN-LAST:event_jYearChooser1AncestorMoved
+
+    private void jYearChooser1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jYearChooser1MouseExited
+        llenarTabla();
+    }//GEN-LAST:event_jYearChooser1MouseExited
+
+    private void jCBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBrigadasActionPerformed
+        if (jCBrigadas.getSelectedIndex() == 0) {
+            llenarTabla();
+
+        } else {
+            llenarTablaBrigada();
+        }
+    }//GEN-LAST:event_jCBrigadasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -256,9 +302,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             jCBrigadas.setSelectedIndex(0); // Establece la selección en la posición 0
         }
     }
-    
-    
-        private void armarCabecera() {
+
+    private void armarCabecera() {
         modelo.addColumn("Cod. Brigada");
         modelo.addColumn("Nom. Brigada");
         modelo.addColumn("ID_Siniestro");
@@ -273,4 +318,47 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             return false;
         }
     };
+
+    private void llenarTabla() {
+        modelo.setRowCount(0);
+        BrigadaData briData = new BrigadaData();
+
+        List<String> listaValores = briData.actualizavalores(jYearChooser1.getYear()); // Aquí debes poner el año que desees
+
+        // Llena la tabla con los datos obtenidos
+        for (String fila : listaValores) {
+            String[] datos = fila.split(", ");
+            modelo.addRow(datos);
+        }
+
+    }
+
+    private void llenarTablaBrigada() {
+        modelo.setRowCount(0);
+        BrigadaData briData = new BrigadaData();
+        String selectedItemText = (String) jCBrigadas.getSelectedItem();
+        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+        if (selectedItemText != null) {
+            // Dividir la cadena por espacios en blanco
+            String[] parts = selectedItemText.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                try {
+
+                    codCuartel = Integer.parseInt(parts[1]);
+                    List<String> listaValores = briData.actualizavalores2(jYearChooser1.getYear(), codCuartel); // Aquí debes poner el año que desees
+
+                    // Llena la tabla con los datos obtenidos
+                    for (String fila : listaValores) {
+                        String[] datos = fila.split(", ");
+                        modelo.addRow(datos);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                }
+            }
+        }
+        //System.out.println("ID "+codCuartel);
+
+    }
 }
