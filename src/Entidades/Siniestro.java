@@ -108,7 +108,7 @@ public class Siniestro {
     public String toString() {
         return "Siniestro" + "\nCódigo: " + codigo + "\nTipo: " + tipo + "\nFecha del siniestro: " + fecha_siniestro 
                 + "\nCoord_X: " + coord_X + "\nCoord_Y: " + coord_Y + "\nDetalles: " + detalles 
-                + "\nFecha de resolución: " + fecha_resol + "\nPuntuacion: " + puntuacion 
+                + "\nFecha de resolución: " + fecha_resol + "\nPuntuación: " + puntuacion 
                 + "\n" + brigada;
     }  
 }
