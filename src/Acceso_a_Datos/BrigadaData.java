@@ -2,7 +2,9 @@ package Acceso_a_Datos;
 
 import Entidades.Brigada;
 import Entidades.Cuartel;
+import Entidades.Siniestro;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -696,5 +698,31 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
         }
         return listaValores;
+    }
+     public void modificarsiniestro(Siniestro siniestro) {
+        String sql = "UPDATE siniestro SET tipo=?, fecha_siniestro=?, coord_X=?, coord_Y=?, detalles=?, fecha_resol=?, puntuacion=? WHERE codigo=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, siniestro.getTipo());
+            ps.setDate(2, Date.valueOf(siniestro.getFecha_siniestro()));
+            ps.setInt(3,  siniestro.getCoord_X());
+            ps.setInt(4,  siniestro.getCoord_Y());
+            ps.setString(5, siniestro.getDetalles());
+            ps.setDate(6, Date.valueOf(siniestro.getFecha_resol()));
+            ps.setInt(7,  siniestro.getPuntuacion());
+            ps.setInt(8, siniestro.getCodigo());
+
+            int filasActualizadas = ps.executeUpdate();
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
+        }
     }
 }

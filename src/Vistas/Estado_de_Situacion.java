@@ -29,6 +29,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
 
         armarCabecera();
         llenarTabla();
+        jBActualizar.setEnabled(false);
+        jTabla.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 
     }
 
@@ -52,7 +54,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jCBrigadas = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jBActualizar = new javax.swing.JButton();
-        jBActualizar1 = new javax.swing.JButton();
+        jBSalir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jYearChooser1 = new com.toedter.calendar.JYearChooser();
         jLabel5 = new javax.swing.JLabel();
@@ -112,7 +114,12 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
 
         jBActualizar.setText("Actualizar la puntuación");
 
-        jBActualizar1.setText("Salir");
+        jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Estado del Siniestro");
@@ -145,7 +152,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBActualizar)
                 .addGap(183, 183, 183)
-                .addComponent(jBActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(99, 99, 99))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
@@ -211,7 +218,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBLimpiarCampos)
                     .addComponent(jBActualizar)
-                    .addComponent(jBActualizar1))
+                    .addComponent(jBSalir))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
 
@@ -231,6 +238,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
 
     private void jRBEnProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBEnProgresoActionPerformed
         if (jRBEnProgreso.isSelected()) {
+             jBActualizar.setEnabled(true);
 
             jRBFinalizado.setSelected(false);
             if (jCBrigadas.getSelectedIndex() == 0) {
@@ -239,12 +247,14 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 llenarTablaBrigadaenProgreso();
             }
         } else {
-            jRBFinalizado.setSelected(true);
+           // jRBFinalizado.setSelected(true);
+           //  jBActualizar.setEnabled(false);
         }
     }//GEN-LAST:event_jRBEnProgresoActionPerformed
 
     private void jRBFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFinalizadoActionPerformed
         if (jRBFinalizado.isSelected()) {
+            jBActualizar.setEnabled(false);
             jRBEnProgreso.setSelected(false);
             if (jCBrigadas.getSelectedIndex() == 0) {
                 llenarTodosFinalizados();
@@ -252,7 +262,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 llenarTablaBrigadaFinalizados();
             }
         } else {
-            jRBEnProgreso.setSelected(true);
+           // jRBEnProgreso.setSelected(true);
+           // jBActualizar.setEnabled(false);
         }
     }//GEN-LAST:event_jRBFinalizadoActionPerformed
 
@@ -288,11 +299,15 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         lipiarCampos();
     }//GEN-LAST:event_jBLimpiarCamposActionPerformed
 
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBActualizar;
-    private javax.swing.JButton jBActualizar1;
     private javax.swing.JButton jBLimpiarCampos;
+    private javax.swing.JButton jBSalir;
     private javax.swing.JComboBox<String> jCBrigadas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -340,7 +355,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
-            return false;
+            return c== 4;
         }
     };
 
@@ -480,6 +495,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
 
         jRBEnProgreso.setSelected(false);
         jRBFinalizado.setSelected(false);
+        jBActualizar.setEnabled(false);
     }
 
 }
