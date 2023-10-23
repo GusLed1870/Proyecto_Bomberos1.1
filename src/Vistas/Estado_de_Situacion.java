@@ -113,6 +113,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel3.setText("Seleccione una brigada");
 
         jBActualizar.setText("Actualizar la puntuación");
+        jBActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActualizarActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -302,6 +307,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
+        BrigadaData briData=new BrigadaData();
+        
+    }//GEN-LAST:event_jBActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
