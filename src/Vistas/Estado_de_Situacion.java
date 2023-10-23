@@ -30,6 +30,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         armarCabecera();
         llenarTabla();
         jBActualizar.setEnabled(false);
+        jTabla.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 
     }
 
@@ -354,7 +355,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
-            return false;
+            return c== 4;
         }
     };
 
