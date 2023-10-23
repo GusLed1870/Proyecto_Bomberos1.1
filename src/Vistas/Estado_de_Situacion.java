@@ -94,6 +94,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel2.setText("Lista de Siniestros");
 
         jBLimpiarCampos.setText("Limpiar Campos");
+        jBLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarCamposActionPerformed(evt);
+            }
+        });
 
         jCBrigadas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCBrigadas.addActionListener(new java.awt.event.ActionListener() {
@@ -260,13 +265,28 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jYearChooser1MouseExited
 
     private void jCBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBrigadasActionPerformed
-        if (jCBrigadas.getSelectedIndex() == 0) {
+        if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
             llenarTabla();
 
-        } else {
+        } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaenProgreso2();
+        } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+            llenarTodosFinalizados();
+
+        } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigada();
+        } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaenProgreso();
+        } else if(jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()){
+            llenarTablaBrigadaFinalizados();
+        }else {
             llenarTablaBrigada();
         }
     }//GEN-LAST:event_jCBrigadasActionPerformed
+
+    private void jBLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarCamposActionPerformed
+        lipiarCampos();
+    }//GEN-LAST:event_jBLimpiarCamposActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -399,36 +419,20 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     private void llenarTablaBrigadaenProgreso2() {
         modelo.setRowCount(0);
         BrigadaData briData = new BrigadaData();
-        String selectedItemText = (String) jCBrigadas.getSelectedItem();
-        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
 
-        if (selectedItemText != null) {
-            // Dividir la cadena por espacios en blanco
-            String[] parts = selectedItemText.split(" ");
-            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
-                try {
+        List<String> listaValores = briData.todosEnprogreso(jYearChooser1.getYear()); // Aquí debes poner el año que desees
 
-                    codCuartel = Integer.parseInt(parts[1]);
-                    List<String> listaValores = briData.todosEnprogreso(jYearChooser1.getYear()); // Aquí debes poner el año que desees
-
-                    // Llena la tabla con los datos obtenidos
-                    for (String fila : listaValores) {
-                        String[] datos = fila.split(", ");
-                        modelo.addRow(datos);
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
-                }
-            }
+        // Llena la tabla con los datos obtenidos
+        for (String fila : listaValores) {
+            String[] datos = fila.split(", ");
+            modelo.addRow(datos);
         }
-        //System.out.println("ID "+codCuartel);
 
     }
 
     private void llenarTodosFinalizados() {
         modelo.setRowCount(0);
         BrigadaData briData = new BrigadaData();
-        
 
         List<String> listaValores = briData.todosFinalizados(jYearChooser1.getYear()); // Aquí debes poner el año que desees
 
@@ -440,11 +444,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
 
     }
 
-
-
-
-    
-     private void llenarTablaBrigadaFinalizados() {
+    private void llenarTablaBrigadaFinalizados() {
         modelo.setRowCount(0);
         BrigadaData briData = new BrigadaData();
         String selectedItemText = (String) jCBrigadas.getSelectedItem();
@@ -472,6 +472,14 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         //System.out.println("ID "+codCuartel);
 
     }
-    
-    
+
+    private void lipiarCampos() {
+        jCBrigadas.setSelectedIndex(0);
+        jYearChooser1.setYear(2023);
+        llenarTabla();
+
+        jRBEnProgreso.setSelected(false);
+        jRBFinalizado.setSelected(false);
+    }
+
 }
