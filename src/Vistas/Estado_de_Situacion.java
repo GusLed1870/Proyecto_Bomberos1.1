@@ -507,5 +507,105 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jRBFinalizado.setSelected(false);
         jBActualizar.setEnabled(false);
     }
+    private void actualizarNotaDesdeTabla() {
+        String itemSeleccionado = (String) jCBAlumno.getSelectedItem();
+        int idAlumno = -1; // Valor por defecto si no se encuentra el ID
+        if (itemSeleccionado != null) {
+            // Esto divide la cadena por espacios y tomar la parte correspondiente al ID
+            String[] parts = itemSeleccionado.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("id:")) {
+                idAlumno = Integer.parseInt(parts[1]);
+            }
+        }
+
+        // Con esto obtengo el valor de la celda seleccionada en la tabla
+        int filaSeleccionada = jTabla.getSelectedRow();
+        int id = -1;
+        double nota = -1;
+
+        if (filaSeleccionada >= 0 && filaSeleccionada < jTabla.getRowCount()) {
+            // Si se cumple la condición la fila seleccionada es válida
+
+            // Obtiene el valor del "id" en la columna 0 (suponiendo que "id" está en la primera columna)
+            id = (int) jTabla.getValueAt(filaSeleccionada, 0);
+
+            // Obtiene el valor de "nota" en la columna 2 (suponiendo que "nota" está en la tercera columna)
+            Object valorCelda = jTabla.getValueAt(filaSeleccionada, 2);
+
+            try {
+                nota = Double.parseDouble(valorCelda.toString());
+
+                // Verifica si la nota está dentro del rango permitido (-1 a 10)
+                if (nota < 2 || nota > 10) {
+                    // Si la condición se cumple la nota está fuera del rango permitido, muestra un mensaje de error y no actualiza la base de datos
+                    JOptionPane.showMessageDialog(this, "La nota debe estar entre 2 y 10");
+                    Alumno al = new Alumno(idAlumno);
+                    borrarFilas();
+                    InscripcionData is = new InscripcionData();
+
+                    List<Inscripcion> inscripciones = is.obtenerInscripcionesPorAlumno(al);
+
+                    // Limpia los datos actuales del modelo
+                    modelo.setRowCount(0);
+
+                    // Llena la tabla con las inscripciones y muestra "Falta cargar" si la nota es menor a 0
+                    for (Inscripcion inscripcion : inscripciones) {
+                        nota = inscripcion.getNota();
+                        if (nota < 0) {
+                            nota = Double.NaN; // Mostrar "Falta cargar" en lugar de un valor negativo
+                        }
+                        Object[] rowData = {
+                            inscripcion.getMateria().getIdMateria(),
+                            inscripcion.getMateria().getNombre(),
+                            (Double.isNaN(nota) ? "Falta cargar" : nota) //Not a number (NAN) 
+                        };
+                        modelo.addRow(rowData);
+                    }
+
+                    // Asigna el modelo de tabla a la JTable
+                    jTabla.setModel(modelo);
+
+                    // Actualiza la vista de la tabla para que muestre los datos
+                    return; // Sale del método sin actualizar la base de datos
+                }
+            } catch (NumberFormatException ex) {
+
+                JOptionPane.showMessageDialog(this, "Error: La nota debe ser un número válido.");
+
+                return; // Sale del método sin actualizar la base de datos
+            }
+
+            // Llamamos al método para actualizar la nota con los valores obtenidos
+            InscripcionData is = new InscripcionData();
+            is.actualizarNota(idAlumno, id, nota);
+            Alumno al = new Alumno(idAlumno);///borrar de aca
+            borrarFilas();
+            List<Inscripcion> inscripciones = is.obtenerInscripcionesPorAlumno(al);
+
+                    // Limpia los datos actuales del modelo
+                    modelo.setRowCount(0);
+
+                    // Llena la tabla con las inscripciones y muestra "Falta cargar" si la nota es menor a 0
+                    for (Inscripcion inscripcion : inscripciones) {
+                        nota = inscripcion.getNota();
+                        if (nota < 0) {
+                            nota = Double.NaN; // Mostrar "Falta cargar" en lugar de un valor negativo
+                        }
+                        Object[] rowData = {
+                            inscripcion.getMateria().getIdMateria(),
+                            inscripcion.getMateria().getNombre(),
+                            (Double.isNaN(nota) ? "Falta cargar" : nota) //Not a number (NAN) 
+                        };
+                        modelo.addRow(rowData);
+                    }
+
+                    // Asigna el modelo de tabla a la JTable
+                    jTabla.setModel(modelo);/// hasta aca
+            
+        } else {
+            System.out.println("No se ha seleccionado una fila válida.");
+        }
+    }
+
 
 }
