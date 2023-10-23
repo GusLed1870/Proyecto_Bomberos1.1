@@ -725,4 +725,31 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
         }
     }
+     
+     public void actualizarNota(int idSiniestro, int nota) {
+
+        String sql = "UPDATE siniestro SET puntuacion = ? WHERE codigo = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            if (nota >= 1 & nota <= 10) {
+                ps.setDouble(1, nota);
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un valor de nota correcto (entre 2 y 10)");
+            }
+            ps.setInt(2, idSiniestro);
+
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "La nota fue actualizada correctamente");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar conectar con la base de datos");
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Error únicamente se pueden ingresar valores enteros");
+        }
+    }
 }
