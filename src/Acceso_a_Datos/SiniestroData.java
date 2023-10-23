@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class SiniestroData {
@@ -45,13 +46,6 @@ public class SiniestroData {
         }
     }
 
-    // Método para calcular la distancia entre dos puntos
-    public double calcularDistancia(double coord_X1, double coord_Y1, double coord_X2, double coord_Y2) {
-        double distanciaX = coord_X2 - coord_X1;
-        double distanciaY = coord_Y2 - coord_Y1;
-        return Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
-    }
-
     public double[] obtenerCoordenadasCuartel(int cuartelId) {
         String sql = "SELECT coord_X, coord_Y FROM cuartel WHERE codCuartel = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -69,24 +63,6 @@ public class SiniestroData {
             JOptionPane.showMessageDialog(null, "Error al intentar conectar con la base de datos");
         }
         return null;
-    }
-
-    // Método para calcular la distancia entre un cuartel y un siniestro
-    public double distanciaCuartelSiniestro(int cuartelId, int siniestroId, Connection connection) {
-        double[] coordenadasCuartel = obtenerCoordenadasCuartel(cuartelId);
-        double[] coordenadasSiniestro = obtenerCoordenadasSiniestro(siniestroId);
-
-        if (coordenadasCuartel != null && coordenadasSiniestro != null) {
-            return calcularDistancia(
-                    coordenadasCuartel[0],
-                    coordenadasCuartel[1],
-                    coordenadasSiniestro[0],
-                    coordenadasSiniestro[1]
-            );
-        } else {
-            // Si no se encuentran las coordenadas, retorna un valor negativo para indicar un error
-            return -1.0;
-        }
     }
 
     // Método para obtener las coordenadas de un siniestro desde la base de datos
@@ -116,4 +92,39 @@ public class SiniestroData {
         }
         return null;
     }
+
+    public ArrayList<String> brigadaAsignada(String especialidad) {
+        ArrayList<String> brigadasDisponibles = new ArrayList<>();
+        String sql = "SELECT brigada.codBrigada as ID, brigada.nombre_br as Nombre, cuartel.coord_X as coord_X , "
+                + "cuartel.coord_Y as coord_Y FROM brigada JOIN cuartel ON brigada.codBrigada = cuartel.codCuartel "
+                + "WHERE brigada.especialidad = ? AND brigada.libre = 1";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, especialidad);
+
+            try {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    StringBuilder valores = new StringBuilder();
+                    valores.append(rs.getString("ID")).append(" ");
+                    valores.append(rs.getString("Nombre")).append(" ");
+                    valores.append(rs.getString("coord_X")).append(" ");
+                    valores.append(rs.getString("coord_Y")).append(" ");
+
+                    brigadasDisponibles.add(valores.toString());
+                }
+            } catch (SQLException innerEx) {
+                JOptionPane.showMessageDialog(null, "Error al intentar conectar con una tabla de la base de datos");
+            } finally {
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar conectar con la base de datos");
+        }
+        return brigadasDisponibles;
+    }
+
 }

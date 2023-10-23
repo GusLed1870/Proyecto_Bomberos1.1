@@ -5,6 +5,7 @@ import Acceso_a_Datos.SiniestroData;
 import Entidades.Brigada;
 import Entidades.Siniestro;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Vista_Siniestro extends javax.swing.JInternalFrame {
@@ -12,7 +13,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     //Atributos
     BrigadaData brigadaData;
     SiniestroData siniestroData;
-    
+
     public Vista_Siniestro() {
         initComponents();
         brigadaData = new BrigadaData();
@@ -24,6 +25,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jlTipoEmergencia = new javax.swing.JLabel();
         jcbTipoEmergencia = new javax.swing.JComboBox<>();
@@ -44,6 +47,12 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtAreaDetalles = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        jTFBrigadaCercana = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+
+        jCheckBox1.setText("jCheckBox1");
+
+        jToggleButton1.setText("jToggleButton1");
 
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(1100, 678));
@@ -51,37 +60,60 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(255, 153, 51));
         jPanel1.setPreferredSize(new java.awt.Dimension(931, 666));
 
-        jlTipoEmergencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jlTipoEmergencia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlTipoEmergencia.setForeground(new java.awt.Color(0, 0, 0));
         jlTipoEmergencia.setText("Tipo de Emergencia:");
 
         jcbTipoEmergencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jcbTipoEmergencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el tipo de emergencia", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
+        jcbTipoEmergencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTipoEmergenciaActionPerformed(evt);
+            }
+        });
 
-        jlFechaSiniestro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jlFechaSiniestro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlFechaSiniestro.setForeground(new java.awt.Color(0, 0, 0));
         jlFechaSiniestro.setText("Fecha de Siniestro:");
 
-        jlCoord_X.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jlCoord_X.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlCoord_X.setForeground(new java.awt.Color(0, 0, 0));
         jlCoord_X.setText("Coordenada X:");
 
         jtfCoord_X.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfCoord_X.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfCoord_XKeyReleased(evt);
+            }
+        });
 
-        jlCoord_Y.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jlCoord_Y.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlCoord_Y.setForeground(new java.awt.Color(0, 0, 0));
         jlCoord_Y.setText("Coordenada Y:");
 
         jtfCoord_Y.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfCoord_Y.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfCoord_YKeyReleased(evt);
+            }
+        });
 
-        jlDetalles.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jlDetalles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlDetalles.setForeground(new java.awt.Color(0, 0, 0));
         jlDetalles.setText("Detalles:");
 
-        jlFechaResolucion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jlFechaResolucion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlFechaResolucion.setForeground(new java.awt.Color(0, 0, 0));
         jlFechaResolucion.setText("Fecha de Resolución:");
 
-        jlBrigada.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jlBrigada.setText("Brigada:");
+        jlBrigada.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlBrigada.setForeground(new java.awt.Color(0, 0, 0));
+        jlBrigada.setText("Brigada más cercana libre:");
 
         jcbBrigada.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jbLimpiarCampos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jbLimpiarCampos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbLimpiarCampos.setForeground(new java.awt.Color(0, 0, 0));
         jbLimpiarCampos.setText("Limpiar campos");
         jbLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +121,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         });
 
-        jbCargar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jbCargar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbCargar.setForeground(new java.awt.Color(0, 0, 0));
         jbCargar.setText("Cargar");
         jbCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +130,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jbSalir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbSalir.setForeground(new java.awt.Color(0, 0, 0));
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,94 +146,119 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("EMERGENCIAS");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Todas las brigadas:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(391, 391, 391)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlTipoEmergencia)
-                    .addComponent(jlBrigada)
-                    .addComponent(jlFechaResolucion)
-                    .addComponent(jlDetalles)
-                    .addComponent(jlCoord_Y)
-                    .addComponent(jlCoord_X)
-                    .addComponent(jlFechaSiniestro))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jlCoord_Y)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jtfCoord_Y, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(749, 749, 749))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jlTipoEmergencia, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jlFechaSiniestro, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(42, 42, 42)
+                            .addComponent(jlCoord_X)
+                            .addGap(18, 18, 18)
+                            .addComponent(jtfCoord_X, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbLimpiarCampos)
-                        .addGap(213, 213, 213)
-                        .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfCoord_X, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfCoord_Y, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlDetalles, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlFechaResolucion, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlBrigada, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(622, Short.MAX_VALUE))
+                            .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jbLimpiarCampos)
+                                    .addGap(201, 201, 201)
+                                    .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(52, 52, 52)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlTipoEmergencia))
-                        .addGap(18, 18, 18)
+                        .addGap(25, 25, 25)
                         .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jlFechaSiniestro))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfCoord_X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlCoord_X))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlCoord_X)
+                    .addComponent(jtfCoord_X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfCoord_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlCoord_Y))
+                    .addComponent(jlCoord_Y)
+                    .addComponent(jtfCoord_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlFechaResolucion)
+                    .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jlDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jlFechaResolucion)))
-                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlBrigada)
-                    .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                    .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCargar)
                     .addComponent(jbLimpiarCampos)
+                    .addComponent(jbCargar)
                     .addComponent(jbSalir))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1098, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
         );
 
         pack();
@@ -214,9 +273,9 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbLimpiarCamposActionPerformed
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
-        
-        try{
-            if(validacionCamposVacios()){
+
+        try {
+            if (validacionCamposVacios()) {
                 JOptionPane.showMessageDialog(this, "Corrobore los datos ingresados.");
                 return;
             }
@@ -228,21 +287,43 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
             siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            siniestro.setBrigada((Brigada)jcbBrigada.getSelectedItem());
+            siniestro.setBrigada((Brigada) jcbBrigada.getSelectedItem());
 
             siniestroData.cargarSiniestro(siniestro);
-            
-        }catch(NumberFormatException nfe){
+
+        } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Debe ingresar datos númericos en los campos de coordenadas.");
-        }catch(IllegalArgumentException iae){
+        } catch (IllegalArgumentException iae) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
         }
     }//GEN-LAST:event_jbCargarActionPerformed
 
+    private void jtfCoord_XKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCoord_XKeyReleased
+        if (!jtfCoord_X.getText().isEmpty() && !jtfCoord_Y.getText().isEmpty()) {
+            imprimirLista();
+        }
+    }//GEN-LAST:event_jtfCoord_XKeyReleased
+
+    private void jtfCoord_YKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCoord_YKeyReleased
+           if (!jtfCoord_X.getText().isEmpty() && !jtfCoord_Y.getText().isEmpty()) {
+            imprimirLista();
+        }
+    }//GEN-LAST:event_jtfCoord_YKeyReleased
+
+    private void jcbTipoEmergenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoEmergenciaActionPerformed
+        if (!jtfCoord_X.getText().isEmpty() && !jtfCoord_Y.getText().isEmpty()) {
+            imprimirLista();
+        }
+    }//GEN-LAST:event_jcbTipoEmergenciaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFBrigadaCercana;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JButton jbCargar;
     private javax.swing.JButton jbLimpiarCampos;
     private javax.swing.JButton jbSalir;
@@ -261,15 +342,15 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfCoord_X;
     private javax.swing.JTextField jtfCoord_Y;
     // End of variables declaration//GEN-END:variables
-    
-    private void llenarCombo(){ 
+
+    private void llenarCombo() {
         for (Brigada bri : brigadaData.listarBrigadaslibres()) {
             jcbBrigada.addItem(bri);
-        } 
+        }
     }
-    
-    private void limpiarCampos(){
-        
+
+    private void limpiarCampos() {
+
         jcbTipoEmergencia.setSelectedIndex(0);
         jdcFechaSiniestro.setDate(null);
         jtfCoord_X.setText(null);
@@ -278,9 +359,42 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jdcFechaResolucion.setDate(null);
         jcbBrigada.setSelectedIndex(0);
     }
-    
-    private boolean validacionCamposVacios(){
-        return jcbTipoEmergencia.getSelectedItem().toString().equalsIgnoreCase("Seleccione el tipo de emergencia") || jtfCoord_X.getText().isEmpty() ||
-                jtfCoord_Y.getText().isEmpty() || jtAreaDetalles.getText().isEmpty();
+
+    private boolean validacionCamposVacios() {
+        return jcbTipoEmergencia.getSelectedItem().toString().equalsIgnoreCase("Seleccione el tipo de emergencia") || jtfCoord_X.getText().isEmpty()
+                || jtfCoord_Y.getText().isEmpty() || jtAreaDetalles.getText().isEmpty();
     }
+
+    public void imprimirLista() {
+        SiniestroData sini = new SiniestroData();
+        Brigada bri = new Brigada();
+        BrigadaData briData = new BrigadaData();
+        if (jcbTipoEmergencia.getSelectedIndex() > 0) {
+            ArrayList<String> lista = sini.brigadaAsignada(jcbTipoEmergencia.getSelectedItem().toString());
+            double aux = 1000000000;
+            for (String string : lista) {
+                String[] parts = string.split(" ");
+                double corX = Double.parseDouble(parts[2]);
+                double corY = Double.parseDouble(parts[3]);
+                double distancia = calcularDistancia(corX, corY);
+                if (distancia <= aux) {
+                    aux = distancia;
+                    int id = Integer.parseInt(parts[0]);
+                    bri = briData.buscarBrigada2(id);
+                    jTFBrigadaCercana.setText("ID:  "+bri.getCodBrigada()+"     Nombre: "+bri.getNombre_br()
+                            + "    Cuartel: "+bri.getCuartel().getNombre_cuartel()+"    Distancia al sinietro: "+(int) aux);
+                }
+            }
+        }
+    }
+    // Método para calcular la distancia entre dos puntos
+
+    public double calcularDistancia(double coord_X1, double coord_Y1) {
+        double coord_X2 = Double.parseDouble(jtfCoord_X.getText());
+        double coord_Y2 = Double.parseDouble(jtfCoord_Y.getText());
+        double distanciaX = coord_X2 - coord_X1;
+        double distanciaY = coord_Y2 - coord_Y1;
+        return Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
+    }
+
 }
