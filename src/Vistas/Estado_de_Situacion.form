@@ -48,7 +48,7 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jBActualizar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
-                  <Component id="jBActualizar1" min="-2" pref="105" max="-2" attributes="0"/>
+                  <Component id="jBSalir" min="-2" pref="105" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
@@ -135,7 +135,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBLimpiarCampos" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBActualizar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="130" max="32767" attributes="0"/>
               </Group>
@@ -235,10 +235,13 @@
             <Property name="text" type="java.lang.String" value="Actualizar la puntuaci&#xf3;n"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jBActualizar1">
+        <Component class="javax.swing.JButton" name="jBSalir">
           <Properties>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBSalirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
