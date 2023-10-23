@@ -28,7 +28,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         cargarCB();
 
         armarCabecera();
-        llenarTabla();
+        //llenarTabla();
         jBActualizar.setEnabled(false);
         jTabla.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 
@@ -58,6 +58,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jYearChooser1 = new com.toedter.calendar.JYearChooser();
         jLabel5 = new javax.swing.JLabel();
+        jBActualizarFecha = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 204));
         jPanel1.setForeground(new java.awt.Color(0, 255, 204));
@@ -113,6 +114,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel3.setText("Seleccione una brigada");
 
         jBActualizar.setText("Actualizar la puntuación");
+        jBActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActualizarActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -122,15 +128,15 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Estado del Siniestro");
+        jLabel4.setText("Seleccione un estado");
 
         jYearChooser1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                jYearChooser1AncestorMoved(evt);
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                jYearChooser1AncestorMoved(evt);
             }
         });
         jYearChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,84 +148,84 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Seleccione un año");
 
+        jBActualizarFecha.setText("Actualizar Fecha");
+        jBActualizarFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActualizarFechaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jBLimpiarCampos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBActualizar)
-                .addGap(183, 183, 183)
-                .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel1)
-                                        .addGap(230, 230, 230))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jCBrigadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRBEnProgreso)
-                                .addGap(58, 58, 58)
-                                .addComponent(jRBFinalizado)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(64, 64, 64))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(0, 64, Short.MAX_VALUE))))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCBrigadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jRBEnProgreso)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
+                                        .addComponent(jRBFinalizado)
+                                        .addGap(170, 170, 170)))))
+                        .addGap(61, 61, 61))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBLimpiarCampos)
+                        .addGap(62, 62, 62)
+                        .addComponent(jBActualizar)
+                        .addGap(108, 108, 108)
+                        .addComponent(jBActualizarFecha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(301, 301, 301)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jRBEnProgreso)
+                    .addComponent(jRBFinalizado))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCBrigadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCBrigadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jRBEnProgreso))
-                    .addComponent(jRBFinalizado, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(27, 27, 27)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBLimpiarCampos)
                     .addComponent(jBActualizar)
+                    .addComponent(jBActualizarFecha)
                     .addComponent(jBSalir))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(80, 80, 80))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -238,7 +244,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
 
     private void jRBEnProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBEnProgresoActionPerformed
         if (jRBEnProgreso.isSelected()) {
-             jBActualizar.setEnabled(true);
+            jBActualizar.setEnabled(true);
 
             jRBFinalizado.setSelected(false);
             if (jCBrigadas.getSelectedIndex() == 0) {
@@ -247,8 +253,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 llenarTablaBrigadaenProgreso();
             }
         } else {
-           // jRBFinalizado.setSelected(true);
-           //  jBActualizar.setEnabled(false);
+            // jRBFinalizado.setSelected(true);
+            //  jBActualizar.setEnabled(false);
         }
     }//GEN-LAST:event_jRBEnProgresoActionPerformed
 
@@ -262,17 +268,17 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 llenarTablaBrigadaFinalizados();
             }
         } else {
-           // jRBEnProgreso.setSelected(true);
-           // jBActualizar.setEnabled(false);
+            // jRBEnProgreso.setSelected(true);
+            // jBActualizar.setEnabled(false);
         }
     }//GEN-LAST:event_jRBFinalizadoActionPerformed
 
     private void jYearChooser1AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jYearChooser1AncestorMoved
-        llenarTabla();
+
     }//GEN-LAST:event_jYearChooser1AncestorMoved
 
     private void jYearChooser1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jYearChooser1MouseExited
-        llenarTabla();
+
     }//GEN-LAST:event_jYearChooser1MouseExited
 
     private void jCBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBrigadasActionPerformed
@@ -288,9 +294,9 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             llenarTablaBrigada();
         } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
             llenarTablaBrigadaenProgreso();
-        } else if(jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()){
+        } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
             llenarTablaBrigadaFinalizados();
-        }else {
+        } else {
             llenarTablaBrigada();
         }
     }//GEN-LAST:event_jCBrigadasActionPerformed
@@ -303,9 +309,19 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
+    private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
+        actualizarNotaDesdeTabla();
+
+    }//GEN-LAST:event_jBActualizarActionPerformed
+
+    private void jBActualizarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBActualizarFechaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBActualizar;
+    private javax.swing.JButton jBActualizarFecha;
     private javax.swing.JButton jBLimpiarCampos;
     private javax.swing.JButton jBSalir;
     private javax.swing.JComboBox<String> jCBrigadas;
@@ -348,14 +364,14 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         modelo.addColumn("Nom. Brigada");
         modelo.addColumn("ID_Siniestro");
         modelo.addColumn("Fecha Siniestro");
-        //modelo.addColumn("Detalle");
+        modelo.addColumn("Fecha Resolución");
         modelo.addColumn("Puntuacion");
         jTabla.setModel(modelo);
     }
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
-            return c== 4;
+            return c >= 4;
         }
     };
 
@@ -491,11 +507,75 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     private void lipiarCampos() {
         jCBrigadas.setSelectedIndex(0);
         jYearChooser1.setYear(2023);
-        llenarTabla();
+        //llenarTabla();
 
         jRBEnProgreso.setSelected(false);
         jRBFinalizado.setSelected(false);
         jBActualizar.setEnabled(false);
+    }
+
+    private void actualizarNotaDesdeTabla() {
+
+        int filaSeleccionada = jTabla.getSelectedRow();
+        Object valor = jTabla.getValueAt(filaSeleccionada, 2);
+        int id = -1; // Valor predeterminado en caso de error o valor no válido
+        int nota = -1;
+
+        if (filaSeleccionada >= 0 && filaSeleccionada < jTabla.getRowCount()) {
+            // Si se cumple la condición la fila seleccionada es válida
+
+            try {
+                if (valor != null) {
+                    id = Integer.parseInt(valor.toString());
+                }
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si el valor no es un entero válido
+                // Puedes mostrar un mensaje de error o realizar alguna otra acción aquí
+                e.printStackTrace();
+            }
+            // Obtiene el valor de "nota" en la columna 2 (suponiendo que "nota" está en la tercera columna)
+            Object valorCelda = jTabla.getValueAt(filaSeleccionada, 5);
+
+            try {
+                nota = Integer.parseInt(valorCelda.toString());
+
+                // Verifica si la nota está dentro del rango permitido (-1 a 10)
+                if (nota < 1 || nota > 10) {
+                    // Si la condición se cumple la nota está fuera del rango permitido, muestra un mensaje de error y no actualiza la base de datos
+                    JOptionPane.showMessageDialog(this, "La nota debe estar entre 1 y 10");
+                    if (jCBrigadas.getSelectedIndex() > 0) {
+                        llenarTablaBrigadaenProgreso();
+                    } else {
+                        llenarTablaBrigadaenProgreso2();
+                    }
+                    // Actualiza la vista de la tabla para que muestre los datos
+                    return; // Sale del método sin actualizar la base de datos
+                }
+            } catch (NumberFormatException ex) {
+
+                JOptionPane.showMessageDialog(this, "Error: La nota debe ser un número válido.");
+                if (jCBrigadas.getSelectedIndex() > 0) {
+                    llenarTablaBrigadaenProgreso();
+                } else {
+                    llenarTablaBrigadaenProgreso2();
+                }
+
+                return; // Sale del método sin actualizar la base de datos
+            }
+
+            // Llamamos al método para actualizar la nota con los valores obtenidos
+            BrigadaData is = new BrigadaData();
+            is.actualizarNota(id, nota);
+
+            if (jCBrigadas.getSelectedIndex() > 0) {
+                llenarTablaBrigadaenProgreso();
+            } else {
+                llenarTablaBrigadaenProgreso2();
+            }
+
+        } else {
+            System.out.println("No se ha seleccionado una fila válida.");
+        }
     }
 
 }
