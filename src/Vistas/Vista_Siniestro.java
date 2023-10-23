@@ -18,7 +18,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         initComponents();
         brigadaData = new BrigadaData();
         siniestroData = new SiniestroData();
-        llenarCombo();
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +39,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlFechaResolucion = new javax.swing.JLabel();
         jdcFechaResolucion = new com.toedter.calendar.JDateChooser();
         jlBrigada = new javax.swing.JLabel();
-        jcbBrigada = new javax.swing.JComboBox<>();
         jbLimpiarCampos = new javax.swing.JButton();
         jbCargar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
@@ -48,7 +46,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jtAreaDetalles = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jTFBrigadaCercana = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -110,8 +107,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlBrigada.setForeground(new java.awt.Color(0, 0, 0));
         jlBrigada.setText("Brigada más cercana libre:");
 
-        jcbBrigada.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
         jbLimpiarCampos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jbLimpiarCampos.setForeground(new java.awt.Color(0, 0, 0));
         jbLimpiarCampos.setText("Limpiar campos");
@@ -145,10 +140,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("EMERGENCIAS");
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Todas las brigadas:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,21 +178,20 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlDetalles, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jlFechaResolucion, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jlBrigada, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jbLimpiarCampos)
-                                    .addGap(201, 201, 201)
+                                    .addGap(189, 189, 189)
                                     .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)))
+                        .addGap(11, 11, 11)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -234,20 +224,16 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlFechaResolucion)
                     .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jcbBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlBrigada)
-                    .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlBrigada))
+                .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLimpiarCampos)
                     .addComponent(jbCargar)
                     .addComponent(jbSalir))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -273,13 +259,12 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbLimpiarCamposActionPerformed
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
-
+        BrigadaData briData = new BrigadaData();
         try {
             if (validacionCamposVacios()) {
                 JOptionPane.showMessageDialog(this, "Corrobore los datos ingresados.");
                 return;
             }
-
             Siniestro siniestro = new Siniestro();
             siniestro.setTipo(jcbTipoEmergencia.getSelectedItem().toString());
             siniestro.setFecha_siniestro(jdcFechaSiniestro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
@@ -287,10 +272,9 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
             siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            siniestro.setBrigada((Brigada) jcbBrigada.getSelectedItem());
-
+           // siniestro.setBrigada((Brigada) jcbBrigada.getSelectedItem());
+            siniestro.setBrigada(briData.buscarBrigada2(imprimirLista()));
             siniestroData.cargarSiniestro(siniestro);
-
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Debe ingresar datos númericos en los campos de coordenadas.");
         } catch (IllegalArgumentException iae) {
@@ -319,7 +303,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFBrigadaCercana;
@@ -327,7 +310,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbCargar;
     private javax.swing.JButton jbLimpiarCampos;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<Brigada> jcbBrigada;
     private javax.swing.JComboBox<String> jcbTipoEmergencia;
     private com.toedter.calendar.JDateChooser jdcFechaResolucion;
     private com.toedter.calendar.JDateChooser jdcFechaSiniestro;
@@ -343,12 +325,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfCoord_Y;
     // End of variables declaration//GEN-END:variables
 
-    private void llenarCombo() {
-        for (Brigada bri : brigadaData.listarBrigadaslibres()) {
-            jcbBrigada.addItem(bri);
-        }
-    }
-
     private void limpiarCampos() {
 
         jcbTipoEmergencia.setSelectedIndex(0);
@@ -357,7 +333,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jtfCoord_Y.setText(null);
         jtAreaDetalles.setText(null);
         jdcFechaResolucion.setDate(null);
-        jcbBrigada.setSelectedIndex(0);
     }
 
     private boolean validacionCamposVacios() {
@@ -365,7 +340,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 || jtfCoord_Y.getText().isEmpty() || jtAreaDetalles.getText().isEmpty();
     }
 
-    public void imprimirLista() {
+    public int imprimirLista() {
         SiniestroData sini = new SiniestroData();
         Brigada bri = new Brigada();
         BrigadaData briData = new BrigadaData();
@@ -385,10 +360,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                             + "    Cuartel: "+bri.getCuartel().getNombre_cuartel()+"    Distancia al sinietro: "+(int) aux);
                 }
             }
-        }
+        } return bri.getCodBrigada();
     }
+    
     // Método para calcular la distancia entre dos puntos
-
     public double calcularDistancia(double coord_X1, double coord_Y1) {
         double coord_X2 = Double.parseDouble(jtfCoord_X.getText());
         double coord_Y2 = Double.parseDouble(jtfCoord_Y.getText());

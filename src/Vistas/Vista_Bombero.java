@@ -542,7 +542,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe completar el grupo sanguíneo");
             return;
         }
-        if (!jRBEstado.isSelected()) {
+        if (jRBEstado.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
             return;
         }
@@ -759,8 +759,8 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jDCFechaNac.setDate(null);
         jCBBrigadaAsignada.setSelectedItem(null);
         jTCelular.setText("");
-        jRBEstado.setText("Activo");
-        jRBEstado.setSelected(true);
+        jRBEstado.setText("");
+        jRBEstado.setSelected(false);
         jCBGrupoSanguineo.setSelectedIndex(0);
         jBAgregar.setEnabled(true);
         jBModificar.setEnabled(false);
