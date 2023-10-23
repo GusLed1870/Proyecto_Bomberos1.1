@@ -229,9 +229,9 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             
             jRBFinalizado.setSelected(false);
             if(jCBrigadas.getSelectedIndex() == 0){
-                llenarTabla();
+                llenarTablaBrigadaenProgreso2();
             }else{
-                
+                llenarTablaBrigadaenProgreso();
             }
         } else {
             jRBFinalizado.setSelected(true);
@@ -241,6 +241,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     private void jRBFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFinalizadoActionPerformed
         if (jRBFinalizado.isSelected()) {
             jRBEnProgreso.setSelected(false);
+            if(jCBrigadas.getSelectedIndex() == 0){
+                llenarTodosFinalizados();
+            }else{
+                
+            }
         } else {
             jRBEnProgreso.setSelected(true);
         }
@@ -361,4 +366,120 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         //System.out.println("ID "+codCuartel);
 
     }
+    private void llenarTablaBrigadaenProgreso() {
+        modelo.setRowCount(0);
+        BrigadaData briData = new BrigadaData();
+        String selectedItemText = (String) jCBrigadas.getSelectedItem();
+        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+        if (selectedItemText != null) {
+            // Dividir la cadena por espacios en blanco
+            String[] parts = selectedItemText.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                try {
+
+                    codCuartel = Integer.parseInt(parts[1]);
+                    List<String> listaValores = briData.actualizavalores4(jYearChooser1.getYear(), codCuartel); // Aquí debes poner el año que desees
+
+                    // Llena la tabla con los datos obtenidos
+                    for (String fila : listaValores) {
+                        String[] datos = fila.split(", ");
+                        modelo.addRow(datos);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                }
+            }
+        }
+        //System.out.println("ID "+codCuartel);
+
+    }
+    private void llenarTablaBrigadaenProgreso2() {
+        modelo.setRowCount(0);
+        BrigadaData briData = new BrigadaData();
+        String selectedItemText = (String) jCBrigadas.getSelectedItem();
+        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+        if (selectedItemText != null) {
+            // Dividir la cadena por espacios en blanco
+            String[] parts = selectedItemText.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                try {
+
+                    codCuartel = Integer.parseInt(parts[1]);
+                    List<String> listaValores = briData.todosEnprogreso(jYearChooser1.getYear()); // Aquí debes poner el año que desees
+
+                    // Llena la tabla con los datos obtenidos
+                    for (String fila : listaValores) {
+                        String[] datos = fila.split(", ");
+                        modelo.addRow(datos);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                }
+            }
+        }
+        //System.out.println("ID "+codCuartel);
+
+    }
+    
+    private void llenarTodosFinalizados() {
+        modelo.setRowCount(0);
+        BrigadaData briData = new BrigadaData();
+        String selectedItemText = (String) jCBrigadas.getSelectedItem();
+        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+        if (selectedItemText != null) {
+            // Dividir la cadena por espacios en blanco
+            String[] parts = selectedItemText.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                try {
+
+                    codCuartel = Integer.parseInt(parts[1]);
+                    List<String> listaValores = briData.todosFinalizados(jYearChooser1.getYear()); // Aquí debes poner el año que desees
+
+                    // Llena la tabla con los datos obtenidos
+                    for (String fila : listaValores) {
+                        String[] datos = fila.split(", ");
+                        modelo.addRow(datos);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                }
+            }
+        }
+        //System.out.println("ID "+codCuartel);
+
+    }
+    
+     private void llenarTablaBrigadaFinalizados() {
+        modelo.setRowCount(0);
+        BrigadaData briData = new BrigadaData();
+        String selectedItemText = (String) jCBrigadas.getSelectedItem();
+        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+        if (selectedItemText != null) {
+            // Dividir la cadena por espacios en blanco
+            String[] parts = selectedItemText.split(" ");
+            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                try {
+
+                    codCuartel = Integer.parseInt(parts[1]);
+                    List<String> listaValores = briData.actualizavalores4(jYearChooser1.getYear(), codCuartel); // Aquí debes poner el año que desees
+
+                    // Llena la tabla con los datos obtenidos
+                    for (String fila : listaValores) {
+                        String[] datos = fila.split(", ");
+                        modelo.addRow(datos);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                }
+            }
+        }
+        //System.out.println("ID "+codCuartel);
+
+    }
+    
+    
 }

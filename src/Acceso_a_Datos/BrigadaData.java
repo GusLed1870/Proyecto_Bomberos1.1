@@ -475,8 +475,8 @@ public class BrigadaData {
         }
         return listaValores;
     }
-    
-     public List<String> actualizavalores(int yearfecha) {
+
+    public List<String> actualizavalores(int yearfecha) {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
@@ -494,15 +494,15 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-     
-             int puntuacion = rs.getInt("Puntuacion");
-            if (puntuacion == 0) {
-                valores.append("Falta calificar");
-            } else {
-                valores.append(puntuacion);
-            }
 
-            listaValores.add(valores.toString());
+                int puntuacion = rs.getInt("Puntuacion");
+                if (puntuacion == 0) {
+                    valores.append("Falta calificar");
+                } else {
+                    valores.append(puntuacion);
+                }
+
+                listaValores.add(valores.toString());
             }
 
             ps.close();
@@ -512,8 +512,8 @@ public class BrigadaData {
         }
         return listaValores;
     }
-     
-     public List<String> actualizavalores2(int yearfecha, int idBrigada) {
+
+    public List<String> actualizavalores2(int yearfecha, int idBrigada) {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
@@ -521,8 +521,8 @@ public class BrigadaData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, yearfecha); 
-            ps.setInt(2, idBrigada); 
+            ps.setInt(1, yearfecha);
+            ps.setInt(2, idBrigada);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -531,15 +531,15 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-     
-             int puntuacion = rs.getInt("Puntuacion");
-            if (puntuacion == 0) {
-                valores.append("Falta calificar");
-            } else {
-                valores.append(puntuacion);
-            }
 
-            listaValores.add(valores.toString());
+                int puntuacion = rs.getInt("Puntuacion");
+                if (puntuacion == 0) {
+                    valores.append("Falta calificar");
+                } else {
+                    valores.append(puntuacion);
+                }
+
+                listaValores.add(valores.toString());
             }
 
             ps.close();
@@ -549,8 +549,8 @@ public class BrigadaData {
         }
         return listaValores;
     }
-     
-     public List<String> actualizavalores3(int yearfecha) {
+
+    public List<String> todosEnprogreso(int yearfecha) {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
@@ -568,15 +568,15 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-     
-             int puntuacion = rs.getInt("Puntuacion");
-            if (puntuacion == 0) {
-                valores.append("Falta calificar");
-            } else {
-                valores.append(puntuacion);
-            }
 
-            listaValores.add(valores.toString());
+                int puntuacion = rs.getInt("Puntuacion");
+                if (puntuacion == 0) {
+                    valores.append("Falta calificar");
+                } else {
+                    valores.append(puntuacion);
+                }
+
+                listaValores.add(valores.toString());
             }
 
             ps.close();
@@ -586,7 +586,8 @@ public class BrigadaData {
         }
         return listaValores;
     }
-     public List<String> actualizavalores4(int yearfecha, int idBrigada) {
+
+    public List<String> actualizavalores4(int yearfecha, int idBrigada) {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
@@ -594,8 +595,8 @@ public class BrigadaData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, yearfecha); 
-            ps.setInt(2, idBrigada); 
+            ps.setInt(1, yearfecha);
+            ps.setInt(2, idBrigada);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -604,15 +605,52 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-     
-             int puntuacion = rs.getInt("Puntuacion");
-            if (puntuacion == 0) {
-                valores.append("Falta calificar");
-            } else {
-                valores.append(puntuacion);
+
+                int puntuacion = rs.getInt("Puntuacion");
+                if (puntuacion == 0) {
+                    valores.append("Falta calificar");
+                } else {
+                    valores.append(puntuacion);
+                }
+
+                listaValores.add(valores.toString());
             }
 
-            listaValores.add(valores.toString());
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return listaValores;
+    }
+
+    public List<String> todosFinalizados(int yearfecha) {
+        List<String> listaValores = new ArrayList<>();
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
+                + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
+                + "WHERE siniestro.puntuacion>0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, yearfecha); // Establece el año como parámetro
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                StringBuilder valores = new StringBuilder();
+                valores.append(rs.getString("Nºbrigada")).append(", ");
+                valores.append(rs.getString("Nombre_Brigada")).append(", ");
+                valores.append(rs.getString("ID_Siniestro")).append(", ");
+                valores.append(rs.getString("Fecha")).append(", ");
+
+                int puntuacion = rs.getInt("Puntuacion");
+                if (puntuacion == 0) {
+                    valores.append("Falta calificar");
+                } else {
+                    valores.append(puntuacion);
+                }
+
+                listaValores.add(valores.toString());
             }
 
             ps.close();
