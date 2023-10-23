@@ -160,65 +160,62 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRBEnProgreso)
-                        .addGap(58, 58, 58)
-                        .addComponent(jRBFinalizado)
-                        .addGap(0, 457, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCBrigadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBrigadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(61, 61, 61))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBLimpiarCampos)
-                                .addGap(62, 62, 62)
-                                .addComponent(jBActualizar)
-                                .addGap(108, 108, 108)
-                                .addComponent(jBActualizarFecha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(92, 92, 92))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jRBEnProgreso)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
+                                        .addComponent(jRBFinalizado)
+                                        .addGap(170, 170, 170)))))
+                        .addGap(61, 61, 61))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBLimpiarCampos)
+                        .addGap(62, 62, 62)
+                        .addComponent(jBActualizar)
+                        .addGap(108, 108, 108)
+                        .addComponent(jBActualizarFecha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(301, 301, 301)
                 .addComponent(jLabel1)
-                .addGap(294, 294, 294))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jRBEnProgreso))
-                    .addComponent(jRBFinalizado, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(33, 33, 33)
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jRBEnProgreso)
+                    .addComponent(jRBFinalizado))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBrigadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(52, 52, 52)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(54, 54, 54)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,11 +274,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRBFinalizadoActionPerformed
 
     private void jYearChooser1AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jYearChooser1AncestorMoved
-    
+
     }//GEN-LAST:event_jYearChooser1AncestorMoved
 
     private void jYearChooser1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jYearChooser1MouseExited
- 
+
     }//GEN-LAST:event_jYearChooser1MouseExited
 
     private void jCBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBrigadasActionPerformed
@@ -367,14 +364,14 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         modelo.addColumn("Nom. Brigada");
         modelo.addColumn("ID_Siniestro");
         modelo.addColumn("Fecha Siniestro");
-        //modelo.addColumn("Detalle");
+        modelo.addColumn("Fecha Resolución");
         modelo.addColumn("Puntuacion");
         jTabla.setModel(modelo);
     }
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
-            return c == 4;
+            return c >= 4;
         }
     };
 
@@ -537,7 +534,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 e.printStackTrace();
             }
             // Obtiene el valor de "nota" en la columna 2 (suponiendo que "nota" está en la tercera columna)
-            Object valorCelda = jTabla.getValueAt(filaSeleccionada, 4);
+            Object valorCelda = jTabla.getValueAt(filaSeleccionada, 5);
 
             try {
                 nota = Integer.parseInt(valorCelda.toString());
@@ -545,8 +542,12 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 // Verifica si la nota está dentro del rango permitido (-1 a 10)
                 if (nota < 1 || nota > 10) {
                     // Si la condición se cumple la nota está fuera del rango permitido, muestra un mensaje de error y no actualiza la base de datos
-                    JOptionPane.showMessageDialog(this, "La nota debe estar entre 2 y 10");
-
+                    JOptionPane.showMessageDialog(this, "La nota debe estar entre 1 y 10");
+                    if (jCBrigadas.getSelectedIndex() > 0) {
+                        llenarTablaBrigadaenProgreso();
+                    } else {
+                        llenarTablaBrigadaenProgreso2();
+                    }
                     // Actualiza la vista de la tabla para que muestre los datos
                     return; // Sale del método sin actualizar la base de datos
                 }

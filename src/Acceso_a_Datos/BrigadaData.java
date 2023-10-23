@@ -480,7 +480,7 @@ public class BrigadaData {
 
     public List<String> actualizavalores(int yearfecha) {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
                 + "WHERE YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
 
@@ -496,7 +496,7 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-
+                valores.append(rs.getString("Fecha_Resol")).append(", ");
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -517,7 +517,7 @@ public class BrigadaData {
 
     public List<String> actualizavalores2(int yearfecha, int idBrigada) {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
                 + "WHERE YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
 
@@ -533,7 +533,7 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-
+                valores.append(rs.getString("Fecha_Resol")).append(", ");
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -554,7 +554,7 @@ public class BrigadaData {
 
     public List<String> todosEnprogreso(int yearfecha) {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
                 + "WHERE siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
 
@@ -570,7 +570,7 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-
+                 valores.append(rs.getString("Fecha_Resol")).append(", ");
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -591,7 +591,7 @@ public class BrigadaData {
 
     public List<String> actualizavalores4(int yearfecha, int idBrigada) {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
                 + "WHERE siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
 
@@ -607,7 +607,7 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-
+                 valores.append(rs.getString("Fecha_Resol")).append(", ");
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -628,7 +628,7 @@ public class BrigadaData {
 
     public List<String> todosFinalizados(int yearfecha) {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
                 + "WHERE siniestro.puntuacion>0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
 
@@ -644,7 +644,7 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-
+                valores.append(rs.getString("Fecha_Resol")).append(", ");
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -665,7 +665,7 @@ public class BrigadaData {
     
      public List<String> siniestrosFinalizadosxbrigada(int yearfecha, int idBrigada) {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.puntuacion as Puntuacion "
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
                 + "WHERE siniestro.puntuacion>0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
 
@@ -681,7 +681,7 @@ public class BrigadaData {
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
                 valores.append(rs.getString("Fecha")).append(", ");
-
+                valores.append(rs.getString("Fecha_Resol")).append(", ");
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
