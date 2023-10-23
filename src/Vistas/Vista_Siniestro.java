@@ -55,7 +55,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlTipoEmergencia.setText("Tipo de Emergencia:");
 
         jcbTipoEmergencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jcbTipoEmergencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el tipo de emergencia", "1) Incendios en viviendas, e industrias", "2) Salvamento en derrumbes", "3) Rescates en ámbito montaña", "4) Rescate de personas atrapadas en accidentes de tráfico", "5) Socorrer inundaciones", "6) Operativos de prevención" }));
+        jcbTipoEmergencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el tipo de emergencia", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
 
         jlFechaSiniestro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jlFechaSiniestro.setText("Fecha de Siniestro:");
@@ -162,7 +162,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                         .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jlFechaSiniestro))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfCoord_X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlCoord_X))
                 .addGap(18, 18, 18)
@@ -195,7 +195,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1642, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +222,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
 
             Siniestro siniestro = new Siniestro();
-            siniestro.setTipo(jcbBrigada.getSelectedItem().toString());
+            siniestro.setTipo(jcbTipoEmergencia.getSelectedItem().toString());
             siniestro.setFecha_siniestro(jdcFechaSiniestro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             siniestro.setCoord_X(Integer.parseInt(jtfCoord_X.getText()));
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
