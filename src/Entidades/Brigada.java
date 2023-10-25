@@ -79,7 +79,7 @@ public class Brigada {
         } else {
             estado = "ocupada";
         }
-        return "ID: " + codBrigada + "    Nombre: " + nombre_br
-                + "    Especialidad: " + especialidad + "    Estado: " + estado + "    Cuartel: " + cuartelNombre;
+        return "ID: " + codBrigada + "   Nombre Clave: " + nombre_br
+                + "   Especialidad: " + especialidad + "   Estado: " + estado + "   Cuartel: " + cuartelNombre;
     }
 }

@@ -43,6 +43,7 @@ public class Menu extends javax.swing.JFrame {
         jbEmergencias = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jBen_proceso = new javax.swing.JMenuItem();
+        jBfinalizado = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         Calificación = new javax.swing.JMenuItem();
 
@@ -135,13 +136,11 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu9.setText("Estado");
 
-        jBen_proceso.setText("Estado de Situación");
-        jBen_proceso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBen_procesoActionPerformed(evt);
-            }
-        });
+        jBen_proceso.setText("En progreso");
         jMenu9.add(jBen_proceso);
+
+        jBfinalizado.setText("Finalizado");
+        jMenu9.add(jBfinalizado);
 
         jMenuBar3.add(jMenu9);
 
@@ -165,13 +164,13 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,6 +186,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(bom);
         escritorio.moveToFront(bom);
         bom.setVisible(true);
+       
     }//GEN-LAST:event_jBbomberoActionPerformed
 
     private void jBbrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbrigadasActionPerformed
@@ -235,17 +235,6 @@ public class Menu extends javax.swing.JFrame {
         vs.setVisible(true);
     }//GEN-LAST:event_jbEmergenciasActionPerformed
 
-    private void jBen_procesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBen_procesoActionPerformed
-            escritorio.removeAll();
-        escritorio.repaint();
-
-        Estado_de_Situacion vs = new Estado_de_Situacion();
-
-        escritorio.add(vs);
-        escritorio.moveToFront(vs);
-        vs.setVisible(true);
-    }//GEN-LAST:event_jBen_procesoActionPerformed
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -287,6 +276,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jBbrigadas;
     private javax.swing.JMenuItem jBcuarteles;
     private javax.swing.JMenuItem jBen_proceso;
+    private javax.swing.JMenuItem jBfinalizado;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
