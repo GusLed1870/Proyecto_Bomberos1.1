@@ -17,7 +17,7 @@ public class Siniestro {
 
     //Constructores
     public Siniestro() {}
-
+    
     public Siniestro(int codigo, String tipo, LocalDate fecha_siniestro, int coord_X, int coord_Y, String detalles, LocalDate fecha_resol, int puntuacion, Brigada brigada) {
         this.codigo = codigo;
         this.tipo = tipo;
