@@ -1,6 +1,5 @@
 package Acceso_a_Datos;
 
-import Entidades.Bombero;
 import Entidades.Brigada;
 import Entidades.Siniestro;
 import java.sql.Connection;
@@ -14,7 +13,6 @@ import javax.swing.JOptionPane;
 
 public class SiniestroData {
 
-    //Atributos
     private Connection con = null;
     private Brigada brigada;
 
@@ -182,7 +180,6 @@ public class SiniestroData {
     }
 
     public Siniestro buscarSiniestroPorId(int id) {
-
         Siniestro siniestro = null;
         String sql = "SELECT * FROM siniestro WHERE id = ?";
 
@@ -224,7 +221,7 @@ public class SiniestroData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Siniestro sin = new Siniestro();
-
+                sin.setCodigo(rs.getInt("codigo"));
                 sin.setTipo(rs.getString("tipo"));
                 sin.setFecha_siniestro(rs.getDate("fecha_siniestro").toLocalDate());
                 sin.setCoord_X(rs.getInt("coord_X"));
@@ -241,7 +238,7 @@ public class SiniestroData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Bombero. Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Siniestro. Error: " + ex.getMessage());
         }
         return siniestros;
     }

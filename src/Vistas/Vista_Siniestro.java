@@ -187,7 +187,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -209,10 +209,9 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                                     .addComponent(jlBrigada)
                                     .addComponent(jlFechaResolucion))
                                 .addGap(1, 1, 1)))
-                        .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtfCoord_Y, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,7 +219,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                                     .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtfCoord_X, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +237,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                         .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBBuscarSiniestro)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -301,7 +300,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1149, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1098, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +399,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
     private void jBBuscarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarSiniestroActionPerformed
         // Crear y configurar la ventana de búsqueda
-//        String apellido = jTNombreApellido.getText();
         JDialog ventanaBusqueda = new JDialog();
         ventanaBusqueda.setTitle("Ventana de Búsqueda");
         ventanaBusqueda.setSize(440, 153);
@@ -418,11 +416,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         JScrollPane scrollPane = new JScrollPane(tabla);
         ventanaBusqueda.add(scrollPane);
 
-        // Realizar la consulta SQL con el apellido y obtener la lista de bomberos
+        // Realizar la consulta SQL con el apellido y obtener la lista de siniestros
         SiniestroData sin = new SiniestroData();
         String tipo = jcbTipoEmergencia.getSelectedItem().toString();
         List<Siniestro> siniestros = sin.listarSiniestros(tipo);
-
         // Llenar el modelo de la tabla con los resultados
         for (Siniestro siniestro : siniestros) {
             modelo.addRow(new Object[]{
@@ -430,7 +427,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 siniestro.getTipo(),
                 siniestro.getFecha_siniestro(),
                 siniestro.getCoord_X(),
-                siniestro.getCoord_Y()
+                siniestro.getCoord_Y(),
+                siniestro.getBrigada().getCodBrigada()
             });
         }
         // Hacer visible la ventana de búsqueda
@@ -452,7 +450,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                         jTCodigo.setText(String.valueOf(idSeleccionado));
                         jTCodigo.setEnabled(false);
                         ventanaBusqueda.dispose();
-                        // Invoco al método que me va a crea la tabla en una ventana extra para mostrarme todos los alumnos
+                        // Invoco al método que me va a crea la tabla en una ventana extra para mostrarme todos los siniestros
                         completarTabla(Integer.parseInt(idSeleccionado.toString()));
                     }
                 }
@@ -575,9 +573,4 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         pos = lista.indexOf(tipo);
         return pos;
     }
-
-
-
-
-
 }
