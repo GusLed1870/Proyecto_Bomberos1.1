@@ -439,36 +439,6 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         int codBrigada = -1;
         brigada = null;
         String gs = "0+";
-
-        // Realizo validaciones de campos individuales
-        if (jTNombreApellido.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
-            return;
-        }
-        if (jTDNI.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe completar el DNI");
-            return;
-        }
-        if (obtenerBrigadaSeleccionada() == null) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
-            return;
-        }
-        if (jTCelular.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe completar el celular");
-            return;
-        }
-        if (jDCFechaNac.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
-            return;
-        }
-        if (jCBGrupoSanguineo.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe completar el grupo sanguíneo");
-            return;
-        }
-        if (!jRBEstado.isSelected()) {
-            JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
-            return;
-        }
         try {
             celular = Integer.parseInt(jTCelular.getText());
         } catch (NumberFormatException e) {
@@ -484,9 +454,6 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Seleccione una fecha de nacimiento válida.");
                 return; // Sale del método si no se ha seleccionado una fecha
             }
-        } catch (DateTimeException e) {
-            JOptionPane.showMessageDialog(this, "Error al ingresar la fecha de nacimiento: " + e.getMessage());
-            return; // Sale del método si hay un error en la fecha de nacimiento
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al ingresar la fecha de nacimiento.");
             return; // Sale del método si hay un error en la fecha de nacimiento
@@ -543,9 +510,6 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        BomberoData bomData = new BomberoData();
-        BrigadaData briData = new BrigadaData();
-        Brigada bri = new Brigada();
         if (!jTIdBombero.getText().equals("Para agregar un bombero no es necesario colocar el ID") && (!jLIdBombero.getText().equals(jTIdBombero.getText()))) {
             JOptionPane.showMessageDialog(null, "El legajo no se puede modificar");
         } else {
@@ -555,51 +519,90 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
                 boolean estado = jRBEstado.isSelected();
 
-                // Realiza validaciones de campos individuales
-                if (jTNombreApellido.getText().isEmpty()) {
+                // Si faltan todos de los campos
+                if (jTNombreApellido.getText().isEmpty() && jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
+                        && jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() == 0
+                        && obtenerBrigadaSeleccionada() == null && jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+                    return;
+                }
+                // Si falta asignar la brigada
+                if (jCBBrigadaAsignada.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe asignar una brigada");
+                    return;
+                }
+                // Si falta el nombre
+                if (jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
                     return;
                 }
-                if (jTDNI.getText().isEmpty()) {
+                // Si falta el DNI
+                if (!jTNombreApellido.getText().isEmpty() && jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el DNI");
                     return;
                 }
-                if (obtenerBrigadaSeleccionada() == null) {
-                    JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
-                    return;
-                }
-                if (jTCelular.getText().isEmpty()) {
+                // Si falta el celular
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el celular");
                     return;
                 }
-                if (jDCFechaNac.getDate() == null) {
-                    JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
-                    return;
-                }
-                if (jCBGrupoSanguineo.getSelectedIndex() == 0) {
+                // Si falta el grupo sanguíneo
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() == 0
+                        && obtenerBrigadaSeleccionada() != null && jRBEstado.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el grupo sanguíneo");
                     return;
                 }
-                if (!jRBEstado.isSelected()) {
+                // Si falta el estado
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null && !jRBEstado.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Debe establecer el estado: Activo / Inactivo");
                     return;
                 }
-                // Si se llega aquí, todos los campos están completos
+                // Si falta la fecha de nacimiento
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() == null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() != null) {
+                    JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
+                    return;
+                }
+                // Si falta la brigada 
+                if (!jTNombreApellido.getText().isEmpty() && !jTDNI.getText().isEmpty() && jDCFechaNac.getDate() != null
+                        && !jTCelular.getText().isEmpty() && jCBGrupoSanguineo.getSelectedIndex() != 0
+                        && obtenerBrigadaSeleccionada() == null) {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
+                }
+                // Si faltan algunos campos por completar     
+                if (jTNombreApellido.getText().isEmpty() || jTDNI.getText().isEmpty() || jDCFechaNac.getDate() == null
+                        || jTCelular.getText().isEmpty() || jCBGrupoSanguineo.getSelectedIndex() == 0
+                        || obtenerBrigadaSeleccionada() == null || jRBEstado.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Faltan campos por completar");
+                    return;
+                }   
                 LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
-                int celular = Integer.parseInt(jTCelular.getText());
-                bri = obtenerBrigadaSeleccionada();
-                bombero.setBrigada(bri);
 
-                Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, bri, grupoSanguineo, estado);
-                String dni2 = jTDNI.getText();
-               
-                if (bomData.buscarBomberoIdPorDni2(dni2)) {
+                int celular = Integer.parseInt(jTCelular.getText());
+
+                Brigada brigadaSeleccionada = obtenerBrigadaSeleccionada();
+
+                bombero.setBrigada(brigadaSeleccionada);
+
+                Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, brigadaSeleccionada, grupoSanguineo, estado);
+
+                if (bomberoData.buscarBomberoPordni(dni) != null) {
                     JOptionPane.showMessageDialog(null, "El DNI que quiere agregar ya se encuentra en la base de datos");
                     return;
                 }
 
-                bomData.guardarBombero(bomb);
+                bomberoData.guardarBombero(bomb);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
@@ -711,8 +714,8 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jDCFechaNac.setDate(null);
         jCBBrigadaAsignada.setSelectedItem(null);
         jTCelular.setText("");
-        jRBEstado.setText("Activo");
-        jRBEstado.setSelected(true);
+        jRBEstado.setText(null);
+        jRBEstado.setSelected(false);
         jCBGrupoSanguineo.setSelectedIndex(0);
         jBAgregar.setEnabled(true);
         jBModificar.setEnabled(false);
@@ -811,22 +814,21 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
     private Brigada obtenerBrigadaSeleccionada() {
         Object objeto = jCBBrigadaAsignada.getSelectedItem();
+        String obj = objeto.toString();
         BrigadaData briData = new BrigadaData();
-        Brigada brigada = null;
+        Brigada brigada = new Brigada();
+        int codBrigada = -1; // Valor predeterminado si no se encuentra el código de Cuartel
 
         if (objeto != null) {
             // Dividir la cadena por espacios en blanco
-            String obj = objeto.toString();
             String[] parts = obj.split(" ");
-
             if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
                 try {
-                    int codBrigada = Integer.parseInt(parts[1]);
+                    codBrigada = Integer.parseInt(parts[1]);
                     brigada = briData.buscarBrigada2(codBrigada);
+                    // return brigada;
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato: " + e.getMessage());
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Error al buscar la brigada: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
                 }
             }
         }
