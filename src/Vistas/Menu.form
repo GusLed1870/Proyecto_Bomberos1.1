@@ -164,13 +164,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jBen_proceso">
               <Properties>
-                <Property name="text" type="java.lang.String" value="En progreso"/>
+                <Property name="text" type="java.lang.String" value="Estado de Situaci&#xf3;n"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jBfinalizado">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Finalizado"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBen_procesoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
