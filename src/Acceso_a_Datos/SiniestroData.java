@@ -212,6 +212,7 @@ public class SiniestroData {
         return siniestro;
     }
 
+    
     public List<Siniestro> listarSiniestros(String tipo) {
         List<Siniestro> siniestros = new ArrayList<>();
         try {
