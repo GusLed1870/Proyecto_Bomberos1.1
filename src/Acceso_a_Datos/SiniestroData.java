@@ -180,6 +180,72 @@ public class SiniestroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla siniestro.");
         }
     }
+
+    public Siniestro buscarSiniestroPorId(int id) {
+
+        Siniestro siniestro = null;
+        String sql = "SELECT * FROM siniestro WHERE id = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                siniestro = new Siniestro();
+                SiniestroData siniData = new SiniestroData();
+                siniestro.setCodigo(rs.getInt("codigo"));
+                siniestro.setTipo(rs.getString("tipo"));
+                siniestro.setFecha_siniestro(rs.getDate("fecha_siniestro").toLocalDate());
+                siniestro.setCoord_X(rs.getInt("coord_X"));
+                siniestro.setCoord_Y(rs.getInt("coord_Y"));
+                siniestro.setDetalles(rs.getString("detalles"));
+                siniestro.setFecha_resol(rs.getDate("fecha_resol").toLocalDate());
+                siniestro.setPuntuacion(rs.getInt("puntuacion"));
+                int codBri = rs.getInt("codBrigada");
+                BrigadaData briData = new BrigadaData();
+                brigada = briData.buscarBrigada(codBri);
+                siniestro.setBrigada(brigada);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Siniestro " + ex.getMessage());
+        }
+        return siniestro;
+    }
+
+    public List<Siniestro> listarSiniestros(String tipo) {
+        List<Siniestro> siniestros = new ArrayList<>();
+        try {
+            String sql = "SELECT codigo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, codBrigada FROM siniestro WHERE tipo = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, tipo);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Siniestro sin = new Siniestro();
+
+                sin.setTipo(rs.getString("tipo"));
+                sin.setFecha_siniestro(rs.getDate("fecha_siniestro").toLocalDate());
+                sin.setCoord_X(rs.getInt("coord_X"));
+                sin.setCoord_Y(rs.getInt("coord_Y"));
+                sin.setDetalles(rs.getString("detalles"));
+                sin.setFecha_resol(rs.getDate("fecha_resol").toLocalDate());
+                sin.setPuntuacion(rs.getInt("puntuacion"));
+                int codBri = rs.getInt("codBrigada");
+                BrigadaData briData = new BrigadaData();
+                brigada = briData.buscarBrigada(codBri);
+                sin.setBrigada(brigada);
+                siniestros.add(sin);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Bombero. Error: " + ex.getMessage());
+        }
+        return siniestros;
+    }
+}
 //
 //    public List<Siniestro> listarSiniestros(String tipo) {
 //
@@ -214,4 +280,4 @@ public class SiniestroData {
 //        return bomberos;
 //    }
 //      
-        }
+//}
