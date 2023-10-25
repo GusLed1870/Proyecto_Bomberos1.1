@@ -9,6 +9,9 @@ import Acceso_a_Datos.BrigadaData;
 import Acceso_a_Datos.Cuartel_data;
 import Entidades.Brigada;
 import Entidades.Cuartel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -315,7 +318,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jBActualizarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarFechaActionPerformed
-        // TODO add your handling code here:
+        actualizarFecha();
     }//GEN-LAST:event_jBActualizarFechaActionPerformed
 
 
@@ -443,7 +446,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 }
             }
         }
-        //System.out.println("ID "+codCuartel);
+        //System.out.println("ID3 "+codCuartel);
 
     }
 
@@ -572,6 +575,125 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             } else {
                 llenarTablaBrigadaenProgreso2();
             }
+
+        } else {
+            System.out.println("No se ha seleccionado una fila válida.");
+        }
+
+    }
+
+    private void actualizarFecha() {
+
+        int filaSeleccionada = jTabla.getSelectedRow();
+        Object valor = jTabla.getValueAt(filaSeleccionada, 2);
+        int id = -1;
+        LocalDate fechainc = null;
+        LocalDate fechafin = null;
+        if (filaSeleccionada >= 0 && filaSeleccionada < jTabla.getRowCount()) {
+            try {
+                if (valor != null) {
+                    id = Integer.parseInt(valor.toString());
+                }
+            } catch (NumberFormatException e) {
+
+                e.printStackTrace();
+            }
+            Object FechaFinal = jTabla.getValueAt(filaSeleccionada, 4);
+            Object FechaInicial = jTabla.getValueAt(filaSeleccionada, 3);
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Ajusta el formato según el de tu cadena
+                fechainc = LocalDate.parse(FechaInicial.toString(), formatter);
+
+                fechafin = LocalDate.parse(FechaFinal.toString(), formatter);
+
+                if (fechafin.isBefore(fechainc)) {
+
+                    JOptionPane.showMessageDialog(this, "La fecha de resolución no puede ser anterior a la creación del siniestro");
+                    if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTabla();
+
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso2();
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTodosFinalizados();
+
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigada();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaFinalizados();
+                    } else {
+                        llenarTablaBrigada();
+                    }
+
+                    return; // Sale del método sin actualizar la base de datos
+                }
+            } catch (NumberFormatException ex) {
+
+                JOptionPane.showMessageDialog(this, "Error: La Fecha tiene que tener el siguiente formato \n dd--mm-yyyy ejemplo 01-02-2023.");
+                      if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTabla();
+
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso2();
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTodosFinalizados();
+
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigada();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaFinalizados();
+                    } else {
+                        llenarTablaBrigada();
+                    }
+
+                return; // Sale del método sin actualizar la base de datos
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "Error: En el formato de Fecha.");
+             if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTabla();
+
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso2();
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTodosFinalizados();
+
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigada();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaFinalizados();
+                    } else {
+                        llenarTablaBrigada();
+                    }
+                return;
+            }
+            // Llamamos al método para actualizar la nota con los valores obtenidos
+            BrigadaData is = new BrigadaData();
+            is.actualizarFecha_Resolucion(id, fechafin, fechainc);
+
+                if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTabla();
+
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso2();
+                    } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTodosFinalizados();
+
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigada();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaenProgreso();
+                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                        llenarTablaBrigadaFinalizados();
+                    } else {
+                        llenarTablaBrigada();
+                    }
 
         } else {
             System.out.println("No se ha seleccionado una fila válida.");

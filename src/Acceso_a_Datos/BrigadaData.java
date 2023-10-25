@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -482,35 +484,46 @@ public class BrigadaData {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE YEAR(siniestro.fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, yearfecha); // Establece el año como parámetro
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, yearfecha);
 
-            ResultSet rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    StringBuilder valores = new StringBuilder();
+                    valores.append(rs.getString("Nºbrigada")).append(", ");
+                    valores.append(rs.getString("Nombre_Brigada")).append(", ");
+                    valores.append(rs.getString("ID_Siniestro")).append(", ");
+                    //valores.append(rs.getString("Fecha")).append(", ");
+                    LocalDate fecha = rs.getDate("Fecha").toLocalDate();
+                    valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    valores.append(", ");
 
-            while (rs.next()) {
-                StringBuilder valores = new StringBuilder();
-                valores.append(rs.getString("Nºbrigada")).append(", ");
-                valores.append(rs.getString("Nombre_Brigada")).append(", ");
-                valores.append(rs.getString("ID_Siniestro")).append(", ");
-                valores.append(rs.getString("Fecha")).append(", ");
-                valores.append(rs.getString("Fecha_Resol")).append(", ");
-                int puntuacion = rs.getInt("Puntuacion");
-                if (puntuacion == 0) {
-                    valores.append("Falta calificar");
-                } else {
-                    valores.append(puntuacion);
+                    java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
+                    if (fechaResolSql == null) {
+                        valores.append("Cargar Fecha, ");
+
+                    } else {
+                        LocalDate fechaResol = fechaResolSql.toLocalDate();
+                        valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                        valores.append(", ");
+                    }
+
+                    int puntuacion = rs.getInt("Puntuacion");
+                    if (puntuacion == 0) {
+                        valores.append("Falta calificar");
+                    } else {
+                        valores.append(puntuacion);
+                    }
+
+                    listaValores.add(valores.toString());
                 }
-
-                listaValores.add(valores.toString());
             }
 
-            ps.close();
-
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada: " + ex.getMessage());
         }
         return listaValores;
     }
@@ -532,8 +545,17 @@ public class BrigadaData {
                 valores.append(rs.getString("Nºbrigada")).append(", ");
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
-                valores.append(rs.getString("Fecha")).append(", ");
-                valores.append(rs.getString("Fecha_Resol")).append(", ");
+                //valores.append(rs.getString("Fecha")).append(", ");
+                LocalDate fecha = rs.getDate("Fecha").toLocalDate();
+                valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                valores.append(", ");
+                LocalDate fechaResol = rs.getDate("Fecha_Resol").toLocalDate();
+                if (fechaResol == null) {
+                    valores.append("Cargar Fecha");
+                } else {
+                    valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    valores.append(", ");
+                }
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -556,7 +578,7 @@ public class BrigadaData {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE siniestro.fecha_resol iS NULL OR siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -569,8 +591,19 @@ public class BrigadaData {
                 valores.append(rs.getString("Nºbrigada")).append(", ");
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
-                valores.append(rs.getString("Fecha")).append(", ");
-                 valores.append(rs.getString("Fecha_Resol")).append(", ");
+                //valores.append(rs.getString("Fecha")).append(", ");
+                LocalDate fecha = rs.getDate("Fecha").toLocalDate();
+                valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                valores.append(", ");
+                java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
+                if (fechaResolSql == null) {
+                    valores.append("Cargar Fecha");
+                    valores.append(", ");
+                } else {
+                    LocalDate fechaResol = fechaResolSql.toLocalDate();
+                    valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    valores.append(", ");
+                }
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -593,7 +626,7 @@ public class BrigadaData {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE siniestro.fecha_resol iS NULL AND siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -606,8 +639,19 @@ public class BrigadaData {
                 valores.append(rs.getString("Nºbrigada")).append(", ");
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
-                valores.append(rs.getString("Fecha")).append(", ");
-                 valores.append(rs.getString("Fecha_Resol")).append(", ");
+                //valores.append(rs.getString("Fecha")).append(", ");
+                LocalDate fecha = rs.getDate("Fecha").toLocalDate();
+                valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                valores.append(", ");
+                java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
+                if (fechaResolSql == null) {
+                    valores.append("Cargar Fecha");
+                    valores.append(", ");
+                } else {
+                    LocalDate fechaResol = fechaResolSql.toLocalDate();
+                    valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    valores.append(", ");
+                }
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -643,8 +687,19 @@ public class BrigadaData {
                 valores.append(rs.getString("Nºbrigada")).append(", ");
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
-                valores.append(rs.getString("Fecha")).append(", ");
-                valores.append(rs.getString("Fecha_Resol")).append(", ");
+                //valores.append(rs.getString("Fecha")).append(", ");
+                LocalDate fecha = rs.getDate("Fecha").toLocalDate();
+                valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                valores.append(", ");
+                java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
+                if (fechaResolSql == null) {
+                    valores.append("Cargar Fecha");
+                    valores.append(", ");
+                } else {
+                    LocalDate fechaResol = fechaResolSql.toLocalDate();
+                    valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    valores.append(", ");
+                }
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -662,12 +717,12 @@ public class BrigadaData {
         }
         return listaValores;
     }
-    
-     public List<String> siniestrosFinalizadosxbrigada(int yearfecha, int idBrigada) {
+
+    public List<String> siniestrosFinalizadosxbrigada(int yearfecha, int idBrigada) {
         List<String> listaValores = new ArrayList<>();
-        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
+        String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha, siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE siniestro.puntuacion>0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE siniestro.puntuacion > 0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -680,8 +735,15 @@ public class BrigadaData {
                 valores.append(rs.getString("Nºbrigada")).append(", ");
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
-                valores.append(rs.getString("Fecha")).append(", ");
-                valores.append(rs.getString("Fecha_Resol")).append(", ");
+                //valores.append(rs.getString("Fecha")).append(", ");
+                LocalDate fecha = rs.getDate("Fecha").toLocalDate();
+                valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                valores.append(", ");
+
+                LocalDate fechaResol = rs.getDate("Fecha_Resol").toLocalDate();
+                valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                valores.append(", ");
+
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -699,18 +761,19 @@ public class BrigadaData {
         }
         return listaValores;
     }
-     public void modificarsiniestro(Siniestro siniestro) {
+
+    public void modificarsiniestro(Siniestro siniestro) {
         String sql = "UPDATE siniestro SET tipo=?, fecha_siniestro=?, coord_X=?, coord_Y=?, detalles=?, fecha_resol=?, puntuacion=? WHERE codigo=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, siniestro.getTipo());
             ps.setDate(2, Date.valueOf(siniestro.getFecha_siniestro()));
-            ps.setInt(3,  siniestro.getCoord_X());
-            ps.setInt(4,  siniestro.getCoord_Y());
+            ps.setInt(3, siniestro.getCoord_X());
+            ps.setInt(4, siniestro.getCoord_Y());
             ps.setString(5, siniestro.getDetalles());
             ps.setDate(6, Date.valueOf(siniestro.getFecha_resol()));
-            ps.setInt(7,  siniestro.getPuntuacion());
+            ps.setInt(7, siniestro.getPuntuacion());
             ps.setInt(8, siniestro.getCodigo());
 
             int filasActualizadas = ps.executeUpdate();
@@ -725,8 +788,8 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
         }
     }
-     
-     public void actualizarNota(int idSiniestro, int nota) {
+
+    public void actualizarNota(int idSiniestro, int nota) {
 
         String sql = "UPDATE siniestro SET puntuacion = ? WHERE codigo = ?";
 
@@ -739,6 +802,31 @@ public class BrigadaData {
             }
             ps.setInt(2, idSiniestro);
 
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "La nota fue actualizada correctamente");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar conectar con la base de datos");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error únicamente se pueden ingresar valores enteros");
+        }
+    }
+
+    public void actualizarFecha_Resolucion(int idSiniestro, LocalDate fecha, LocalDate fecha_siniestro) {
+
+        String sql = "UPDATE siniestro SET fecha_resol = ? WHERE codigo = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            if (fecha.isAfter(fecha_siniestro) || fecha.isEqual(fecha_siniestro)) {
+                ps.setDate(1, java.sql.Date.valueOf(fecha));
+            } else {
+                JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha que se registro el siniestro");
+            }
+            ps.setInt(2, idSiniestro);
 
             int filas = ps.executeUpdate();
 
@@ -748,7 +836,7 @@ public class BrigadaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar conectar con la base de datos");
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error únicamente se pueden ingresar valores enteros");
         }
     }
