@@ -111,7 +111,7 @@ public class SiniestroData {
     public ArrayList<String> brigadaAsignada(String especialidad) {
         ArrayList<String> brigadasDisponibles = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as ID, brigada.nombre_br as Nombre, cuartel.coord_X as coord_X , "
-                + "cuartel.coord_Y as coord_Y FROM brigada JOIN cuartel ON brigada.codBrigada = cuartel.codCuartel "
+                + "cuartel.coord_Y as coord_Y FROM brigada JOIN cuartel ON brigada.nro_cuartel = cuartel.codCuartel "
                 + "WHERE brigada.especialidad = ? AND brigada.libre = 1";
 
         try {

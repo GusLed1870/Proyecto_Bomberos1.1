@@ -301,14 +301,19 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
             siniestro.setBrigada(briData.buscarBrigada2(imprimirLista()));
-            if (jdcFechaResolucion.getDate() != null) {
+
+            if (jdcFechaResolucion.getDate() != null && !jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
                 siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 siniestroData.cargarSiniestro(siniestro);
-            } else {
+            }
+            if (jdcFechaResolucion.getDate() != null && jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
+                JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
+            }
+            if (jdcFechaResolucion.getDate() == null) {
                 siniestroData.cargarSiniestro2(siniestro);
             }
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar datos númericos en los campos de coordenadas.");
+            JOptionPane.showMessageDialog(this, "Debe ingresar datos numéricos en los campos de coordenadas.");
         } catch (IllegalArgumentException iae) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
         }
@@ -353,7 +358,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 siniestroData.modificarSiniestro2(siniestro);
             }
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar datos númericos en los campos de coordenadas.");
+            JOptionPane.showMessageDialog(this, "Debe ingresar datos numéricos en los campos de coordenadas.");
         } catch (IllegalArgumentException iae) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
         }
