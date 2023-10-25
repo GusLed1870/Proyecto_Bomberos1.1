@@ -142,7 +142,7 @@ public class SiniestroData {
         return brigadasDisponibles;
     }
 
-       public void modificarSiniestro(Siniestro siniestro) {
+    public void modificarSiniestro(Siniestro siniestro) {
         String sql = "UPDATE INTO siniestro (tipo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, codBrigada) VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -180,12 +180,19 @@ public class SiniestroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla siniestro.");
         }
     }
-    
+//
 //    public List<Siniestro> listarSiniestros(String tipo) {
 //
 //        List<Siniestro> siniestros = new ArrayList<>();
 //        try {
-//            String sql = "SELECT id_Bombero, tipo, nombre_ape, celular FROM bombero WHERE nombre_ape like ?";
+//            String sql = "SELECT siniestro.codigo as ID, siniestro.tipo as Tipo, siniestro.fecha_siniestro as Fecha, "
+//                    + "siniestro.coord_X as Coord_X, siniestro.coord_Y as Coord_Y, brigada.nombre_br FROM siniestro "
+//                    + "JOIN brigada ON siniestro.codigo = brigada.codBrigada WHERE siniestro.tipo = ?";
+//           
+//            "SELECT brigada.codBrigada as ID, brigada.nombre_br as Nombre, cuartel.coord_X as coord_X , "
+//                    + "cuartel.coord_Y as coord_Y FROM brigada JOIN cuartel ON brigada.codBrigada = cuartel.codCuartel "
+//                    + "WHERE brigada.especialidad = ? AND brigada.libre = 1";
+
 //            PreparedStatement ps = con.prepareStatement(sql);
 //            ps.setString(1, apell + "%");
 //            ResultSet rs = ps.executeQuery();
@@ -207,4 +214,4 @@ public class SiniestroData {
 //        return bomberos;
 //    }
 //      
-}
+        }

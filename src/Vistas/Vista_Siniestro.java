@@ -1,21 +1,12 @@
 package Vistas;
 
-import Acceso_a_Datos.BomberoData;
 import Acceso_a_Datos.BrigadaData;
 import Acceso_a_Datos.SiniestroData;
-import Entidades.Bombero;
 import Entidades.Brigada;
 import Entidades.Siniestro;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
@@ -365,7 +356,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar datos númericos en los campos de coordenadas.");
         } catch (IllegalArgumentException iae) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
-        }     
+        }
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBBuscarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarSiniestroActionPerformed
@@ -487,8 +478,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     int id = Integer.parseInt(parts[0]);
                     bri = briData.buscarBrigada2(id);
                     jTFBrigadaCercana.setText("ID:  " + bri.getCodBrigada() + "     Nombre: " + bri.getNombre_br()
-                            + "    Cuartel: " + bri.getCuartel().getNombre_cuartel() + "     Especialidad: "+ bri.getEspecialidad()+
-                            "    Distancia al sinietro: " + (int) aux);
+                            + "    Cuartel: " + bri.getCuartel().getNombre_cuartel() + "    Distancia al sinietro: " + (int) aux);
                 }
             }
         }
