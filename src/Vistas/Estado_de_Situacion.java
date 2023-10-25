@@ -670,6 +670,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                         llenarTablaBrigadaFinalizados();
                     } else {
                         llenarTablaBrigada();
+                        
                     }
                 return;
             }
