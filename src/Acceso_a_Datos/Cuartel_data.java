@@ -19,7 +19,7 @@ public class Cuartel_data {
     }
 
     public void cargarCuartel(Cuartel cuartel) {
-        String sql = "INSERT INTO cuartel ( nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cuartel (nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cuartel.getNombre_cuartel());
