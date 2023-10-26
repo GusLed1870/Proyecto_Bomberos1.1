@@ -798,7 +798,7 @@ public class BrigadaData {
             if (nota >= 1 & nota <= 10) {
                 ps.setDouble(1, nota);
             } else {
-                JOptionPane.showMessageDialog(null, "Debe ingresar un valor de nota correcto (entre 2 y 10)");
+                JOptionPane.showMessageDialog(null, "Debe ingresar un valor de nota correcto (entre 1 y 10)");
             }
             ps.setInt(2, idSiniestro);
 
@@ -854,7 +854,7 @@ public class BrigadaData {
             if (rs.next()) {
                    cuenta=rs.getInt("COUNT(*)");
                    if (cuenta>0){
-                       JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
+                       //JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
                        return verdadero;
                    
                    }else{

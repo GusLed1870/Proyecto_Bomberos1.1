@@ -483,24 +483,21 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         try {
 
                             codCuartel = Integer.parseInt(parts[1]);
-                            
+
                         } catch (NumberFormatException e) {
                             JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
                             return;
                         }
                     }
-                    if(briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())){
+                    if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
                         //System.out.println("ID " + codCuartel);
-                    cuartel = cuar.buscarCuartel(codCuartel);
-                    Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
-                    briData.guardarBrigada(bri);
-                    //JRBTodasActionPerformed(evt);
-                    jBlimpiarCamposActionPerformed(evt);
-                    
-                    
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.guardarBrigada(bri);
+                        //JRBTodasActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);
+
                     }
-                    
-                    
 
                 }
 
@@ -529,49 +526,78 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                                 JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
                             }
                         }
-                         if(briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())){  
-                        //System.out.println("ID " + codCuartel);
-                        cuartel = cuar.buscarCuartel(codCuartel);
-                        Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
-                        briData.modificarBrigada(bri);
-                        //JRBTodasActionPerformed(evt);
-                        jBlimpiarCamposActionPerformed(evt);
-                         }
-                    }
+                        if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
+                            //System.out.println("ID " + codCuartel);
+                            cuartel = cuar.buscarCuartel(codCuartel);
+                            Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                            briData.modificarBrigada(bri);
+                            //JRBTodasActionPerformed(evt);
+                            jBlimpiarCamposActionPerformed(evt);
+                        } else {
 
-                }else{
-                    if (briData.nombreNORepetido(tfNombre.getText())) {
-                    String selectedItemText = (String) jCBCuarteles.getSelectedItem();
-                    int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+                            ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                            if (lista == null) {
+                                JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
-                    if (selectedItemText != null) {
-                        // Dividir la cadena por espacios en blanco
-                        String[] parts = selectedItemText.split(" ");
-                        if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
-                            try {
+                            } else {
+                                StringBuilder result = new StringBuilder();
 
-                                codCuartel = Integer.parseInt(parts[1]);
-                            } catch (NumberFormatException e) {
-                                JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
-                                return;
+                                // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                                for (String element : lista) {
+                                    result.append("- ").append(element).append("\n");
+                                }
+                                String finalString = result.toString();
+                                JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
                             }
                         }
-                        
-                            
-                        if(briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())){    
-                        //System.out.println("ID " + codCuartel);
-                        cuartel = cuar.buscarCuartel(codCuartel);
-                        Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
-                        briData.modificarBrigada(bri);
-                        //JRBTodasActionPerformed(evt);
-                        jBlimpiarCamposActionPerformed(evt);}
-                          
+                    }
+
+                } else {
+                    if (briData.nombreNORepetido(tfNombre.getText())) {
+                        String selectedItemText = (String) jCBCuarteles.getSelectedItem();
+                        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+
+                        if (selectedItemText != null) {
+                            // Dividir la cadena por espacios en blanco
+                            String[] parts = selectedItemText.split(" ");
+                            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                                try {
+
+                                    codCuartel = Integer.parseInt(parts[1]);
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                                    return;
+                                }
+                            }
+
+                            if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
+                                //System.out.println("ID " + codCuartel);
+                                cuartel = cuar.buscarCuartel(codCuartel);
+                                Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                                briData.modificarBrigada(bri);
+                                //JRBTodasActionPerformed(evt);
+                                jBlimpiarCamposActionPerformed(evt);
+                            } else {
+                                ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                                if (lista == null) {
+                                    JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+
+                                } else {
+                                    StringBuilder result = new StringBuilder();
+
+                                    // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                                    for (String element : lista) {
+                                        result.append("- ").append(element).append("\n");
+                                    }
+                                    String finalString = result.toString();
+                                    JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n " + finalString);
+                                }
+                            }
+
+                        }
 
                     }
 
-                }
-                
-                
                 }
 
             }
@@ -931,6 +957,27 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             }
         }
         return count;
+    }
+
+    private ArrayList<String> especialidadeslibrexbrigada(int cod) {
+        BrigadaData briData = new BrigadaData();
+        ArrayList<String> especialidades = new ArrayList<>();
+        ArrayList<String> especialidadeslibres = new ArrayList<>();
+        especialidades.add("Incendios en viviendas, e industrias");
+        especialidades.add("Salvamento en derrumbes");
+        especialidades.add("Rescates en ámbito montaña");
+        especialidades.add("Rescate de personas atrapadas en accidentes de tráfico");
+        especialidades.add("Socorrer inundaciones");
+        especialidades.add("Operativos de prevención");
+        for (int i = 0; i < especialidades.size(); i++) {
+            if (briData.unabrigadaxespecialidadencuartel(cod, especialidades.get(i))) {
+                especialidadeslibres.add(especialidades.get(i));
+
+            }
+
+        }
+
+        return especialidadeslibres;
     }
 
 }
