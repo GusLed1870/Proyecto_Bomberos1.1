@@ -5,9 +5,11 @@ import Acceso_a_Datos.BrigadaData;
 import Entidades.Bombero;
 import Entidades.Brigada;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -497,14 +499,13 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         int idBombero = Integer.parseInt(jTIdBombero.getText());
         String nombre = jTNombreApellido.getText();
         String dni = jTDNI.getText();
-        Date fechaNac = jDCFechaNac.getDate();   
+        Date fechaNac = jDCFechaNac.getDate();
         Brigada bri = obtenerBrigadaSeleccionada();
         String celu = jTCelular.getText();
         String gs;
         boolean estado = jRBEstado.isSelected();
         BomberoData bombData = new BomberoData();
         BrigadaData briData = new BrigadaData();
-
         // Realizo validaciones de campos individuales
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
@@ -522,7 +523,10 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe completar el celular");
             return;
         }
-         int celular = Integer.parseInt(celu);
+        if (!validarCelular(jTCelular)) {
+            return;
+        }
+        int celular = Integer.parseInt(celu);
 
         if (jDCFechaNac.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
@@ -571,7 +575,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     brigada = briData.buscarBrigada(codBrigada);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Error al ingresar el código de brigada.");
-                    return; 
+                    return;
                 }
             }
         }
@@ -582,7 +586,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
         BomberoData bomData = new BomberoData();
         BrigadaData briData = new BrigadaData();
-        Brigada bri = new Brigada();
+        Brigada bri;
         if (!jTIdBombero.getText().equals("Para agregar un bombero no es necesario colocar el ID") && (!jLIdBombero.getText().equals(jTIdBombero.getText()))) {
             JOptionPane.showMessageDialog(null, "El legajo no se puede modificar");
         } else {
@@ -601,6 +605,10 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Debe completar el DNI");
                     return;
                 }
+                if (Integer.parseInt(jTDNI.getText()) >= 100000000) {
+                    JOptionPane.showMessageDialog(null, "El número de DNI es demasiado grande controle si es correcto");
+                    return;
+                }
                 if (obtenerBrigadaSeleccionada() == null) {
                     JOptionPane.showMessageDialog(null, "Debe seleccionar una brigada");
                     return;
@@ -609,10 +617,14 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Debe completar el celular");
                     return;
                 }
+                if (!validarCelular(jTCelular)) {
+                    return;
+                }
                 if (jDCFechaNac.getDate() == null) {
                     JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
                     return;
                 }
+
                 if (jCBGrupoSanguineo.getSelectedIndex() == 0) {
                     JOptionPane.showMessageDialog(null, "Debe completar el grupo sanguíneo");
                     return;
@@ -649,7 +661,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
                 bomData.guardarBombero(bomb);
 
-            } catch (Exception e) {
+            } catch (HeadlessException | NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
             }
         }
@@ -949,13 +961,30 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         LocalDate fechaNac = FechaNacFormateada;
 
         // Fecha máxima permitida: 31/01/2100
-        LocalDate fechaMaxima = LocalDate.of(2100, 1, 31);
+        LocalDate fechaMaxima = LocalDate.now();
+        LocalDate fechaMinima = LocalDate.of(1923, 10, 26);
 
+        if (fechaNac.isBefore(fechaMinima)) {
+            JOptionPane.showMessageDialog(null, "Controle la fecha de nacimiento porque la edad del bombero supera los 100 años");
+            return false;
+        }
         if (fechaNac.isAfter(fechaMaxima)) {
-            JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede superar el 31/01/2100");
+            JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede ser posterior a la fecha actual");
             return false;
         } else {
             return true;
+        }
+    }
+
+    public boolean validarCelular(JTextField jTCelular) {
+        String celular = jTCelular.getText().replaceAll("\\s", ""); // Eliminar espacios en blanco
+        int longitudValida = 10; // Cambiar estos valores según tus requisitos
+        int longitud = celular.length();
+        if (longitud == longitudValida) {
+            return true; // La longitud del número es válida
+        } else {
+            JOptionPane.showMessageDialog(null, "Número de teléfono no válido.");
+            return false; // La longitud del número no es válida
         }
     }
 }
