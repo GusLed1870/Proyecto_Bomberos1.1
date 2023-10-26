@@ -840,4 +840,31 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error únicamente se pueden ingresar valores enteros");
         }
     }
+    
+    
+    public boolean unabrigadaxespecialidadencuartel(int cuartel, String especialidad){
+        boolean verdadero=false;
+        String sql="SELECT COUNT(*) FROM cuartel join brigada on cuartel.codCuartel=brigada.nro_cuartel WHERE brigada.especialidad=? and cuartel.codCuartel=?";
+        int cuenta=0;
+         try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, especialidad); // Establece el año como parámetro
+            ps.setInt(2, cuartel);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                   cuenta=rs.getInt("COUNT(*)");
+                   if (cuenta>0){
+                       JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
+                       return verdadero;
+                   
+                   }else{
+                       return verdadero=true;
+                   }
+                }
+          } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return verdadero;
+    
+    }
 }

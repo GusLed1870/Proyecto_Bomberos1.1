@@ -483,16 +483,23 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         try {
 
                             codCuartel = Integer.parseInt(parts[1]);
+                            
                         } catch (NumberFormatException e) {
                             JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                            return;
                         }
                     }
-                    //System.out.println("ID " + codCuartel);
+                    if(briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())){
+                        //System.out.println("ID " + codCuartel);
                     cuartel = cuar.buscarCuartel(codCuartel);
                     Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
                     briData.guardarBrigada(bri);
                     //JRBTodasActionPerformed(evt);
                     jBlimpiarCamposActionPerformed(evt);
+                    
+                    
+                    }
+                    
                     
 
                 }
@@ -522,13 +529,14 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                                 JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
                             }
                         }
+                         if(briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())){  
                         //System.out.println("ID " + codCuartel);
                         cuartel = cuar.buscarCuartel(codCuartel);
                         Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
                         briData.modificarBrigada(bri);
                         //JRBTodasActionPerformed(evt);
                         jBlimpiarCamposActionPerformed(evt);
-
+                         }
                     }
 
                 }else{
@@ -545,14 +553,19 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                                 codCuartel = Integer.parseInt(parts[1]);
                             } catch (NumberFormatException e) {
                                 JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                                return;
                             }
                         }
+                        
+                            
+                        if(briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())){    
                         //System.out.println("ID " + codCuartel);
                         cuartel = cuar.buscarCuartel(codCuartel);
                         Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
                         briData.modificarBrigada(bri);
                         //JRBTodasActionPerformed(evt);
-                        jBlimpiarCamposActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);}
+                          
 
                     }
 
