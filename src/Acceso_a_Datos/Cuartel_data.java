@@ -2,7 +2,6 @@ package Acceso_a_Datos;
 
 import Entidades.Cuartel;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,22 +12,16 @@ import javax.swing.JOptionPane;
 
 public class Cuartel_data {
 
-    //Atributos
     private Connection con = null;
 
-    //Constructor
     public Cuartel_data() {
         con = Conexion.getConexion();
     }
 
-    //Métodos ABM
     public void cargarCuartel(Cuartel cuartel) {
-
         String sql = "INSERT INTO cuartel ( nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?, ?, ?, ?, ?, ?)";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
             ps.setString(1, cuartel.getNombre_cuartel());
             ps.setString(2, cuartel.getDireccion());
             ps.setInt(3, cuartel.getCoord_X());
@@ -37,12 +30,9 @@ public class Cuartel_data {
             ps.setString(6, cuartel.getCorreo());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-
         } catch (SQLException ex) {
-
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cuartel " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al intentar acceder a la tabla cuartel " + ex.getMessage());
         }
-
     }
 
     public Cuartel buscarCuartel(int codCuartel) {
@@ -53,7 +43,6 @@ public class Cuartel_data {
             ps = con.prepareStatement(sql);
             ps.setInt(1, codCuartel);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 cuartel = new Cuartel();
                 cuartel.setCodCuartel(codCuartel);
@@ -63,18 +52,16 @@ public class Cuartel_data {
                 cuartel.setCoord_Y(rs.getInt("coord_Y"));
                 cuartel.setTelefono(rs.getString("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
-
             } else {
                 ps.close();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cuartel " + ex.getMessage());
         }
         return cuartel;
     }
 
     public List<Cuartel> listarCuarteles() {
-
         List<Cuartel> cuarteles = new ArrayList<>();
         try {
             String sql = "SELECT * FROM cuartel ";
@@ -92,7 +79,6 @@ public class Cuartel_data {
                 cuarteles.add(cuartel);
             }
             ps.close();
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Cuartel " + ex.getMessage());
         }
@@ -101,14 +87,12 @@ public class Cuartel_data {
 
     public boolean compararCuarteles(Cuartel cuar) {
         boolean cuartelEncontrado = false;
-
         String nombre = cuar.getNombre_cuartel();
         String direccion = cuar.getDireccion();
         int coordenadaX = cuar.getCoord_X();
         int coordenadaY = cuar.getCoord_Y();
         String telefono = cuar.getTelefono();
         String correo = cuar.getCorreo();
-
         String sql = "SELECT COUNT(*) FROM cuartel WHERE nombre_cuartel = ? AND direccion = ? AND coord_X = ? AND coord_Y = ? AND telefono = ? AND correo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -132,16 +116,14 @@ public class Cuartel_data {
         }
         return cuartelEncontrado;
     }
+
     public Cuartel buscarCuartelId(int id) {
         String sql = "SELECT * FROM cuartel WHERE codCuartel = ?";
         Cuartel cuartel = new Cuartel();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 cuartel.setCodCuartel(rs.getInt("codCuartel"));
                 cuartel.setNombre_cuartel(rs.getString("nombre_cuartel"));
@@ -150,14 +132,12 @@ public class Cuartel_data {
                 cuartel.setCoord_Y(rs.getInt("coord_Y"));
                 cuartel.setTelefono(rs.getString("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
-
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar cuartel");
+            JOptionPane.showMessageDialog(null, "Error al intentar conectar con la base de datos");
         }
         return cuartel;
-
     }
 
     public void modificarCuartel(Cuartel cuartel) {
@@ -172,13 +152,11 @@ public class Cuartel_data {
             ps.setString(6, cuartel.getCorreo());
             ps.setInt(7, cuartel.getCodCuartel());
             int modificado = ps.executeUpdate();
-
             if (modificado == 1) {
                 JOptionPane.showMessageDialog(null, "Cuartel modificado con éxito");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cuartel " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cuartel " + ex.getMessage());
         }
     }
 }
-
