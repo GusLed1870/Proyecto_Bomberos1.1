@@ -551,7 +551,7 @@ public class BrigadaData {
                 valores.append(", ");
                 LocalDate fechaResol = rs.getDate("Fecha_Resol").toLocalDate();
                 if (fechaResol == null) {
-                    valores.append("Cargar Fecha");
+                    valores.append("Cargar Fecha, ");
                 } else {
                     valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
                     valores.append(", ");
@@ -578,7 +578,7 @@ public class BrigadaData {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE siniestro.fecha_resol iS NULL OR siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE siniestro.fecha_resol IS NULL OR siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -626,7 +626,7 @@ public class BrigadaData {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE siniestro.fecha_resol iS NULL AND siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE siniestro.fecha_resol iS NULL OR siniestro.puntuacion=0 AND YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);

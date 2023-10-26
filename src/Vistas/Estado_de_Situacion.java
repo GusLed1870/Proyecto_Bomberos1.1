@@ -259,6 +259,23 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             // jRBFinalizado.setSelected(true);
             //  jBActualizar.setEnabled(false);
         }
+          if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTabla();
+
+        } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaenProgreso2();
+        } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+            llenarTodosFinalizados();
+
+        } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigada();
+        } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaenProgreso();
+        } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaFinalizados();
+        } else {
+            llenarTablaBrigada();
+        }
     }//GEN-LAST:event_jRBEnProgresoActionPerformed
 
     private void jRBFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFinalizadoActionPerformed
@@ -273,6 +290,23 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         } else {
             // jRBEnProgreso.setSelected(true);
             // jBActualizar.setEnabled(false);
+        }
+          if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTabla();
+
+        } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaenProgreso2();
+        } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+            llenarTodosFinalizados();
+
+        } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigada();
+        } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaenProgreso();
+        } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+            llenarTablaBrigadaFinalizados();
+        } else {
+            llenarTablaBrigada();
         }
     }//GEN-LAST:event_jRBFinalizadoActionPerformed
 
@@ -446,7 +480,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 }
             }
         }
-        //System.out.println("ID3 "+codCuartel);
+        System.out.println("ID3 "+codCuartel);
 
     }
 
