@@ -2,7 +2,14 @@ package Vistas;
 
 import Acceso_a_Datos.Cuartel_data;
 import Entidades.Cuartel;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 public class Vista_cuartel extends javax.swing.JInternalFrame {
 
@@ -100,6 +107,8 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jLy = new javax.swing.JLabel();
         jLx = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jBLimpiar = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1100, 678));
 
@@ -189,7 +198,8 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("CORREO:");
 
-        jBsalir.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+        jBsalir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBsalir.setForeground(new java.awt.Color(0, 0, 0));
         jBsalir.setText("Salir");
         jBsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,8 +207,9 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             }
         });
 
-        jBguardar.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
-        jBguardar.setText("Guardar cuartel");
+        jBguardar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBguardar.setForeground(new java.awt.Color(0, 0, 0));
+        jBguardar.setText("Guardar ");
         jBguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBguardarActionPerformed(evt);
@@ -221,6 +232,19 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cuarteles");
+
+        jBLimpiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBLimpiar.setForeground(new java.awt.Color(0, 0, 0));
+        jBLimpiar.setText("Limpiar");
+        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarActionPerformed(evt);
+            }
+        });
+
+        jBModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBModificar.setForeground(new java.awt.Color(0, 0, 0));
+        jBModificar.setText("Modificar ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,22 +278,25 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                                     .addComponent(jLcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jBguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jBsalir))
-                                        .addComponent(jTcorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jBguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTcorreo)
+                                    .addComponent(jTdireccion)
+                                    .addComponent(jTnombre)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(492, 492, 492)
                         .addComponent(jLabel1)))
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,7 +329,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jLy)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -312,14 +339,16 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jLtelefono)
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBguardar)
-                    .addComponent(jBsalir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(62, 62, 62)
                 .addComponent(jLcorreo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBLimpiar)
+                    .addComponent(jBguardar)
+                    .addComponent(jBModificar)
+                    .addComponent(jBsalir))
                 .addGap(152, 152, 152))
         );
 
@@ -363,9 +392,15 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             String nombre_cuartel = jTnombre.getText();
             String direccion = jTdireccion.getText();
             String telefono = jTtelefono.getText();
-            String correo = jTcorreo.getText();
+            String correo = jTcorreo.getText();  
             int coord_X = Integer.parseInt(jTx.getText());
             int coord_Y = Integer.parseInt(jTy.getText());
+            
+            if(!validarCorreoElectronico(correo)){
+                JOptionPane.showMessageDialog(null, "El correo electrónico ingresado no es válido");
+                return;
+            }
+            
             Cuartel cua = new Cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
 
             cuar.cargarCuartel(cua);
@@ -429,7 +464,13 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         validacionNumeros(evt);
     }//GEN-LAST:event_jTyKeyTyped
 
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_jBLimpiarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBLimpiar;
+    private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBguardar;
     private javax.swing.JButton jBsalir;
     private javax.swing.JLabel jLabel1;
@@ -462,4 +503,88 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTx.setText(null);
         jTy.setText(null);
     }
+
+    public void permitirSoloNumeros(JTextField textField) {
+        AbstractDocument doc = (AbstractDocument) textField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                try {
+                    if (string.matches("[0-9]+")) {
+                        super.insertString(fb, offset, string, attr);
+                        // Después de aplicar el filtro, establece el campo jTDNI en una cadena vacía
+                        jTx.setText("");
+                        jTy.setText("");
+                    }
+                } catch (BadLocationException e) {
+                    // Manejar la excepción BadLocationException, por ejemplo, mostrar un mensaje de error.
+                    System.err.println("Error al insertar texto: " + e.getMessage());
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                try {
+                    if (text.matches("[0-9]+")) {
+                        super.replace(fb, offset, length, text, attrs);
+                        // Después de aplicar el filtro, establece el campo jTDNI en una cadena vacía
+                        jTx.setText("");
+                        jTy.setText("");
+                    }
+                } catch (Exception e) {
+                    // Manejar la excepción BadLocationException, por ejemplo, mostrar un mensaje de error.
+                    System.err.println("Error al reemplazar texto: " + e.getMessage());
+                }
+            }
+        });
+    }
+
+    public void permitirSoloLetras(JTextField textField) {
+        AbstractDocument doc = (AbstractDocument) textField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if (string == null) {
+                    return;
+                }
+                if (contieneSoloLetrasYEspacios(string)) {
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if (text == null) {
+                    return;
+                }
+                if (contieneSoloLetrasYEspacios(text)) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+
+            private boolean contieneSoloLetrasYEspacios(String text) {
+                for (char c : text.toCharArray()) {
+                    if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
+    public boolean validarCorreoElectronico(String correo) {
+        // Expresión regular para validar un correo electrónico
+        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+        // Compila la expresión regular en un patrón
+        Pattern pattern = Pattern.compile(regex);
+
+        // Crea un objeto Matcher para comparar el texto con el patrón
+        Matcher matcher = pattern.matcher(correo);
+
+        // Comprueba si el correo coincide con el patrón
+        return matcher.matches();
+    }
 }
+
