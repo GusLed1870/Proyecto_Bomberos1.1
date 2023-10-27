@@ -6,7 +6,10 @@ import Entidades.Brigada;
 import Entidades.Siniestro;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDialog;
@@ -334,22 +337,35 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
             siniestro.setBrigada(briData.buscarBrigada2(imprimirLista()));
+            //Date fecha = (Date) jdcFechaSiniestro.getDate();
+            LocalDate fechaLocalDate = jdcFechaSiniestro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaActual = LocalDate.now();
+            if (fechaLocalDate.isBefore(fechaActual) || fechaLocalDate.isEqual(fechaActual)) {
+                if (jdcFechaResolucion.getDate() != null && !jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
+                    siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                    siniestroData.cargarSiniestro(siniestro);
+                    limpiarCampos();
+                }
+                if (jdcFechaResolucion.getDate() != null && jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
+                    JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
+                }
+                if (jdcFechaResolucion.getDate() == null) {
+                    siniestroData.cargarSiniestro2(siniestro);
+                    limpiarCampos();
+                }
+            } else {
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Puedes ajustar el formato a tu preferencia
 
-            if (jdcFechaResolucion.getDate() != null && !jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
-                siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                siniestroData.cargarSiniestro(siniestro);
-            }
-            if (jdcFechaResolucion.getDate() != null && jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
-                JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
-            }
-            if (jdcFechaResolucion.getDate() == null) {
-                siniestroData.cargarSiniestro2(siniestro);
+                // Formatea la fecha como una cadena
+                String fechaActualTexto = fechaActual.format(formato);
+                JOptionPane.showMessageDialog(this, "No se puede ingresar una fecha mayor a la fecha de hoy\nHoy es " + fechaActualTexto);
             }
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Debe ingresar datos numéricos en los campos de coordenadas.");
         } catch (IllegalArgumentException iae) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
         }
+
     }//GEN-LAST:event_jbCargarActionPerformed
 
     private void jtfCoord_XKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCoord_XKeyReleased
@@ -372,7 +388,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         BrigadaData briData = new BrigadaData();
-        Brigada bri=new Brigada();
+        Brigada bri = new Brigada();
         try {
             if (validacionCamposVacios()) {
                 JOptionPane.showMessageDialog(this, "Corrobore los datos ingresados.");
@@ -385,10 +401,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             siniestro.setCoord_X(Integer.parseInt(jtfCoord_X.getText()));
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
-            String[] parts=jTFBrigadaCercana.getText().split(" ");
-            int codBrigada=Integer.parseInt(parts[1]);
-            System.out.println("CODIGOO BRIGAS "+codBrigada);
-            bri=briData.buscarBrigada(codBrigada);
+            String[] parts = jTFBrigadaCercana.getText().split(" ");
+            int codBrigada = Integer.parseInt(parts[1]);
+            System.out.println("CODIGOO BRIGAS " + codBrigada);
+            bri = briData.buscarBrigada(codBrigada);
             siniestro.setBrigada(bri);
             //System.out.println("id brigada "+imprimirLista());
             if (jdcFechaResolucion.getDate() != null) {
@@ -406,31 +422,32 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBBuscarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarSiniestroActionPerformed
-        // Crear y configurar la ventana de búsqueda
-        JDialog ventanaBusqueda = new JDialog();
-        ventanaBusqueda.setTitle("Ventana de Búsqueda");
-        ventanaBusqueda.setSize(440, 153);
-        ventanaBusqueda.setLocation(762, 352);
+        if (jcbTipoEmergencia.getSelectedIndex() > 0) {
+            // Crear y configurar la ventana de búsqueda
+            JDialog ventanaBusqueda = new JDialog();
+            ventanaBusqueda.setTitle("Ventana de Búsqueda");
+            ventanaBusqueda.setSize(440, 153);
+            ventanaBusqueda.setLocation(762, 352);
 
-        // Crea la tabla y el modelo de datos
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Código");
+            // Crea la tabla y el modelo de datos
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Código");
 //        modelo.addColumn("Tipo");
-        modelo.addColumn("Fecha Inicio");
-        modelo.addColumn("Coord_X");
-        modelo.addColumn("Coord_Y");
-        modelo.addColumn("Brigada Asignada");
-        JTable tabla = new JTable(modelo);
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        ventanaBusqueda.add(scrollPane);
+            modelo.addColumn("Fecha Inicio");
+            modelo.addColumn("Coord_X");
+            modelo.addColumn("Coord_Y");
+            modelo.addColumn("Brigada Asignada");
+            JTable tabla = new JTable(modelo);
+            JScrollPane scrollPane = new JScrollPane(tabla);
+            ventanaBusqueda.add(scrollPane);
 
-        // Realizar la consulta SQL con el apellido y obtener la lista de siniestros
-        SiniestroData sin = new SiniestroData();
-        String tipo = jcbTipoEmergencia.getSelectedItem().toString();
-        System.out.println("Tipo: "+tipo);
-        List<String> siniestros = sin.listarSiniestros2(tipo);
-        // Llenar el modelo de la tabla con los resultados
-        /*for (Siniestro siniestro : siniestros) {
+            // Realizar la consulta SQL con el apellido y obtener la lista de siniestros
+            SiniestroData sin = new SiniestroData();
+            String tipo = jcbTipoEmergencia.getSelectedItem().toString();
+            System.out.println("Tipo: " + tipo);
+            List<String> siniestros = sin.listarSiniestros2(tipo);
+            // Llenar el modelo de la tabla con los resultados
+            /*for (Siniestro siniestro : siniestros) {
             modelo.addRow(new Object[]{
                 siniestro.getCodigo(),
                 siniestro.getTipo(),
@@ -440,36 +457,39 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 siniestro.getBrigada().getCodBrigada()
             });
         }*/
-        System.out.println("Lista "+siniestros);
-        for (String fila : siniestros) {
-                        String[] datos = fila.split(", ");
-                        modelo.addRow(datos);
-                    }
-        // Hacer visible la ventana de búsqueda
-        ventanaBusqueda.setVisible(true);
-        tabla.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Obtiene la fila seleccionada
-                int filaSeleccionada = tabla.getSelectedRow();
+            System.out.println("Lista " + siniestros);
+            for (String fila : siniestros) {
+                String[] datos = fila.split(", ");
+                modelo.addRow(datos);
+            }
+            // Hacer visible la ventana de búsqueda
+            ventanaBusqueda.setVisible(true);
+            tabla.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // Obtiene la fila seleccionada
+                    int filaSeleccionada = tabla.getSelectedRow();
 
-                // Verifica si se hizo clic en una fila válida
-                if (filaSeleccionada >= 0) {
-                    // Obtiene el valor de la columna "ID" en la fila seleccionada
-                    Object idSeleccionado = modelo.getValueAt(filaSeleccionada, 0);
-                    // Comprueba si el valor es válido (no nulo)
-                    if (idSeleccionado != null) {
-                        idSeleccionado = Integer.parseInt(idSeleccionado.toString());
-                        // Ya obtuve el ID y puedo traerme todo lo demás
-                        jTCodigo.setText(String.valueOf(idSeleccionado));
-                        jTCodigo.setEnabled(false);
-                        ventanaBusqueda.dispose();
-                        // Invoco al método que me va a crea la tabla en una ventana extra para mostrarme todos los siniestros
-                        completarTabla(Integer.parseInt(idSeleccionado.toString()));
+                    // Verifica si se hizo clic en una fila válida
+                    if (filaSeleccionada >= 0) {
+                        // Obtiene el valor de la columna "ID" en la fila seleccionada
+                        Object idSeleccionado = modelo.getValueAt(filaSeleccionada, 0);
+                        // Comprueba si el valor es válido (no nulo)
+                        if (idSeleccionado != null) {
+                            idSeleccionado = Integer.parseInt(idSeleccionado.toString());
+                            // Ya obtuve el ID y puedo traerme todo lo demás
+                            jTCodigo.setText(String.valueOf(idSeleccionado));
+                            jTCodigo.setEnabled(false);
+                            ventanaBusqueda.dispose();
+                            // Invoco al método que me va a crea la tabla en una ventana extra para mostrarme todos los siniestros
+                            completarTabla(Integer.parseInt(idSeleccionado.toString()));
+                        }
                     }
                 }
-            }
-        });
+            });
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo antes de realizar la búsqueda");
+        }
     }//GEN-LAST:event_jBBuscarSiniestroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -511,6 +531,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jtAreaDetalles.setText(null);
         jdcFechaResolucion.setDate(null);
         jTFBrigadaCercana.setText(null);
+        jTCodigo.setText("");
     }
 
     private boolean validacionCamposVacios() {
@@ -574,9 +595,9 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 //            if (brigadaSeleccionada != null && brigadaSeleccionada.getCodBrigada() == nroBrigada) {
 //                jCBBrigadaAsignada.setSelectedIndex(i);
 //                break; // Me saca del bucle una vez que se encuentra la brigada                
-     }
-    
-     private int listaTipoEmergencias(String tipo) {
+    }
+
+    private int listaTipoEmergencias(String tipo) {
         ArrayList<String> lista = new ArrayList<>();
         int pos = -1;
         lista.add("Incendios en viviendas, e industrias");
@@ -585,7 +606,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         lista.add("Rescate de personas atrapadas en accidentes de tráfico");
         lista.add("Socorrer inundaciones");
         lista.add("Operativos de prevención");
-   
+
         pos = lista.indexOf(tipo);
         return pos;
     }
