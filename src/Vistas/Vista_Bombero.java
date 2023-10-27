@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -372,7 +373,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             // Seteo la Fecha de Nacimiento
             try {
                 jDCFechaNac.setDate(java.sql.Date.valueOf(bombero.getFecha_nac()));
-            } catch (NullPointerException e) {
+            } catch (DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha de nacimiento es nula o inválida.");
                 return;
             }
@@ -487,7 +488,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         boolean estado = jRBEstado.isSelected();
         BomberoData bombData = new BomberoData();
         BrigadaData briData = new BrigadaData();
-        // Realizo validaciones de campos individuales
+
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
             return;
@@ -518,7 +519,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
             if (!esFechaValida(FechaNacFormateada)) {
                 return;
             }
-        } catch (IllegalArgumentException e) {
+        } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(null, "Error al procesar la fecha: " + e.getMessage());
             return;
         }
@@ -559,6 +560,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         }
         Bombero bomb = new Bombero(idBombero, dni, nombre, FechaNacFormateada, celular, bri, gs, estado);
         bombData.modificarBombero(bomb);
+        limpiarCampos();
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
@@ -573,7 +575,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 String dni = jTDNI.getText();
                 String grupoSanguineo = jCBGrupoSanguineo.getSelectedItem().toString();
                 boolean estado = jRBEstado.isSelected();
-                // Realiza validaciones de campos individuales
+     
                 if (jTNombreApellido.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Debe completar el nombre y apellido");
                     return;
@@ -620,7 +622,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     if (!esFechaValida(FechaNacFormateada)) {
                         return;
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (DateTimeParseException e) {
                     JOptionPane.showMessageDialog(null, "Error al procesar la fecha: " + e.getMessage());
                     return;
                 }
@@ -636,6 +638,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                     return;
                 }
                 bomData.guardarBombero(bomb);
+                limpiarCampos();
             } catch (HeadlessException | NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
             }
@@ -916,10 +919,14 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
     public boolean esFechaValida(LocalDate FechaNacFormateada) {
         LocalDate fechaNac = FechaNacFormateada;
         LocalDate fechaMaxima = LocalDate.now();
+        LocalDate fecha18anios = LocalDate.of(2005, 10, 26);
         LocalDate fechaMinima = LocalDate.of(1923, 10, 26);
         if (fechaNac.isBefore(fechaMinima)) {
             JOptionPane.showMessageDialog(null, "Controle la fecha de nacimiento porque la edad del bombero supera los 100 años");
             return false;
+        }
+        if(fechaNac.isAfter(fecha18anios)&&fechaNac.isBefore(fechaMaxima.minusDays(1))){
+            JOptionPane.showMessageDialog(null, "El bombero que quiere agregar tiene menos de 18 años. Controle la fecha de nacimiento");
         }
         if (fechaNac.isAfter(fechaMaxima)) {
             JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede ser posterior a la fecha actual");
@@ -931,9 +938,10 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
 
     public boolean validarCelular(JTextField jTCelular) {
         String celular = jTCelular.getText().replaceAll("\\s", ""); // Eliminar espacios en blanco
-        int longitudValida = 10; // Cambiar estos valores según tus requisitos
+        int longitudMin = 8; // Cambiar estos valores según tus requisitos
+        int longitudMax = 10;
         int longitud = celular.length();
-        if (longitud == longitudValida) {
+        if (longitud <= longitudMax && longitud >= longitudMin) {
             return true; // La longitud del número es válida
         } else {
             JOptionPane.showMessageDialog(null, "Número de teléfono no válido.");
