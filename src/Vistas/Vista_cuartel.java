@@ -15,6 +15,10 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         initComponents();
         cuar = new Cuartel_data();
         jBguardarDatos.setEnabled(false);
+        jTCodigo.setEnabled(false);
+        jBBuscarPorID.setEnabled(false);
+        jBguardarDatos.setEnabled(true);
+        jBModificar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -47,6 +51,8 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jBModificar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTCodigo = new javax.swing.JTextField();
+        jBBuscarPorID = new javax.swing.JButton();
+        jRBHabilitarID = new javax.swing.JRadioButton();
 
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(1100, 678));
@@ -132,8 +138,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("CORREO:");
 
-        jBsalir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jBsalir.setForeground(new java.awt.Color(0, 0, 0));
+        jBsalir.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBsalir.setText("Salir");
         jBsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,8 +146,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             }
         });
 
-        jBguardarDatos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jBguardarDatos.setForeground(new java.awt.Color(0, 0, 0));
+        jBguardarDatos.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBguardarDatos.setText("Guardar ");
         jBguardarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,8 +171,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cuarteles");
 
-        jBLimpiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jBLimpiar.setForeground(new java.awt.Color(0, 0, 0));
+        jBLimpiar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBLimpiar.setText("Limpiar");
         jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,8 +179,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             }
         });
 
-        jBModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jBModificar.setForeground(new java.awt.Color(0, 0, 0));
+        jBModificar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jBModificar.setText("Modificar ");
         jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,7 +191,31 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("ID/CÓDIGO:");
 
-        jTCodigo.setEditable(false);
+        jTCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTCodigoMouseClicked(evt);
+            }
+        });
+        jTCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTCodigoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTCodigoKeyTyped(evt);
+            }
+        });
+
+        jBBuscarPorID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBBuscarPorID.setText("Buscar cuartel por código");
+
+        jRBHabilitarID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jRBHabilitarID.setForeground(new java.awt.Color(0, 0, 0));
+        jRBHabilitarID.setText("Deshabilitado");
+        jRBHabilitarID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBHabilitarIDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,7 +256,12 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                                         .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(15, 15, 15)
+                                            .addComponent(jRBHabilitarID)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jBBuscarPorID))
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -256,7 +287,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(60, 60, 60)
@@ -265,7 +296,9 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jBBuscarPorID)
+                            .addComponent(jRBHabilitarID))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -439,7 +472,38 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBModificarActionPerformed
 
+    private void jTCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCodigoMouseClicked
+        jTCodigo.setEditable(true);
+    }//GEN-LAST:event_jTCodigoMouseClicked
+
+    private void jTCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCodigoKeyTyped
+        validacionNumeros(evt);
+    }//GEN-LAST:event_jTCodigoKeyTyped
+
+    private void jTCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCodigoKeyReleased
+         habilitarBoton();
+    }//GEN-LAST:event_jTCodigoKeyReleased
+
+    private void jRBHabilitarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBHabilitarIDActionPerformed
+            if (jRBHabilitarID.isSelected()) {
+            jRBHabilitarID.setText("Habilitado");
+            jBBuscarPorID.setEnabled(true);
+            jTCodigo.setEnabled(true);
+            jBguardarDatos.setEnabled(false);
+            jBModificar.setEnabled(true);
+        } else {
+            jRBHabilitarID.setText("Deshabilitado");
+            jBBuscarPorID.setEnabled(false);
+            jTCodigo.setEnabled(false);
+            jBguardarDatos.setEnabled(true);
+            jBModificar.setEnabled(false);
+        }
+    
+        
+    }//GEN-LAST:event_jRBHabilitarIDActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBBuscarPorID;
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBguardarDatos;
@@ -459,6 +523,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLx;
     private javax.swing.JLabel jLy;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRBHabilitarID;
     private javax.swing.JTextField jTCodigo;
     private javax.swing.JTextField jTcorreo;
     private javax.swing.JTextField jTdireccion;
@@ -475,6 +540,8 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTdireccion.setText(null);
         jTx.setText(null);
         jTy.setText(null);
+        jTCodigo.setEnabled(false);
+        jRBHabilitarID.setSelected(false);
     }
 
     public void validacionNumeros(java.awt.event.KeyEvent evento) {
