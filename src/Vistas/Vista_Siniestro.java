@@ -419,9 +419,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         // Realizar la consulta SQL con el apellido y obtener la lista de siniestros
         SiniestroData sin = new SiniestroData();
         String tipo = jcbTipoEmergencia.getSelectedItem().toString();
-        List<Siniestro> siniestros = sin.listarSiniestros(tipo);
+        System.out.println("Tipo: "+tipo);
+        List<String> siniestros = sin.listarSiniestros2(tipo);
         // Llenar el modelo de la tabla con los resultados
-        for (Siniestro siniestro : siniestros) {
+        /*for (Siniestro siniestro : siniestros) {
             modelo.addRow(new Object[]{
                 siniestro.getCodigo(),
                 siniestro.getTipo(),
@@ -430,7 +431,12 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 siniestro.getCoord_Y(),
                 siniestro.getBrigada().getCodBrigada()
             });
-        }
+        }*/
+        System.out.println("Lista "+siniestros);
+        for (String fila : siniestros) {
+                        String[] datos = fila.split(", ");
+                        modelo.addRow(datos);
+                    }
         // Hacer visible la ventana de búsqueda
         ventanaBusqueda.setVisible(true);
         tabla.addMouseListener(new MouseAdapter() {
@@ -551,6 +557,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jtfCoord_X.setText(String.valueOf(siniestro.getCoord_X()));
         jtfCoord_Y.setText(String.valueOf(siniestro.getCoord_Y()));
         jTFBrigadaCercana.setText(siniestro.getBrigada().toString());
+        jtAreaDetalles.setText(siniestro.getDetalles());
 
 //        int nroBrigada = bomb.getBrigada().getCodBrigada();
 //        for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {

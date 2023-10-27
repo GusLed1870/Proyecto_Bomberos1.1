@@ -181,7 +181,7 @@ public class SiniestroData {
 
     public Siniestro buscarSiniestroPorId(int id) {
         Siniestro siniestro = null;
-        String sql = "SELECT * FROM siniestro WHERE id = ?";
+        String sql = "SELECT * FROM siniestro WHERE codigo = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -243,6 +243,43 @@ public class SiniestroData {
         }
         return siniestros;
     }
+    public List<String> listarSiniestros2(String tipo) {
+    List<String> siniestrosStrings = new ArrayList<>();
+
+    try {
+        String sql = "SELECT codigo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, codBrigada FROM siniestro WHERE tipo = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, tipo);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            StringBuilder siniestroString = new StringBuilder();
+            siniestroString.append(rs.getInt("codigo")).append(", ");
+            siniestroString.append(tipo).append(", ");
+            siniestroString.append(rs.getDate("fecha_siniestro").toLocalDate()).append(", ");
+            siniestroString.append(rs.getInt("coord_X")).append(", ");
+            siniestroString.append(rs.getInt("coord_Y")).append(", ");
+            siniestroString.append(rs.getString("detalles")).append(", ");
+            siniestroString.append(rs.getDate("fecha_resol").toLocalDate()).append(", ");
+            
+            // Convertir codBrigada a cadena y agregarlo
+            int codBri = rs.getInt("codBrigada");
+            siniestroString.append(String.valueOf(codBri)).append(", ");
+            
+            // Convertir puntuacion a cadena y agregarla
+            int puntuacion = rs.getInt("puntuacion");
+            siniestroString.append(String.valueOf(puntuacion));
+
+            siniestrosStrings.add(siniestroString.toString());
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Siniestro. Error: " + ex.getMessage());
+    }
+
+    return siniestrosStrings;
+}
 }
 //
 //    public List<Siniestro> listarSiniestros(String tipo) {
@@ -277,5 +314,9 @@ public class SiniestroData {
 //        }
 //        return bomberos;
 //    }
+
+
+
+
 //      
 //}
