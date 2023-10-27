@@ -589,8 +589,11 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jtfCoord_Y.setText(String.valueOf(siniestro.getCoord_Y()));
         jTFBrigadaCercana.setText(siniestro.getBrigada().toString());
         jtAreaDetalles.setText(siniestro.getDetalles());
-        jdcFechaResolucion.setDate(java.sql.Date.valueOf(siniestro.getFecha_resol()));
-
+        if(siniestro.getFecha_resol()==null){
+            jdcFechaResolucion.setDate(null);
+        }else{
+            jdcFechaResolucion.setDate(java.sql.Date.valueOf(siniestro.getFecha_resol()));
+        }
 //        int nroBrigada = bomb.getBrigada().getCodBrigada();
 //        for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {
 //            Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);
