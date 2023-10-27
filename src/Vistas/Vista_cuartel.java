@@ -248,15 +248,16 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                                     .addComponent(jTx, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTy, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(39, 39, 39)
-                                        .addComponent(jBguardarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(44, 44, 44)
-                                        .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(37, 37, 37)
-                                        .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(40, 40, 40)
+                                            .addComponent(jBguardarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(45, 45, 45)
+                                            .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTcorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(jTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,17 +324,20 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel7))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jTcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBLimpiar)
                             .addComponent(jBguardarDatos)
                             .addComponent(jBModificar)
                             .addComponent(jBsalir))
-                        .addGap(101, 101, 101))))
+                        .addGap(90, 90, 90))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -375,8 +379,12 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                 return;
             }
             Cuartel cua = new Cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
+            if (cuar.compararCuarteles(cua)) {
+                return;
+            } else {
             cuar.cargarCuartel(cua);
             limpiarCampos();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error inesperado del tipo: " + e);
         }
@@ -568,35 +576,19 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         }
     }
 
-//    public void habilitarBoton() {
-//        if (jTnombre.getText().isEmpty()
-//                || jTdireccion.getText().isEmpty()
-//                || jTx.getText().isEmpty()
-//                || jTy.getText().isEmpty()
-//                || jTtelefono.getText().isEmpty()
-//                || jTcorreo.getText().isEmpty()
-//                || !jLcorreo.getText().isEmpty()) {
-//
-//            jBguardarDatos.setEnabled(false);
-//
-//        } else {
-//            jBguardarDatos.setEnabled(true);
-//        }
-//    }
+public boolean validarCorreoElectronico(String correo) {
+    // Expresión regular para validar un correo electrónico
+    String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+)$";
 
-    public boolean validarCorreoElectronico(String correo) {
-        // Expresión regular para validar un correo electrónico
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+    // Compila la expresión regular en un patrón
+    Pattern pattern = Pattern.compile(regex);
 
-        // Compila la expresión regular en un patrón
-        Pattern pattern = Pattern.compile(regex);
+    // Crea un objeto Matcher para comparar el texto con el patrón
+    Matcher matcher = pattern.matcher(correo);
 
-        // Crea un objeto Matcher para comparar el texto con el patrón
-        Matcher matcher = pattern.matcher(correo);
-
-        // Comprueba si el correo coincide con el patrón
-        return matcher.matches();
-    }
+    // Comprueba si el correo coincide con el patrón y si no contiene más de un símbolo "@"
+    return matcher.matches() && correo.indexOf('@') == correo.lastIndexOf('@');
+}
 
     public boolean validarCelular(JTextField jTtelefono) {
         String telefono = jTtelefono.getText().replaceAll("\\s", ""); // Eliminar espacios en blanco
