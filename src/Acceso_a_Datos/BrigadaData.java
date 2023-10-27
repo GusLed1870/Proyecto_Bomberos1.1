@@ -763,7 +763,7 @@ public class BrigadaData {
     }
 
     public void modificarsiniestro(Siniestro siniestro) {
-        String sql = "UPDATE siniestro SET tipo=?, fecha_siniestro=?, coord_X=?, coord_Y=?, detalles=?, fecha_resol=?, puntuacion=? WHERE codigo=?";
+        String sql = "UPDATE siniestro SET tipo=?, fecha_siniestro=?, coord_X=?, coord_Y=?, detalles=?, fecha_resol=?, puntuacion=?, codBrigada=? WHERE codigo=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -774,7 +774,9 @@ public class BrigadaData {
             ps.setString(5, siniestro.getDetalles());
             ps.setDate(6, Date.valueOf(siniestro.getFecha_resol()));
             ps.setInt(7, siniestro.getPuntuacion());
-            ps.setInt(8, siniestro.getCodigo());
+            ps.setInt(8, siniestro.getBrigada().getCodBrigada());
+            ps.setInt(9, siniestro.getCodigo());
+            
 
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
