@@ -345,6 +345,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                     siniestroData.cargarSiniestro(siniestro);
                     limpiarCampos();
+                    return;
                 }
                 if (jdcFechaResolucion.getDate() != null && jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
                     JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
@@ -352,6 +353,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 if (jdcFechaResolucion.getDate() == null) {
                     siniestroData.cargarSiniestro2(siniestro);
                     limpiarCampos();
+                    return;
                 }
             } else {
                 DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Puedes ajustar el formato a tu preferencia
@@ -403,7 +405,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             siniestro.setDetalles(jtAreaDetalles.getText());
             String[] parts = jTFBrigadaCercana.getText().split(" ");
             int codBrigada = Integer.parseInt(parts[1]);
-            System.out.println("CODIGOO BRIGAS " + codBrigada);
+            //System.out.println("CODIGOO BRIGAS " + codBrigada);
             bri = briData.buscarBrigada(codBrigada);
             siniestro.setBrigada(bri);
             //System.out.println("id brigada "+imprimirLista());
@@ -411,7 +413,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 briData.modificarsiniestro(siniestro);
             } else {
-                System.out.println("ESTOY ACA");
+                
                 siniestroData.modificarSiniestro2(siniestro);
             }
         } catch (NumberFormatException nfe) {
@@ -444,7 +446,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             // Realizar la consulta SQL con el apellido y obtener la lista de siniestros
             SiniestroData sin = new SiniestroData();
             String tipo = jcbTipoEmergencia.getSelectedItem().toString();
-            System.out.println("Tipo: " + tipo);
+            //System.out.println("Tipo: " + tipo);
             List<String> siniestros = sin.listarSiniestros2(tipo);
             // Llenar el modelo de la tabla con los resultados
             /*for (Siniestro siniestro : siniestros) {
@@ -457,7 +459,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 siniestro.getBrigada().getCodBrigada()
             });
         }*/
-            System.out.println("Lista " + siniestros);
+            //System.out.println("Lista " + siniestros);
             for (String fila : siniestros) {
                 String[] datos = fila.split(", ");
                 modelo.addRow(datos);
@@ -587,8 +589,11 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jtfCoord_Y.setText(String.valueOf(siniestro.getCoord_Y()));
         jTFBrigadaCercana.setText(siniestro.getBrigada().toString());
         jtAreaDetalles.setText(siniestro.getDetalles());
-        jdcFechaResolucion.setDate(java.sql.Date.valueOf(siniestro.getFecha_resol()));
-
+        if(siniestro.getFecha_resol()==null){
+            jdcFechaResolucion.setDate(null);
+        }else{
+            jdcFechaResolucion.setDate(java.sql.Date.valueOf(siniestro.getFecha_resol()));
+        }
 //        int nroBrigada = bomb.getBrigada().getCodBrigada();
 //        for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {
 //            Brigada brigadaSeleccionada = (Brigada) jCBBrigadaAsignada.getItemAt(i);

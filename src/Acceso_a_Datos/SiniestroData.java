@@ -200,7 +200,15 @@ public class SiniestroData {
                 siniestro.setCoord_X(rs.getInt("coord_X"));
                 siniestro.setCoord_Y(rs.getInt("coord_Y"));
                 siniestro.setDetalles(rs.getString("detalles"));
-                siniestro.setFecha_resol(rs.getDate("fecha_resol").toLocalDate());
+
+                // Verificar si la columna "fecha_resol" es nula en la base de datos
+                Date fechaResolDB = rs.getDate("fecha_resol");
+                if (fechaResolDB != null) {
+                    siniestro.setFecha_resol(fechaResolDB.toLocalDate());
+                } else {
+                    siniestro.setFecha_resol(null); // Opcionalmente, puedes establecerlo como null si la base de datos almacena NULL
+                }
+
                 siniestro.setPuntuacion(rs.getInt("puntuacion"));
                 int codBri = rs.getInt("codBrigada");
                 BrigadaData briData = new BrigadaData();
@@ -214,7 +222,6 @@ public class SiniestroData {
         return siniestro;
     }
 
-    
     public List<Siniestro> listarSiniestros(String tipo) {
         List<Siniestro> siniestros = new ArrayList<>();
         try {
@@ -245,41 +252,42 @@ public class SiniestroData {
         }
         return siniestros;
     }
+
     public List<String> listarSiniestros2(String tipo) {
-    List<String> siniestrosStrings = new ArrayList<>();
+        List<String> siniestrosStrings = new ArrayList<>();
 
-    try {
-        String sql = "SELECT codigo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, brigada.nombre_br as nombre FROM siniestro "
-                + "JOIN brigada ON siniestro.codBrigada = brigada.codBrigada WHERE tipo = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, tipo);
-        ResultSet rs = ps.executeQuery();
+        try {
+            String sql = "SELECT codigo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, brigada.nombre_br as nombre FROM siniestro "
+                    + "JOIN brigada ON siniestro.codBrigada = brigada.codBrigada WHERE tipo = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, tipo);
+            ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            StringBuilder siniestroString = new StringBuilder();
-            siniestroString.append(rs.getInt("codigo")).append(", ");
+            while (rs.next()) {
+                StringBuilder siniestroString = new StringBuilder();
+                siniestroString.append(rs.getInt("codigo")).append(", ");
 //            siniestroString.append(tipo).append(", ");
-            siniestroString.append(rs.getDate("fecha_siniestro").toLocalDate()).append(", ");
-            siniestroString.append(rs.getInt("coord_X")).append(", ");
-            siniestroString.append(rs.getInt("coord_Y")).append(", ");
-            siniestroString.append(rs.getString("nombre")).append(", ");
-                   
+                siniestroString.append(rs.getDate("fecha_siniestro").toLocalDate()).append(", ");
+                siniestroString.append(rs.getInt("coord_X")).append(", ");
+                siniestroString.append(rs.getInt("coord_Y")).append(", ");
+                siniestroString.append(rs.getString("nombre")).append(", ");
+
 //            // Convertir codBrigada a cadena y agregarlo
 //            int codBri = rs.getInt("codBrigada");
 //            siniestroString.append(String.valueOf(codBri)).append(", ");         
 //            // Convertir puntuacion a cadena y agregarla
 //            int puntuacion = rs.getInt("puntuacion");
 //            siniestroString.append(String.valueOf(puntuacion));
-            siniestrosStrings.add(siniestroString.toString());
+                siniestrosStrings.add(siniestroString.toString());
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Siniestro. Error: " + ex.getMessage());
         }
 
-        ps.close();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Siniestro. Error: " + ex.getMessage());
+        return siniestrosStrings;
     }
-
-    return siniestrosStrings;
-}
 }
 //
 //    public List<Siniestro> listarSiniestros(String tipo) {
@@ -314,9 +322,5 @@ public class SiniestroData {
 //        }
 //        return bomberos;
 //    }
-
-
-
-
 //      
 //}
