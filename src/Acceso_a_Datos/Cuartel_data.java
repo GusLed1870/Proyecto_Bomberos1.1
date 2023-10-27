@@ -121,7 +121,7 @@ public class Cuartel_data {
         return cuartelEncontrado;
     }
 
-    public Cuartel buscarCuartelId(int id) {
+    public Cuartel buscarCuartelPorId(int id) {
         String sql = "SELECT * FROM cuartel WHERE codCuartel = ?";
         Cuartel cuartel = new Cuartel();
         try {
@@ -136,6 +136,8 @@ public class Cuartel_data {
                 cuartel.setCoord_Y(rs.getInt("coord_Y"));
                 cuartel.setTelefono(rs.getString("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró un cuartel con ID/Código: "+id);
             }
             ps.close();
         } catch (SQLException ex) {
@@ -156,11 +158,13 @@ public class Cuartel_data {
             ps.setString(6, cuartel.getCorreo());
             ps.setInt(7, cuartel.getCodCuartel());
             int modificado = ps.executeUpdate();
-            if (modificado == 1) {
+           if (modificado == 1) {
                 JOptionPane.showMessageDialog(null, "Cuartel modificado con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró un cuartel con ID/Código: " + cuartel.getCodCuartel());
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cuartel " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cuartel" + ex.getMessage());
         }
     }
 }

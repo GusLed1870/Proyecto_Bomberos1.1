@@ -191,15 +191,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("ID/CÓDIGO:");
 
-        jTCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTCodigoMouseClicked(evt);
-            }
-        });
         jTCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTCodigoKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTCodigoKeyTyped(evt);
             }
@@ -207,6 +199,11 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
 
         jBBuscarPorID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jBBuscarPorID.setText("Buscar cuartel por código");
+        jBBuscarPorID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarPorIDActionPerformed(evt);
+            }
+        });
 
         jRBHabilitarID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jRBHabilitarID.setForeground(new java.awt.Color(0, 0, 0));
@@ -276,7 +273,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(471, 471, 471)
                         .addComponent(jLabel1)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,9 +446,10 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
            String vacios[] = new String[6];
         try {
             if (jTdireccion.getText().isEmpty() || jTnombre.getText().isEmpty() || jTtelefono.getText().isEmpty() || jTcorreo.getText().isEmpty() || jTx.getText().isEmpty() || jTy.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, vacios);
+                JOptionPane.showMessageDialog(this, "Debe completar todos los campos");
                 return;
             }
+            int codigo = Integer.parseInt(jTCodigo.getText());
             String nombre_cuartel = jTnombre.getText();
             String direccion = jTdireccion.getText();
             String telefono = jTtelefono.getText();
@@ -465,24 +463,17 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "El correo electrónico ingresado no es válido");
                 return;
             }
-            Cuartel cua = new Cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
+            Cuartel cua = new Cuartel(codigo, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
             cuar.modificarCuartel(cua);
+            limpiarCampos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error inesperado del tipo: " + e);
         }
     }//GEN-LAST:event_jBModificarActionPerformed
 
-    private void jTCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCodigoMouseClicked
-        jTCodigo.setEditable(true);
-    }//GEN-LAST:event_jTCodigoMouseClicked
-
     private void jTCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCodigoKeyTyped
         validacionNumeros(evt);
     }//GEN-LAST:event_jTCodigoKeyTyped
-
-    private void jTCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCodigoKeyReleased
-         habilitarBoton();
-    }//GEN-LAST:event_jTCodigoKeyReleased
 
     private void jRBHabilitarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBHabilitarIDActionPerformed
             if (jRBHabilitarID.isSelected()) {
@@ -501,6 +492,20 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
     
         
     }//GEN-LAST:event_jRBHabilitarIDActionPerformed
+
+    private void jBBuscarPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarPorIDActionPerformed
+       int codigo = Integer.parseInt(jTCodigo.getText());
+       Cuartel cuartel = cuar.buscarCuartelPorId(codigo);
+       jTCodigo.setText(String.valueOf(cuartel.getCodCuartel()));
+       jTnombre.setText(cuartel.getNombre_cuartel());
+       jTdireccion.setText(cuartel.getDireccion());
+       jTx.setText(String.valueOf(cuartel.getCoord_X()));
+       jTy.setText(String.valueOf(cuartel.getCoord_Y()));
+       jTtelefono.setText(cuartel.getTelefono());
+       jTcorreo.setText(cuartel.getCorreo());
+       jBguardarDatos.setEnabled(false);
+       
+    }//GEN-LAST:event_jBBuscarPorIDActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscarPorID;
@@ -541,7 +546,12 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTx.setText(null);
         jTy.setText(null);
         jTCodigo.setEnabled(false);
+        jTCodigo.setText(null);
         jRBHabilitarID.setSelected(false);
+        jRBHabilitarID.setSelected(false);
+        jBBuscarPorID.setEnabled(false);
+        jRBHabilitarID.setText("Deshabilitado");
+        jBModificar.setEnabled(false);
     }
 
     public void validacionNumeros(java.awt.event.KeyEvent evento) {
