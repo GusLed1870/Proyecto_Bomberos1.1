@@ -856,6 +856,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jBModificar.setEnabled(false);
         id_brigada.setText("");
         nombre_anterior.setText("");
+        BrigadaData BriData = new BrigadaData();
+        List<Brigada> listaBrigadas = BriData.listarBrigadas2();
+        cargarDatosTabla(listaBrigadas);
 
     }
 
