@@ -141,7 +141,7 @@ public class SiniestroData {
     }
 
     public void modificarSiniestro(Siniestro siniestro) {
-        String sql = "UPDATE INTO siniestro (tipo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, codBrigada) VALUES (?,?,?,?,?,?,?)";
+        String sql = "UPDATE INTO siniestro (tipo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, codBrigada,puntuacion) VALUES (?,?,?,?,?,?,?,?) where codigo=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, siniestro.getTipo());
@@ -151,6 +151,8 @@ public class SiniestroData {
             ps.setString(5, siniestro.getDetalles());
             ps.setDate(6, Date.valueOf(siniestro.getFecha_resol()));
             ps.setInt(7, siniestro.getBrigada().getCodBrigada());
+            ps.setInt(8, siniestro.getPuntuacion());
+            ps.setInt(9, siniestro.getCodigo());
             int registro = ps.executeUpdate();
             if (registro > 0) {
                 JOptionPane.showMessageDialog(null, "Siniestro cargado correctamente.");

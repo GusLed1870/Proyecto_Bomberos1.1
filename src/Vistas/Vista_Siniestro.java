@@ -372,22 +372,30 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         BrigadaData briData = new BrigadaData();
+        Brigada bri=new Brigada();
         try {
             if (validacionCamposVacios()) {
                 JOptionPane.showMessageDialog(this, "Corrobore los datos ingresados.");
                 return;
             }
             Siniestro siniestro = new Siniestro();
+            siniestro.setCodigo(Integer.parseInt(jTCodigo.getText()));
             siniestro.setTipo(jcbTipoEmergencia.getSelectedItem().toString());
             siniestro.setFecha_siniestro(jdcFechaSiniestro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             siniestro.setCoord_X(Integer.parseInt(jtfCoord_X.getText()));
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
-            siniestro.setBrigada(briData.buscarBrigada2(imprimirLista()));
+            String[] parts=jTFBrigadaCercana.getText().split(" ");
+            int codBrigada=Integer.parseInt(parts[1]);
+            System.out.println("CODIGOO BRIGAS "+codBrigada);
+            bri=briData.buscarBrigada(codBrigada);
+            siniestro.setBrigada(bri);
+            //System.out.println("id brigada "+imprimirLista());
             if (jdcFechaResolucion.getDate() != null) {
                 siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                siniestroData.modificarSiniestro(siniestro);
+                briData.modificarsiniestro(siniestro);
             } else {
+                System.out.println("ESTOY ACA");
                 siniestroData.modificarSiniestro2(siniestro);
             }
         } catch (NumberFormatException nfe) {
@@ -558,6 +566,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jtfCoord_Y.setText(String.valueOf(siniestro.getCoord_Y()));
         jTFBrigadaCercana.setText(siniestro.getBrigada().toString());
         jtAreaDetalles.setText(siniestro.getDetalles());
+        jdcFechaResolucion.setDate(java.sql.Date.valueOf(siniestro.getFecha_resol()));
 
 //        int nroBrigada = bomb.getBrigada().getCodBrigada();
 //        for (int i = 0; i < jCBBrigadaAsignada.getItemCount(); i++) {

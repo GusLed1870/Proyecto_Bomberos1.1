@@ -497,7 +497,23 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         //JRBTodasActionPerformed(evt);
                         jBlimpiarCamposActionPerformed(evt);
 
-                    }
+                    }else {
+
+                            ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                            if (lista.isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+
+                            } else {
+                                StringBuilder result = new StringBuilder();
+
+                                // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                                for (String element : lista) {
+                                    result.append("- ").append(element).append("\n");
+                                }
+                                String finalString = result.toString();
+                                JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
+                            }
+                        }
 
                 }
 
@@ -536,7 +552,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         } else {
 
                             ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                            if (lista == null) {
+                            if (lista.isEmpty()) {
                                 JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
                             } else {
@@ -579,7 +595,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                                 jBlimpiarCamposActionPerformed(evt);
                             } else {
                                 ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                                if (lista == null) {
+                                if (lista.isEmpty()) {
                                     JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
                                 } else {
