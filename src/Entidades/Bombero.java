@@ -8,14 +8,14 @@ public class Bombero {
     private String dni;
     private String nombre_ape;
     private LocalDate fecha_nac;
-    private int celular;
+    private long celular;
     private Brigada brigada;
     private String grupoSanguineo;
     private boolean estado;
 
     public Bombero() {}
 
-    public Bombero(String dni, String nombre_ape, LocalDate fecha_nac, int celular, Brigada brigada, String grupoSanguineo, boolean estado) {
+    public Bombero(String dni, String nombre_ape, LocalDate fecha_nac, long celular, Brigada brigada, String grupoSanguineo, boolean estado) {
         this.dni = dni;
         this.nombre_ape = nombre_ape;
         this.fecha_nac = fecha_nac;
@@ -25,7 +25,7 @@ public class Bombero {
         this.estado = estado;
     }
 
-    public Bombero(int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, int celular, Brigada brigada, String grupoSanguineo, boolean estado) {
+    public Bombero(int id_bombero, String dni, String nombre_ape, LocalDate fecha_nac, long celular, Brigada brigada, String grupoSanguineo, boolean estado) {
         this.id_bombero = id_bombero;
         this.dni = dni;
         this.nombre_ape = nombre_ape;
@@ -68,11 +68,11 @@ public class Bombero {
         this.fecha_nac = fecha_nac;
     }
 
-    public int getCelular() {
+    public long getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(long celular) {
         this.celular = celular;
     }
 
