@@ -345,6 +345,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                     siniestroData.cargarSiniestro(siniestro);
                     limpiarCampos();
+                    return;
                 }
                 if (jdcFechaResolucion.getDate() != null && jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
                     JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
@@ -352,6 +353,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 if (jdcFechaResolucion.getDate() == null) {
                     siniestroData.cargarSiniestro2(siniestro);
                     limpiarCampos();
+                    return;
                 }
             } else {
                 DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Puedes ajustar el formato a tu preferencia
