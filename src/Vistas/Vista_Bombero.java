@@ -440,7 +440,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         JDialog ventanaBusqueda = new JDialog();
         ventanaBusqueda.setTitle("Ventana de Búsqueda");
         ventanaBusqueda.setSize(440, 153);
-        ventanaBusqueda.setLocation(762, 352);
+        ventanaBusqueda.setLocation(762, 402);
         // Crea la tabla y el modelo de datos
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
@@ -806,6 +806,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         jRBHabilitarID.setText("Deshabilitado");
     }
 
+    // Método que me permite escribir sólo números en un campo textField
     public void permitirSoloNumeros(JTextField textField) {
         AbstractDocument doc = (AbstractDocument) textField.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -838,6 +839,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         });
     }
 
+      // Método que me permite escribir sólo letras en un campo textField
     public void permitirSoloLetras(JTextField textField) {
         AbstractDocument doc = (AbstractDocument) textField.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
