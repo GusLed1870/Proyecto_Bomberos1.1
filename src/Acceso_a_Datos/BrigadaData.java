@@ -798,7 +798,7 @@ public class BrigadaData {
             if (nota >= 1 & nota <= 10) {
                 ps.setDouble(1, nota);
             } else {
-                JOptionPane.showMessageDialog(null, "Debe ingresar un valor de nota correcto (entre 2 y 10)");
+                JOptionPane.showMessageDialog(null, "Debe ingresar un valor de nota correcto (entre 1 y 10)");
             }
             ps.setInt(2, idSiniestro);
 
@@ -839,5 +839,32 @@ public class BrigadaData {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error únicamente se pueden ingresar valores enteros");
         }
+    }
+    
+    
+    public boolean unabrigadaxespecialidadencuartel(int cuartel, String especialidad){
+        boolean verdadero=false;
+        String sql="SELECT COUNT(*) FROM cuartel join brigada on cuartel.codCuartel=brigada.nro_cuartel WHERE brigada.especialidad=? and cuartel.codCuartel=?";
+        int cuenta=0;
+         try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, especialidad); // Establece el año como parámetro
+            ps.setInt(2, cuartel);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                   cuenta=rs.getInt("COUNT(*)");
+                   if (cuenta>0){
+                       //JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
+                       return verdadero;
+                   
+                   }else{
+                       return verdadero=true;
+                   }
+                }
+          } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return verdadero;
+    
     }
 }
