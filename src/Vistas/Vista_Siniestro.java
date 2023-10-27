@@ -339,6 +339,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
         BrigadaData briData = new BrigadaData();
+        int cod=-1;
         try {
             if (validacionCamposVacios()) {
                 JOptionPane.showMessageDialog(this, "Corrobore los datos ingresados.");
@@ -351,6 +352,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             siniestro.setCoord_Y(Integer.parseInt(jtfCoord_Y.getText()));
             siniestro.setDetalles(jtAreaDetalles.getText());
             siniestro.setBrigada(briData.buscarBrigada2(imprimirLista()));
+            cod=imprimirLista();
             //Date fecha = (Date) jdcFechaSiniestro.getDate();
             LocalDate fechaLocalDate = jdcFechaSiniestro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fechaActual = LocalDate.now();
@@ -359,12 +361,14 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     siniestro.setFecha_resol(jdcFechaResolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                     siniestroData.cargarSiniestro(siniestro);
                     limpiarCampos();
+                    //briData.Brigadaocupada(cod);
                     return;
                 }
                 if (jdcFechaResolucion.getDate() != null && jdcFechaResolucion.getDate().before(jdcFechaSiniestro.getDate())) {
                     JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
                 }
                 if (jdcFechaResolucion.getDate() == null) {
+                    briData.Brigadaocupada(cod);
                     siniestroData.cargarSiniestro2(siniestro);
                     limpiarCampos();
                     return;
@@ -422,6 +426,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             //System.out.println("CODIGOO BRIGAS " + codBrigada);
             bri = briData.buscarBrigada(codBrigada);
             briData.Brigadaocupada(codBrigada);
+            System.out.println("ID "+codBrigada);
             siniestro.setBrigada(bri);
             //System.out.println("id brigada "+imprimirLista());
             if (jdcFechaResolucion.getDate() != null) {
