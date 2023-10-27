@@ -500,7 +500,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     }else {
 
                             ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                            if (lista == null) {
+                            if (lista.isEmpty()) {
                                 JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
                             } else {
@@ -552,7 +552,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         } else {
 
                             ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                            if (lista == null) {
+                            if (lista.isEmpty()) {
                                 JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
                             } else {
@@ -595,7 +595,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                                 jBlimpiarCamposActionPerformed(evt);
                             } else {
                                 ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                                if (lista == null) {
+                                if (lista.isEmpty()) {
                                     JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
                                 } else {
