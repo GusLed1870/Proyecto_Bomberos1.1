@@ -30,7 +30,11 @@ public class Cuartel_data {
             ps.setString(6, cuartel.getCorreo());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-        } catch (SQLException ex) {
+            if (rs.next()) {
+                cuartel.setCodCuartel(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Cuartel añadido con éxito. Código: " + cuartel.getCodCuartel());
+            } 
+        } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al intentar acceder a la tabla cuartel " + ex.getMessage());
         }
     }
