@@ -421,6 +421,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             int codBrigada = Integer.parseInt(parts[1]);
             //System.out.println("CODIGOO BRIGAS " + codBrigada);
             bri = briData.buscarBrigada(codBrigada);
+            briData.Brigadaocupada(codBrigada);
             siniestro.setBrigada(bri);
             //System.out.println("id brigada "+imprimirLista());
             if (jdcFechaResolucion.getDate() != null) {
@@ -528,8 +529,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
     private void jBuscarporIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarporIDActionPerformed
         if(jTCodigo.getText().isEmpty()){
-            
+            JOptionPane.showMessageDialog(this, "Debe ingresar un ID antes de realizar la búsqueda");
         
+        }else{
+            int cod=Integer.parseInt(jTCodigo.getText());
         }
     }//GEN-LAST:event_jBuscarporIDActionPerformed
     
