@@ -531,7 +531,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         if (!validarCelular(jTCelular)) {
             return;
         }
-        int celular = Integer.parseInt(celu);
+        long celular = Long.parseLong(celu);
         if (jDCFechaNac.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
             return;
@@ -651,7 +651,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 }
                 LocalDate FechaNacFormateada = jDCFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 Date fechaNac = java.sql.Date.valueOf(FechaNacFormateada);
-                int celular = Integer.parseInt(jTCelular.getText());
+                long celular = Long.parseLong(jTCelular.getText());
                 bri = obtenerBrigadaSeleccionada();
                 bombero.setBrigada(bri);
                 Bombero bomb = new Bombero(dni, nombre, FechaNacFormateada, celular, bri, grupoSanguineo, estado);
