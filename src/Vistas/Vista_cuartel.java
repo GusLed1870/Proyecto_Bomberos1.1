@@ -464,9 +464,7 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
             jTCodigo.setEnabled(false);
             jBguardarDatos.setEnabled(true);
             jBModificar.setEnabled(false);
-        }
-    
-        
+        }     
     }//GEN-LAST:event_jRBHabilitarIDActionPerformed
 
     private void jBBuscarPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarPorIDActionPerformed
@@ -526,7 +524,6 @@ public class Vista_cuartel extends javax.swing.JInternalFrame {
         jTy.setText(null);
         jTCodigo.setEnabled(false);
         jTCodigo.setText(null);
-        jRBHabilitarID.setSelected(false);
         jRBHabilitarID.setSelected(false);
         jBBuscarPorID.setEnabled(false);
         jRBHabilitarID.setText("Deshabilitado");
