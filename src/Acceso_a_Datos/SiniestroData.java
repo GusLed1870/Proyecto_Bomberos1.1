@@ -247,7 +247,8 @@ public class SiniestroData {
     List<String> siniestrosStrings = new ArrayList<>();
 
     try {
-        String sql = "SELECT codigo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, codBrigada FROM siniestro WHERE tipo = ?";
+        String sql = "SELECT codigo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, brigada.nombre_br as nombre FROM siniestro "
+                + "JOIN brigada ON siniestro.codBrigada = brigada.codBrigada WHERE tipo = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, tipo);
         ResultSet rs = ps.executeQuery();
@@ -255,21 +256,18 @@ public class SiniestroData {
         while (rs.next()) {
             StringBuilder siniestroString = new StringBuilder();
             siniestroString.append(rs.getInt("codigo")).append(", ");
-            siniestroString.append(tipo).append(", ");
+//            siniestroString.append(tipo).append(", ");
             siniestroString.append(rs.getDate("fecha_siniestro").toLocalDate()).append(", ");
             siniestroString.append(rs.getInt("coord_X")).append(", ");
             siniestroString.append(rs.getInt("coord_Y")).append(", ");
-            siniestroString.append(rs.getString("detalles")).append(", ");
-            siniestroString.append(rs.getDate("fecha_resol").toLocalDate()).append(", ");
-            
-            // Convertir codBrigada a cadena y agregarlo
-            int codBri = rs.getInt("codBrigada");
-            siniestroString.append(String.valueOf(codBri)).append(", ");
-            
-            // Convertir puntuacion a cadena y agregarla
-            int puntuacion = rs.getInt("puntuacion");
-            siniestroString.append(String.valueOf(puntuacion));
-
+            siniestroString.append(rs.getString("nombre")).append(", ");
+                   
+//            // Convertir codBrigada a cadena y agregarlo
+//            int codBri = rs.getInt("codBrigada");
+//            siniestroString.append(String.valueOf(codBri)).append(", ");         
+//            // Convertir puntuacion a cadena y agregarla
+//            int puntuacion = rs.getInt("puntuacion");
+//            siniestroString.append(String.valueOf(puntuacion));
             siniestrosStrings.add(siniestroString.toString());
         }
 

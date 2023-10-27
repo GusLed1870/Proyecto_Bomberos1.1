@@ -75,7 +75,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlTipoEmergencia.setText("Tipo de Emergencia:");
 
         jcbTipoEmergencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jcbTipoEmergencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el tipo de emergencia", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tránsito", "Socorrer inundaciones", "Operativos de prevención" }));
+        jcbTipoEmergencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el tipo de emergencia", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
         jcbTipoEmergencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbTipoEmergenciaActionPerformed(evt);
@@ -407,7 +407,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         // Crea la tabla y el modelo de datos
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Código");
-        modelo.addColumn("Tipo");
+//        modelo.addColumn("Tipo");
         modelo.addColumn("Fecha Inicio");
         modelo.addColumn("Coord_X");
         modelo.addColumn("Coord_Y");
@@ -570,10 +570,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
      private int listaTipoEmergencias(String tipo) {
         ArrayList<String> lista = new ArrayList<>();
         int pos = -1;
-        lista.add("Incendios en viviendas, e incendios");
+        lista.add("Incendios en viviendas, e industrias");
         lista.add("Salvamento en derrumbes");
         lista.add("Rescates en ámbito montaña");
-        lista.add("Rescate de personas atrapadas en accidentes de tránsito");
+        lista.add("Rescate de personas atrapadas en accidentes de tráfico");
         lista.add("Socorrer inundaciones");
         lista.add("Operativos de prevención");
    
