@@ -33,7 +33,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jRActivacion.setSelected(false);
         jRActivacion.setText("Deshabilitado");
         jBModificar.setEnabled(false);
-        jBEliminar.setEnabled(false);
+//        jBEliminar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -66,7 +66,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jBBuscarSiniestro = new javax.swing.JButton();
         jTCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jBEliminar = new javax.swing.JButton();
         jRActivacion = new javax.swing.JRadioButton();
         jBuscarporID = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -177,9 +176,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Código (interno):");
 
-        jBEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jBEliminar.setText("Eliminar");
-
         jRActivacion.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jRActivacion.setText("Deshabilitado");
         jRActivacion.addActionListener(new java.awt.event.ActionListener() {
@@ -229,8 +225,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                                 .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
                                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtfCoord_Y, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,9 +309,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     .addComponent(jbLimpiarCampos)
                     .addComponent(jbCargar)
                     .addComponent(jBModificar)
-                    .addComponent(jbSalir)
-                    .addComponent(jBEliminar))
-                .addContainerGap(109, Short.MAX_VALUE))
+                    .addComponent(jbSalir))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -330,7 +323,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE))
         );
 
         pack();
@@ -622,7 +615,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscarSiniestro;
-    private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBuscarporID;
     private javax.swing.JCheckBox jCheckBox1;
@@ -668,7 +660,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jRActivacion.setSelected(false);
         jRActivacion.setText("Deshabilitado");
         jBModificar.setEnabled(false);
-        jBEliminar.setEnabled(false);
+//        jBEliminar.setEnabled(false);
         jbCargar.setEnabled(true);
     }
 
@@ -717,7 +709,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         int pos = listaTipoEmergencias(tipo);
         jcbTipoEmergencia.setSelectedIndex(pos + 1);
         jBModificar.setEnabled(true);
-        jBEliminar.setEnabled(true);
+//        jBEliminar.setEnabled(true);
         jbCargar.setEnabled(false);
         jTCodigo.setEnabled(false);
         jdcFechaSiniestro.setDate(java.sql.Date.valueOf(siniestro.getFecha_siniestro()));
