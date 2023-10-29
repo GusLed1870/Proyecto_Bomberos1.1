@@ -551,7 +551,7 @@ public class BrigadaData {
                 valores.append(", ");
                 LocalDate fechaResol = rs.getDate("Fecha_Resol").toLocalDate();
                 if (fechaResol == null) {
-                    valores.append("Cargar Fecha");
+                    valores.append("Cargar Fecha, ");
                 } else {
                     valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
                     valores.append(", ");
@@ -578,7 +578,7 @@ public class BrigadaData {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE siniestro.fecha_resol iS NULL OR siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE siniestro.fecha_resol IS NULL OR siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? ORDER BY siniestro.fecha_siniestro DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -626,7 +626,7 @@ public class BrigadaData {
         List<String> listaValores = new ArrayList<>();
         String sql = "SELECT brigada.codBrigada as Nºbrigada, brigada.nombre_br as Nombre_Brigada, siniestro.codigo as ID_Siniestro, siniestro.fecha_siniestro as Fecha,siniestro.fecha_resol as Fecha_Resol, siniestro.puntuacion as Puntuacion "
                 + "FROM siniestro JOIN brigada ON brigada.codBrigada = siniestro.codBrigada "
-                + "WHERE siniestro.fecha_resol iS NULL AND siniestro.puntuacion=0 and YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
+                + "WHERE siniestro.fecha_resol iS NULL OR siniestro.puntuacion=0 AND YEAR(fecha_siniestro) = ? AND brigada.codBrigada = ?  ORDER BY siniestro.fecha_siniestro DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -643,15 +643,19 @@ public class BrigadaData {
                 LocalDate fecha = rs.getDate("Fecha").toLocalDate();
                 valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
                 valores.append(", ");
-                java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
-                if (fechaResolSql == null) {
-                    valores.append("Cargar Fecha");
-                    valores.append(", ");
-                } else {
-                    LocalDate fechaResol = fechaResolSql.toLocalDate();
-                    valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-                    valores.append(", ");
-                }
+                if (rs.getDate("Fecha_Resol") == null) {
+                    
+                  
+                   
+                        valores.append("Cargar Fecha");
+                        valores.append(", ");
+                }else {
+                        java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
+                        LocalDate fechaResol = fechaResolSql.toLocalDate();
+                        valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                        valores.append(", ");
+                    }
+                
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -763,7 +767,7 @@ public class BrigadaData {
     }
 
     public void modificarsiniestro(Siniestro siniestro) {
-        String sql = "UPDATE siniestro SET tipo=?, fecha_siniestro=?, coord_X=?, coord_Y=?, detalles=?, fecha_resol=?, puntuacion=? WHERE codigo=?";
+        String sql = "UPDATE siniestro SET tipo=?, fecha_siniestro=?, coord_X=?, coord_Y=?, detalles=?, fecha_resol=?, puntuacion=?, codBrigada=? WHERE codigo=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -774,7 +778,8 @@ public class BrigadaData {
             ps.setString(5, siniestro.getDetalles());
             ps.setDate(6, Date.valueOf(siniestro.getFecha_resol()));
             ps.setInt(7, siniestro.getPuntuacion());
-            ps.setInt(8, siniestro.getCodigo());
+            ps.setInt(8, siniestro.getBrigada().getCodBrigada());
+            ps.setInt(9, siniestro.getCodigo());
 
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
@@ -798,7 +803,7 @@ public class BrigadaData {
             if (nota >= 1 & nota <= 10) {
                 ps.setDouble(1, nota);
             } else {
-                JOptionPane.showMessageDialog(null, "Debe ingresar un valor de nota correcto (entre 2 y 10)");
+                JOptionPane.showMessageDialog(null, "Debe ingresar un valor de nota correcto (entre 1 y 10)");
             }
             ps.setInt(2, idSiniestro);
 
@@ -838,6 +843,73 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al intentar conectar con la base de datos");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error únicamente se pueden ingresar valores enteros");
+        }
+    }
+
+    public boolean unabrigadaxespecialidadencuartel(int cuartel, String especialidad) {
+        boolean verdadero = false;
+        String sql = "SELECT COUNT(*) FROM cuartel join brigada on cuartel.codCuartel=brigada.nro_cuartel WHERE brigada.especialidad=? and cuartel.codCuartel=?";
+        int cuenta = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, especialidad); // Establece el año como parámetro
+            ps.setInt(2, cuartel);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                cuenta = rs.getInt("COUNT(*)");
+                if (cuenta > 0) {
+                    //JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
+                    return verdadero;
+
+                } else {
+                    return verdadero = true;
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
+        }
+        return verdadero;
+
+    }
+      public void Brigadaocupada(int codBrigada) {
+        String sql = "UPDATE brigada SET libre=0 WHERE codBrigada=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+
+
+            int filasActualizadas = ps.executeUpdate();
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
+        }
+    }
+      
+       public void Brigadalibre(int codBrigada) {
+        String sql = "UPDATE brigada SET libre=1 WHERE codBrigada=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+
+
+            int filasActualizadas = ps.executeUpdate();
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
         }
     }
 }
