@@ -24,8 +24,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         List<Brigada> listaBrigadas = BriData.listarBrigadas2();
         jBModificar.setEnabled(false);
         cargarDatosTabla(listaBrigadas);
-        jRBLibre.setText("SI, esta Libre");
-        jRBLibre.setSelected(true);
+        jRBLibre.setText("");// modificada
+        jRBLibre.setSelected(false);
+        jRBLibre.setEnabled(false);  // agregada
 
     }
 
@@ -64,6 +65,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         nombre_anterior = new javax.swing.JLabel();
         especialidad = new javax.swing.JLabel();
         LABELIDCUARTEL = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -83,7 +85,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(102, 255, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 820));
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         jLabel1.setText("Brigadas");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
@@ -131,6 +133,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         });
 
         jCBEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar una Especialidad--", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
+        jCBEspecialidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jCBEspecialidadMouseReleased(evt);
+            }
+        });
 
         tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -222,11 +229,17 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         nombre_anterior.setForeground(new java.awt.Color(102, 255, 204));
 
+        especialidad.setBackground(new java.awt.Color(102, 255, 204));
         especialidad.setFont(new java.awt.Font("Tahoma", 0, 3)); // NOI18N
         especialidad.setText("jLabel7");
 
+        LABELIDCUARTEL.setBackground(new java.awt.Color(102, 255, 204));
         LABELIDCUARTEL.setForeground(new java.awt.Color(102, 255, 204));
         LABELIDCUARTEL.setText("jLabel7");
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setText("                 Complete los siguientes campos para agregar una brigada:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -285,21 +298,24 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(especialidad)
-                        .addGap(132, 132, 132)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addComponent(JRBTodas)
-                        .addGap(191, 191, 191)
-                        .addComponent(JRBLibres)
-                        .addGap(160, 160, 160)
-                        .addComponent(jRBOcupadas))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(178, 178, 178)
+                                .addComponent(JRBTodas)
+                                .addGap(191, 191, 191)
+                                .addComponent(JRBLibres)
+                                .addGap(160, 160, 160)
+                                .addComponent(jRBOcupadas))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(LABELIDCUARTEL)))
+                        .addComponent(LABELIDCUARTEL)
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addComponent(jLabel7)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -313,18 +329,19 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         .addComponent(id_brigada)
                         .addGap(15, 15, 15)
                         .addComponent(jLabel1)))
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jCBCuarteles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campo_ID_Cuartel))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBBuscar)
-                        .addComponent(campo_nombre)
-                        .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBBuscar)
+                    .addComponent(campo_nombre)
+                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -334,39 +351,42 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRBLibre)
                     .addComponent(jLabel5))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBlimpiarCampos)
                     .addComponent(jBAgregar)
                     .addComponent(jBModificar)
                     .addComponent(jBSalir))
-                .addGap(27, 27, 27)
-                .addComponent(LABELIDCUARTEL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(especialidad))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JRBTodas)
-                    .addComponent(jRBOcupadas)
-                    .addComponent(JRBLibres))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(LABELIDCUARTEL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(especialidad)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JRBTodas)
+                            .addComponent(jRBOcupadas)
+                            .addComponent(JRBLibres))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1124, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
         );
 
         pack();
@@ -421,11 +441,13 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JRBTodasActionPerformed
 
     private void jRBLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBLibreActionPerformed
+       
         if (jRBLibre.isSelected()) {
             jRBLibre.setText("SI, esta Libre");
         } else {
             jRBLibre.setText("NO, esta ocupada");
         }
+        jRBLibre.setEnabled(false);
     }//GEN-LAST:event_jRBLibreActionPerformed
 
     private void jCBCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBCuartelesActionPerformed
@@ -805,6 +827,11 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTablaMouseClicked
 
+    private void jCBEspecialidadMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCBEspecialidadMouseReleased
+        jRBLibre.setSelected(true);
+        jRBLibre.setText("SI, esta Libre");
+    }//GEN-LAST:event_jCBEspecialidadMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton JRBLibres;
@@ -830,6 +857,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRBLibre;
@@ -987,7 +1015,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jCBEspecialidad.setSelectedIndex(0);
         tfNombre.setText("");
         jRBLibre.setSelected(false);
-        jRBLibre.setText("");
+        jRBLibre.setText("");// agregada
+        //jRBLibre.setText("SI, esta Libre");
+        jRBLibre.setEnabled(false); // agregada
         jBAgregar.setEnabled(true);
         jBModificar.setEnabled(false);
         id_brigada.setText("");
@@ -996,6 +1026,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         List<Brigada> listaBrigadas = BriData.listarBrigadas2();
         cargarDatosTabla(listaBrigadas);
         LABELIDCUARTEL.setText("");
+        
         
 
     }

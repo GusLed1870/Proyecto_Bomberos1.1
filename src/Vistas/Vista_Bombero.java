@@ -290,7 +290,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
                 .addComponent(jLIdBombero)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(465, 465, 465)
+                .addGap(455, 455, 455)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -496,6 +496,7 @@ public class Vista_Bombero extends javax.swing.JInternalFrame {
         String dni = jTDNI.getText();
         int idBombero = bomberoData.buscarBomberoIdPorDni(dni);
         bomberoData.eliminarBombero(idBombero);
+        limpiarCampos();
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
