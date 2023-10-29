@@ -742,14 +742,14 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
  ///////////////////////////////////////////////////////////////////////////////////  
     public boolean esFechaValida(LocalDate fechaResolFormateada) {
         LocalDate fechaRes = fechaResolFormateada;
-        LocalDate fechaMaxima = LocalDate.of(2123, 10, 27);
-        LocalDate fechaMinima = LocalDate.now();
-        if (fechaRes.isBefore(fechaMinima)) {
-            JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
-            return false;
-        }
+        LocalDate fechaMaxima = LocalDate.now();
+       
+//        if (fechaRes.isBefore(fechaMinima)) {
+//            JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
+//            return false;
+//        }
         if (fechaRes.isAfter(fechaMaxima)) {
-            JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser 100 años posterior a la fecha del siniestro");
+            JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser posterior a la fecha del siniestro");
             return false;
         } else {
             return true;
