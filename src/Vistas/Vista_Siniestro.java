@@ -6,6 +6,7 @@ import Entidades.Brigada;
 import Entidades.Siniestro;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -408,16 +409,18 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
      //               REVISAR ESTE ACTION PERFORMED (MODIFICAR)                       //
     ///////////////////////////////////////////////////////////////////////////////////  
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        BrigadaData briData = new BrigadaData();
+       /* BrigadaData briData = new BrigadaData();
         Brigada bri = new Brigada();
         String tipo = "";
         String detalles = "";
+        Siniestro siniestro = new Siniestro();
+
+        int codigo = Integer.parseInt(jTCodigo.getText());
+        
         Date fechaSiniestro = jdcFechaSiniestro.getDate();
         try {
 
-            Siniestro siniestro = new Siniestro();
-
-            int codigo = Integer.parseInt(jTCodigo.getText());
+            
 
             if (jcbTipoEmergencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de emergencia");
@@ -507,7 +510,94 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar datos numéricos en los campos de coordenadas.");
         } catch (IllegalArgumentException iae) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
+        }*/
+    BrigadaData briData = new BrigadaData();
+    Brigada bri = new Brigada();
+    String tipo = "";
+    String detalles = "";
+    Siniestro siniestro = new Siniestro();
+
+    int codigo = Integer.parseInt(jTCodigo.getText());
+
+    Date fechaSiniestro = jdcFechaSiniestro.getDate();
+    LocalDate fechaSiniestroFormateada = fechaSiniestro.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    fechaSiniestro = java.sql.Date.valueOf(fechaSiniestroFormateada);
+
+    Date fechaResolucion = jdcFechaResolucion.getDate();
+    LocalDate fechaResolFormateada = null; // Declare it here
+
+    
+        if (jcbTipoEmergencia.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de emergencia");
+            return;
         }
+
+        if (!tipo.equalsIgnoreCase("Seleccione el tipo de emergencia")) {
+            tipo = jcbTipoEmergencia.getSelectedItem().toString();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de emergencia");
+            return;
+        }
+
+        if (jdcFechaSiniestro.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
+            return;
+        }
+
+        if (jtfCoord_X.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe completar la Coordenada X");
+            return;
+        }
+        int coord_X = Integer.parseInt(jtfCoord_X.getText());
+
+        if (jtfCoord_Y.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe completar la Coordenada Y");
+            return;
+        }
+        int coord_Y = Integer.parseInt(jtfCoord_Y.getText());
+
+        detalles = jtAreaDetalles.getText();
+
+        if (detalles.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe agregar detalles sobre el siniestro");
+            return;
+        }
+
+        if (fechaResolucion != null) {
+            fechaResolFormateada = fechaResolucion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if (!esFechaValida(fechaResolFormateada)) {
+                return;
+            }
+
+            if (fechaResolFormateada.isBefore(fechaSiniestroFormateada)) {
+                JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
+                return;
+            }
+        }
+
+        String[] parts = jTFBrigadaCercana.getText().split(" ");
+        System.out.println("que es "+parts[2]);
+        int codBrigada = imprimirLista();
+        bri = briData.buscarBrigada(codBrigada);
+        briData.Brigadaocupada(codBrigada);
+
+        siniestro.setCodigo(codigo);
+        siniestro.setTipo(tipo);
+        siniestro.setFecha_siniestro(fechaSiniestroFormateada);
+        siniestro.setCoord_X(coord_X);
+        siniestro.setCoord_Y(coord_Y);
+        siniestro.setDetalles(detalles);
+        siniestro.setBrigada(bri);
+
+        if (fechaResolucion != null) {
+            siniestro.setFecha_resol(fechaResolFormateada);
+            briData.modificarsiniestro(siniestro);
+        } else {
+            siniestroData.modificarSiniestro2(siniestro);
+        }
+    
+    
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBBuscarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarSiniestroActionPerformed
