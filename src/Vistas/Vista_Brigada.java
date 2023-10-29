@@ -1074,7 +1074,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
     public boolean validaTexto() {
         boolean texto = false;
-        if (tfNombre.getText().matches("[a-zA-Z ]+")) {
+        if (tfNombre.getText().matches("[a-zA-ZñÑ ]+")) {
 
             return texto = true;
 

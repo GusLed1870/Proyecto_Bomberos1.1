@@ -576,8 +576,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         }
 
-        String[] parts = jTFBrigadaCercana.getText().split(" ");
-        System.out.println("que es "+parts[2]);
+        //String[] parts = jTFBrigadaCercana.getText().split(" ");
+        //System.out.println("que es "+parts[2]);
         int codBrigada = imprimirLista();
         bri = briData.buscarBrigada(codBrigada);
         briData.Brigadaocupada(codBrigada);
