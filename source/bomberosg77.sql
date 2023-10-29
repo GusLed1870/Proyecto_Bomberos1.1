@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2023 a las 23:49:51
+-- Tiempo de generación: 28-10-2023 a las 01:04:03
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,7 +34,7 @@ CREATE TABLE `bombero` (
   `dni` varchar(8) NOT NULL,
   `nombre_ape` varchar(50) NOT NULL,
   `fecha_nac` date NOT NULL,
-  `celular` int(15) NOT NULL,
+  `celular` bigint(15) NOT NULL,
   `codBrigada` int(11) NOT NULL,
   `grupoSanguineo` varchar(4) NOT NULL,
   `estado` tinyint(1) NOT NULL
@@ -76,7 +76,9 @@ INSERT INTO `bombero` (`id_bombero`, `dni`, `nombre_ape`, `fecha_nac`, `celular`
 (80, '32158741', 'Enrique Monzón', '1930-10-04', 1125463528, 6, 'B-', 1),
 (81, '28576928', 'Ariel Mora', '2023-10-05', 1157456825, 12, 'B-', 1),
 (82, '22576359', 'Gastón Díaz', '1990-10-18', 1124763225, 2, 'A+', 1),
-(83, '22378675', 'Germán Franch', '2000-10-03', 1125346875, 34, 'A-', 1);
+(83, '22378675', 'Germán Franch', '2000-10-03', 1125346875, 34, 'A-', 1),
+(84, '34657839', 'Sebastián Lapenta', '1981-10-05', 1123458221, 34, 'B-', 1),
+(85, '12345678', 'Pablo Escobar', '1980-10-15', 23134578, 32, 'B+', 1);
 
 -- --------------------------------------------------------
 
@@ -248,7 +250,7 @@ ALTER TABLE `siniestro`
 -- AUTO_INCREMENT de la tabla `bombero`
 --
 ALTER TABLE `bombero`
-  MODIFY `id_bombero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_bombero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de la tabla `brigada`
