@@ -62,6 +62,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         jBlimpiarCampos = new javax.swing.JButton();
         id_brigada = new javax.swing.JLabel();
         nombre_anterior = new javax.swing.JLabel();
+        especialidad = new javax.swing.JLabel();
+        LABELIDCUARTEL = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -220,6 +222,12 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
 
         nombre_anterior.setForeground(new java.awt.Color(102, 255, 204));
 
+        especialidad.setFont(new java.awt.Font("Tahoma", 0, 3)); // NOI18N
+        especialidad.setText("jLabel7");
+
+        LABELIDCUARTEL.setForeground(new java.awt.Color(102, 255, 204));
+        LABELIDCUARTEL.setText("jLabel7");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -275,7 +283,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
+                        .addContainerGap()
+                        .addComponent(especialidad)
+                        .addGap(132, 132, 132)
                         .addComponent(jLabel6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(257, 257, 257)
@@ -286,7 +296,10 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         .addComponent(jRBOcupadas))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LABELIDCUARTEL)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -327,8 +340,12 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     .addComponent(jBAgregar)
                     .addComponent(jBModificar)
                     .addComponent(jBSalir))
-                .addGap(52, 52, 52)
-                .addComponent(jLabel6)
+                .addGap(27, 27, 27)
+                .addComponent(LABELIDCUARTEL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(especialidad))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JRBTodas)
@@ -336,7 +353,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                     .addComponent(JRBLibres))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -495,25 +512,26 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
                         Brigada bri = new Brigada(tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
                         briData.guardarBrigada(bri);
                         //JRBTodasActionPerformed(evt);
+
                         jBlimpiarCamposActionPerformed(evt);
 
-                    }else {
+                    } else {
 
-                            ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                            if (lista.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+                        ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                        if (lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
-                            } else {
-                                StringBuilder result = new StringBuilder();
+                        } else {
+                            StringBuilder result = new StringBuilder();
 
-                                // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
-                                for (String element : lista) {
-                                    result.append("- ").append(element).append("\n");
-                                }
-                                String finalString = result.toString();
-                                JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
+                            // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                            for (String element : lista) {
+                                result.append("- ").append(element).append("\n");
                             }
+                            String finalString = result.toString();
+                            JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
                         }
+                    }
 
                 }
 
@@ -526,102 +544,214 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             Cuartel_data cuar = new Cuartel_data();
             Cuartel cuartel = new Cuartel();
             BrigadaData briData = new BrigadaData();
+            int codBrigadaActual = Integer.parseInt(LABELIDCUARTEL.getText());
+            //System.out.println("Brigada "+codBrigadaActual);
+            int codCuartelactual = briData.cuartelActual(codBrigadaActual);
+            Brigada bri = briData.buscarBrigada(codBrigadaActual);
+            //System.out.println("Cuartel "+codCuartelactual);
+            String especialidad_Actual = bri.getEspecialidad();
+            String selectedItemText = (String) jCBCuarteles.getSelectedItem();
+            int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+            if (selectedItemText != null) {
+                String[] parts = selectedItemText.split(" ");
+                if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
+                    try {
+                        codCuartel = Integer.parseInt(parts[1]);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
+                    }
+                }
+            }
             if (validaTexto()) {
-                if (tfNombre.getText().equals(nombre_anterior.getText())) {
-                    String selectedItemText = (String) jCBCuarteles.getSelectedItem();
-                    int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+                //TODOS IGUALES 000-1
+                if (tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel == codCuartelactual && especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(null, "No realizaste ningún cambio");
+                    return;
+                    //DIF NOMBRE 100 -2
+                } else if (!tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel == codCuartelactual && especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
+                    if (briData.nombreNORepetido(tfNombre.getText())) {
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.modificarBrigada(bri);
+                        jBlimpiarCamposActionPerformed(evt);
 
-                    if (selectedItemText != null) {
-                        // Dividir la cadena por espacios en blanco
-                        String[] parts = selectedItemText.split(" ");
-                        if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
-                            try {
+                    }
+                    //DIF CUARTEL 010 - 3
+                } else if (tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel != codCuartelactual && especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
+                    if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
+                        //System.out.println("ID " + codCuartel);
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.modificarBrigada(bri);
+                        //JRBTodasActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);
+                    } else {
 
-                                codCuartel = Integer.parseInt(parts[1]);
-                            } catch (NumberFormatException e) {
-                                JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
-                            }
-                        }
-                        if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
-                            //System.out.println("ID " + codCuartel);
-                            cuartel = cuar.buscarCuartel(codCuartel);
-                            Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
-                            briData.modificarBrigada(bri);
-                            //JRBTodasActionPerformed(evt);
-                            jBlimpiarCamposActionPerformed(evt);
+                        ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                        if (lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+
                         } else {
+                            StringBuilder result = new StringBuilder();
 
-                            ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                            if (lista.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
-
-                            } else {
-                                StringBuilder result = new StringBuilder();
-
-                                // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
-                                for (String element : lista) {
-                                    result.append("- ").append(element).append("\n");
-                                }
-                                String finalString = result.toString();
-                                JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
+                            // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                            for (String element : lista) {
+                                result.append("- ").append(element).append("\n");
                             }
+                            String finalString = result.toString();
+                            JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
+                        }
+                    }
+                    //DIF BRIGAGA 001 -4
+                } else if (tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel == codCuartelactual && !especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
+                    if (briData.unabrigadaxespecialidadencuartelsinbrigada(codCuartel, codBrigadaActual, jCBEspecialidad.getSelectedItem().toString())) {
+                        //System.out.println("ID " + codCuartel);
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.modificarBrigada(bri);
+                        //JRBTodasActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);
+                    } else {
+
+                        ArrayList<String> lista = especialidadeslibrexbrigada2(codCuartel, codBrigadaActual);
+                        if (lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+
+                        } else {
+                            StringBuilder result = new StringBuilder();
+
+                            // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                            for (String element : lista) {
+                                result.append("- ").append(element).append("\n");
+                            }
+                            String finalString = result.toString();
+                            JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
+                        }
+                    }
+                    //DIF NOMBRE Y BRIGADA 101 -5
+                } else if (!tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel == codCuartelactual && !especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
+                    if (briData.nombreNORepetido(tfNombre.getText())) {
+                    } else {
+                        return;
+                    }
+                    if (briData.unabrigadaxespecialidadencuartelsinbrigada(codCuartel, codBrigadaActual, jCBEspecialidad.getSelectedItem().toString())) {
+                        //System.out.println("ID " + codCuartel);
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.modificarBrigada(bri);
+                        //JRBTodasActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);
+                    } else {
+
+                        ArrayList<String> lista = especialidadeslibrexbrigada2(codCuartel, codBrigadaActual);
+                        if (lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+
+                        } else {
+                            StringBuilder result = new StringBuilder();
+
+                            // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                            for (String element : lista) {
+                                result.append("- ").append(element).append("\n");
+                            }
+                            String finalString = result.toString();
+                            JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
                         }
                     }
 
-                } else {
+                    //DIF NOMBRE Y CUARTEL 110 -6
+                } else if (!tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel != codCuartelactual && especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
                     if (briData.nombreNORepetido(tfNombre.getText())) {
-                        String selectedItemText = (String) jCBCuarteles.getSelectedItem();
-                        int codCuartel = -1; // Valor predeterminado si no se encuentra el código de Cuartel
+                    } else {
+                        return;
+                    }
+                    if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
+                        //System.out.println("ID " + codCuartel);
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.modificarBrigada(bri);
+                        //JRBTodasActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);
+                    } else {
 
-                        if (selectedItemText != null) {
-                            // Dividir la cadena por espacios en blanco
-                            String[] parts = selectedItemText.split(" ");
-                            if (parts.length >= 2 && parts[0].equalsIgnoreCase("ID:")) {
-                                try {
+                        ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                        if (lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
 
-                                    codCuartel = Integer.parseInt(parts[1]);
-                                } catch (NumberFormatException e) {
-                                    JOptionPane.showMessageDialog(this, "Error al ingresar un tipo de dato." + e);
-                                    return;
-                                }
+                        } else {
+                            StringBuilder result = new StringBuilder();
+
+                            // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                            for (String element : lista) {
+                                result.append("- ").append(element).append("\n");
                             }
-
-                            if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
-                                //System.out.println("ID " + codCuartel);
-                                cuartel = cuar.buscarCuartel(codCuartel);
-                                Brigada bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
-                                briData.modificarBrigada(bri);
-                                //JRBTodasActionPerformed(evt);
-                                jBlimpiarCamposActionPerformed(evt);
-                            } else {
-                                ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
-                                if (lista.isEmpty()) {
-                                    JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
-
-                                } else {
-                                    StringBuilder result = new StringBuilder();
-
-                                    // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
-                                    for (String element : lista) {
-                                        result.append("- ").append(element).append("\n");
-                                    }
-                                    String finalString = result.toString();
-                                    JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n " + finalString);
-                                }
-                            }
-
+                            String finalString = result.toString();
+                            JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
                         }
+                    }
+                    //DIF 011 -7
+                } else if (tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel != codCuartelactual && !especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
+                    if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
+                        //System.out.println("ID " + codCuartel);
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.modificarBrigada(bri);
+                        //JRBTodasActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);
+                    } else {
 
+                        ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                        if (lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+
+                        } else {
+                            StringBuilder result = new StringBuilder();
+
+                            // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                            for (String element : lista) {
+                                result.append("- ").append(element).append("\n");
+                            }
+                            String finalString = result.toString();
+                            JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
+                        }
+                    }
+                    //DIF TODOS 111 -8
+                } else if (!tfNombre.getText().equals(nombre_anterior.getText()) && codCuartel != codCuartelactual && !especialidad_Actual.equals(jCBEspecialidad.getSelectedItem().toString())) {
+                    if (briData.nombreNORepetido(tfNombre.getText())) {
+                    } else {
+                        return;
+                    }
+                    if (briData.unabrigadaxespecialidadencuartel(codCuartel, jCBEspecialidad.getSelectedItem().toString())) {
+                        //System.out.println("ID " + codCuartel);
+                        cuartel = cuar.buscarCuartel(codCuartel);
+                        bri = new Brigada(Integer.parseInt(id_brigada.getText()), tfNombre.getText(), jCBEspecialidad.getSelectedItem().toString(), jRBLibre.isSelected(), cuartel);
+                        briData.modificarBrigada(bri);
+                        //JRBTodasActionPerformed(evt);
+                        jBlimpiarCamposActionPerformed(evt);
+                    } else {
+
+                        ArrayList<String> lista = especialidadeslibrexbrigada(codCuartel);
+                        if (lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Error \n El cuartel ya tiene las 6 brigadas");
+
+                        } else {
+                            StringBuilder result = new StringBuilder();
+
+                            // Recorre el ArrayList y agrega cada elemento con un salto de línea y un guión medio
+                            for (String element : lista) {
+                                result.append("- ").append(element).append("\n");
+                            }
+                            String finalString = result.toString();
+                            JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:" + codCuartel + "\nEspecialidades Disponibles para agregar dentro del cuartel:\n" + finalString);
+                        }
                     }
 
                 }
-
             }
 
         }
-
     }//GEN-LAST:event_jBModificarActionPerformed
-
+   
     private void tfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyReleased
         String nombre = tfNombre.getText();
         modelo.setRowCount(0);
@@ -655,6 +785,7 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             int espe = combo.indexOf((briga.getEspecialidad()));
 
             jCBEspecialidad.setSelectedIndex(espe + 1); //le sumo uno porque tiene el seleccionar
+
             if (briga.isLibre()) {
                 jRBLibre.setSelected(true);
                 jRBLibre.setText("Libre");
@@ -668,6 +799,9 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
             jBModificar.setEnabled(true);
             id_brigada.setText(String.valueOf(briga.getCodBrigada()));
             nombre_anterior.setText(briga.getNombre_br());
+            especialidad.setText(briga.getEspecialidad());
+            LABELIDCUARTEL.setText(String.valueOf(briga.getCodBrigada()));
+
         }
     }//GEN-LAST:event_jTablaMouseClicked
 
@@ -675,11 +809,13 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton JRBLibres;
     private javax.swing.JRadioButton JRBTodas;
+    private javax.swing.JLabel LABELIDCUARTEL;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel campo_Especilidad;
     private javax.swing.JLabel campo_ID_Cuartel;
     private javax.swing.JLabel campo_nombre;
+    private javax.swing.JLabel especialidad;
     private javax.swing.JLabel id_brigada;
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBBuscar;
@@ -859,6 +995,8 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         BrigadaData BriData = new BrigadaData();
         List<Brigada> listaBrigadas = BriData.listarBrigadas2();
         cargarDatosTabla(listaBrigadas);
+        LABELIDCUARTEL.setText("");
+        
 
     }
 
@@ -990,6 +1128,27 @@ public class Vista_Brigada extends javax.swing.JInternalFrame {
         especialidades.add("Operativos de prevención");
         for (int i = 0; i < especialidades.size(); i++) {
             if (briData.unabrigadaxespecialidadencuartel(cod, especialidades.get(i))) {
+                especialidadeslibres.add(especialidades.get(i));
+
+            }
+
+        }
+
+        return especialidadeslibres;
+    }
+
+    private ArrayList<String> especialidadeslibrexbrigada2(int cod, int bri) {
+        BrigadaData briData = new BrigadaData();
+        ArrayList<String> especialidades = new ArrayList<>();
+        ArrayList<String> especialidadeslibres = new ArrayList<>();
+        especialidades.add("Incendios en viviendas, e industrias");
+        especialidades.add("Salvamento en derrumbes");
+        especialidades.add("Rescates en ámbito montaña");
+        especialidades.add("Rescate de personas atrapadas en accidentes de tráfico");
+        especialidades.add("Socorrer inundaciones");
+        especialidades.add("Operativos de prevención");
+        for (int i = 0; i < especialidades.size(); i++) {
+            if (briData.unabrigadaxespecialidadencuartelsinbrigada(cod, bri, especialidades.get(i))) {
                 especialidadeslibres.add(especialidades.get(i));
 
             }
