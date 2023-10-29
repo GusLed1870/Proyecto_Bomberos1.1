@@ -516,6 +516,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     String tipo = "";
     String detalles = "";
     Siniestro siniestro = new Siniestro();
+    SiniestroData siniData=new SiniestroData();
 
     int codigo = Integer.parseInt(jTCodigo.getText());
 
@@ -577,10 +578,13 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         }
 
         //String[] parts = jTFBrigadaCercana.getText().split(" ");
-        //System.out.println("que es "+parts[2]);
+        //System.out.println("que es "+parts[2]); 
+        
         int codBrigada = imprimirLista();
+        System.out.println("Brigada ID "+codBrigada);
         bri = briData.buscarBrigada(codBrigada);
         briData.Brigadaocupada(codBrigada);
+        Siniestro sini=siniData.buscarSiniestroPorId(codigo);
 
         siniestro.setCodigo(codigo);
         siniestro.setTipo(tipo);
@@ -591,10 +595,22 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         siniestro.setBrigada(bri);
 
         if (fechaResolucion != null) {
-            siniestro.setFecha_resol(fechaResolFormateada);
+             System.out.println("Entre");
+            if(codBrigada!=sini.getBrigada().getCodBrigada()){
+                briData.Brigadaocupada(codBrigada);
+                briData.Brigadalibre(sini.getBrigada().getCodBrigada());
+            }
+             siniestro.setFecha_resol(fechaResolFormateada);
             briData.modificarsiniestro(siniestro);
+            
+        
+           
         } else {
-            siniestroData.modificarSiniestro2(siniestro);
+               if(codBrigada!=sini.getCodigo()){
+                briData.Brigadaocupada(codBrigada);
+                briData.Brigadalibre(sini.getBrigada().getCodBrigada());
+            }
+            briData.modificarsiniestro_sinfecha(siniestro);
         }
     
     
