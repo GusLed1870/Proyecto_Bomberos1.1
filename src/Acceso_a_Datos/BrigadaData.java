@@ -643,15 +643,19 @@ public class BrigadaData {
                 LocalDate fecha = rs.getDate("Fecha").toLocalDate();
                 valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
                 valores.append(", ");
-                java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
-                if (fechaResolSql == null) {
-                    valores.append("Cargar Fecha");
-                    valores.append(", ");
-                } else {
-                    LocalDate fechaResol = fechaResolSql.toLocalDate();
-                    valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-                    valores.append(", ");
-                }
+                if (rs.getDate("Fecha_Resol") == null) {
+                    
+                  
+                   
+                        valores.append("Cargar Fecha");
+                        valores.append(", ");
+                }else {
+                        java.sql.Date fechaResolSql = rs.getDate("Fecha_Resol");
+                        LocalDate fechaResol = fechaResolSql.toLocalDate();
+                        valores.append(fechaResol.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                        valores.append(", ");
+                    }
+                
                 int puntuacion = rs.getInt("Puntuacion");
                 if (puntuacion == 0) {
                     valores.append("Falta calificar");
@@ -776,7 +780,6 @@ public class BrigadaData {
             ps.setInt(7, siniestro.getPuntuacion());
             ps.setInt(8, siniestro.getBrigada().getCodBrigada());
             ps.setInt(9, siniestro.getCodigo());
-            
 
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
@@ -842,31 +845,71 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error únicamente se pueden ingresar valores enteros");
         }
     }
-    
-    
-    public boolean unabrigadaxespecialidadencuartel(int cuartel, String especialidad){
-        boolean verdadero=false;
-        String sql="SELECT COUNT(*) FROM cuartel join brigada on cuartel.codCuartel=brigada.nro_cuartel WHERE brigada.especialidad=? and cuartel.codCuartel=?";
-        int cuenta=0;
-         try {
+
+    public boolean unabrigadaxespecialidadencuartel(int cuartel, String especialidad) {
+        boolean verdadero = false;
+        String sql = "SELECT COUNT(*) FROM cuartel join brigada on cuartel.codCuartel=brigada.nro_cuartel WHERE brigada.especialidad=? and cuartel.codCuartel=?";
+        int cuenta = 0;
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, especialidad); // Establece el año como parámetro
             ps.setInt(2, cuartel);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                   cuenta=rs.getInt("COUNT(*)");
-                   if (cuenta>0){
-                       //JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
-                       return verdadero;
-                   
-                   }else{
-                       return verdadero=true;
-                   }
+                cuenta = rs.getInt("COUNT(*)");
+                if (cuenta > 0) {
+                    //JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
+                    return verdadero;
+
+                } else {
+                    return verdadero = true;
                 }
-          } catch (SQLException ex) {
+            }
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
         }
         return verdadero;
-    
+
+    }
+      public void Brigadaocupada(int codBrigada) {
+        String sql = "UPDATE brigada SET libre=0 WHERE codBrigada=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+
+
+            int filasActualizadas = ps.executeUpdate();
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
+        }
+    }
+      
+       public void Brigadalibre(int codBrigada) {
+        String sql = "UPDATE brigada SET libre=1 WHERE codBrigada=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+
+
+            int filasActualizadas = ps.executeUpdate();
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la brigada: " + ex.getMessage());
+        }
     }
 }

@@ -623,6 +623,9 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         int id = -1;
         LocalDate fechainc = null;
         LocalDate fechafin = null;
+        int codBrigada=-1;
+        BrigadaData briData=new BrigadaData();
+        
         if (filaSeleccionada >= 0 && filaSeleccionada < jTabla.getRowCount()) {
             try {
                 if (valor != null) {
@@ -634,6 +637,9 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             }
             Object FechaFinal = jTabla.getValueAt(filaSeleccionada, 4);
             Object FechaInicial = jTabla.getValueAt(filaSeleccionada, 3);
+            Object cod = jTabla.getValueAt(filaSeleccionada, 0);
+            codBrigada=Integer.parseInt(cod.toString());
+            
 
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Ajusta el formato según el de tu cadena
@@ -648,18 +654,30 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                         llenarTabla();
 
                     } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                        System.out.println("1 ID--"+codBrigada);
                         llenarTablaBrigadaenProgreso2();
+                        briData.Brigadalibre(codBrigada);
                     } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
                         llenarTodosFinalizados();
+                        briData.Brigadalibre(codBrigada);
+                        System.out.println("2 ID--"+codBrigada);
 
                     } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
                         llenarTablaBrigada();
+                        briData.Brigadalibre(codBrigada);
+                        System.out.println("3 ID--"+codBrigada);
                     } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
                         llenarTablaBrigadaenProgreso();
+                        briData.Brigadalibre(codBrigada);
+                        System.out.println("4 ID--"+codBrigada);
                     } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
                         llenarTablaBrigadaFinalizados();
+                        briData.Brigadalibre(codBrigada);
+                        System.out.println("5 ID--"+codBrigada);
                     } else {
                         llenarTablaBrigada();
+                        briData.Brigadalibre(codBrigada);
+                        System.out.println("6 ID--"+codBrigada);
                     }
 
                     return; // Sale del método sin actualizar la base de datos

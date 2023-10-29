@@ -92,31 +92,20 @@ public class Cuartel_data {
     public boolean compararCuarteles(Cuartel cuar) {
         boolean cuartelEncontrado = false;
         String nombre = cuar.getNombre_cuartel();
-        String direccion = cuar.getDireccion();
-        int coordenadaX = cuar.getCoord_X();
-        int coordenadaY = cuar.getCoord_Y();
-        String telefono = cuar.getTelefono();
-        String correo = cuar.getCorreo();
-        String sql = "SELECT COUNT(*) FROM cuartel WHERE nombre_cuartel = ? AND direccion = ? AND coord_X = ? AND coord_Y = ? AND telefono = ? AND correo = ?";
+        String sql = "SELECT COUNT(*) FROM cuartel WHERE nombre_cuartel = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
-            ps.setString(2, direccion);
-            ps.setInt(3, coordenadaX);
-            ps.setInt(4, coordenadaY);
-            ps.setString(5, telefono);
-            ps.setString(6, correo);
             ResultSet rs = ps.executeQuery();
-            System.out.println(rs);
             if (rs.next()) {
-                int count = rs.getInt(1); // Obtiene el valor del recuento
+                int count = rs.getInt(1); 
                 if (count > 0) {
-                    JOptionPane.showMessageDialog(null, "ERROR!!! El cuartel ya se encuentra en la base de datos");
+                    JOptionPane.showMessageDialog(null, "Ya existe un cuartel con ese nombre en la base de datos");
                     cuartelEncontrado = true;
                 }
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al conectarse a la base de datos");
+            JOptionPane.showMessageDialog(null, "Error al intentar conectarse a la base de datos");
         }
         return cuartelEncontrado;
     }

@@ -26,27 +26,28 @@ public class BomberoData {
         int cantidadBomberosEnBrigada = contarBomberosEnBrigada(brigadaId);
         if (cantidadBomberosEnBrigada >= 5) {
             JOptionPane.showMessageDialog(null, "La brigada ya tiene 5 bomberos. Debe asignar otra brigada.");
-            return;
-        }
-        String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, bombero.getDni());
-            ps.setString(2, bombero.getNombre_ape());
-            ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
-            ps.setInt(4, bombero.getCelular());
-            ps.setInt(5, brigadaId);
-            ps.setString(6, bombero.getGrupoSanguineo());
-            ps.setBoolean(7, bombero.isEstado());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                bombero.setId_bombero(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Bombero añadido con éxito. Legajo: " + bombero.getId_bombero());
+        } else {
+            String sql = "INSERT INTO bombero (dni, nombre_ape, fecha_nac, celular, codBrigada, grupoSanguineo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            try {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, bombero.getDni());
+                ps.setString(2, bombero.getNombre_ape());
+                ps.setDate(3, Date.valueOf(bombero.getFecha_nac()));
+                ps.setLong(4, bombero.getCelular());
+                ps.setInt(5, brigadaId);
+                ps.setString(6, bombero.getGrupoSanguineo());
+                ps.setBoolean(7, bombero.isEstado());
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    bombero.setId_bombero(rs.getInt(1));
+                    JOptionPane.showMessageDialog(null, "Bombero añadido con éxito. Legajo: " + bombero.getId_bombero());
+                }
+
+                ps.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al guardar el bombero: " + ex.getMessage());
             }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el bombero: " + ex.getMessage());
         }
     }
 
@@ -65,7 +66,7 @@ public class BomberoData {
                 bombero.setDni(rs.getString("dni"));
                 bombero.setNombre_ape(rs.getString("nombre_ape"));
                 bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
-                bombero.setCelular(rs.getInt("celular"));
+                bombero.setCelular(rs.getLong("celular"));
                 bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
                 bombero.setEstado(rs.getBoolean("estado"));
                 int codBri = rs.getInt("codBrigada");
@@ -94,7 +95,7 @@ public class BomberoData {
                 bombero.setDni(rs.getString("dni"));
                 bombero.setNombre_ape(rs.getString("nombre_ape"));
                 bombero.setFecha_nac(rs.getDate("fecha_nac").toLocalDate());
-                bombero.setCelular(rs.getInt("celular"));
+                bombero.setCelular(rs.getLong("celular"));
                 bombero.setGrupoSanguineo(rs.getString("grupoSanguineo"));
                 bombero.setEstado(rs.getBoolean("estado"));
                 int codBri = rs.getInt("codBrigada");
@@ -144,7 +145,7 @@ public class BomberoData {
             ps.setString(1, bombero.getDni());
             ps.setString(2, bombero.getNombre_ape());
             ps.setDate(3, java.sql.Date.valueOf(bombero.getFecha_nac()));
-            ps.setInt(4, bombero.getCelular());
+            ps.setLong(4, bombero.getCelular());
             ps.setInt(5, bombero.getBrigada().getCodBrigada());
             ps.setString(6, bombero.getGrupoSanguineo());
             ps.setBoolean(7, bombero.isEstado());
@@ -243,7 +244,7 @@ public class BomberoData {
                 bomb.setId_bombero(rs.getInt("id_bombero"));
                 bomb.setDni(rs.getString("dni"));
                 bomb.setNombre_ape(rs.getString("nombre_ape"));
-                bomb.setCelular(rs.getInt("celular"));
+                bomb.setCelular(rs.getLong("celular"));
                 bomberos.add(bomb);
             }
             ps.close();
