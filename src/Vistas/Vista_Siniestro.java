@@ -405,11 +405,11 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jcbTipoEmergenciaActionPerformed
 
-      /////////////////////////////////////////////////////////////////////////////////// 
-     //               REVISAR ESTE ACTION PERFORMED (MODIFICAR)                       //
+    /////////////////////////////////////////////////////////////////////////////////// 
+    //               REVISAR ESTE ACTION PERFORMED (MODIFICAR)                       //
     ///////////////////////////////////////////////////////////////////////////////////  
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-       /* BrigadaData briData = new BrigadaData();
+        /* BrigadaData briData = new BrigadaData();
         Brigada bri = new Brigada();
         String tipo = "";
         String detalles = "";
@@ -511,23 +511,22 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         } catch (IllegalArgumentException iae) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
         }*/
-    BrigadaData briData = new BrigadaData();
-    Brigada bri = new Brigada();
-    String tipo = "";
-    String detalles = "";
-    Siniestro siniestro = new Siniestro();
-    SiniestroData siniData=new SiniestroData();
+        BrigadaData briData = new BrigadaData();
+        Brigada bri = new Brigada();
+        String tipo = "";
+        String detalles = "";
+        Siniestro siniestro = new Siniestro();
+        SiniestroData siniData = new SiniestroData();
 
-    int codigo = Integer.parseInt(jTCodigo.getText());
+        int codigo = Integer.parseInt(jTCodigo.getText());
 
-    Date fechaSiniestro = jdcFechaSiniestro.getDate();
-    LocalDate fechaSiniestroFormateada = fechaSiniestro.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    fechaSiniestro = java.sql.Date.valueOf(fechaSiniestroFormateada);
+        Date fechaSiniestro = jdcFechaSiniestro.getDate();
+        LocalDate fechaSiniestroFormateada = fechaSiniestro.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        fechaSiniestro = java.sql.Date.valueOf(fechaSiniestroFormateada);
 
-    Date fechaResolucion = jdcFechaResolucion.getDate();
-    LocalDate fechaResolFormateada = null; // Declare it here
+        Date fechaResolucion = jdcFechaResolucion.getDate();
+        LocalDate fechaResolFormateada = null; // Declare it here
 
-    
         if (jcbTipoEmergencia.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de emergencia");
             return;
@@ -579,12 +578,11 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
         //String[] parts = jTFBrigadaCercana.getText().split(" ");
         //System.out.println("que es "+parts[2]); 
-        
         int codBrigada = imprimirLista();
-        System.out.println("Brigada ID "+codBrigada);
+        System.out.println("Brigada ID " + codBrigada);
         bri = briData.buscarBrigada(codBrigada);
         briData.Brigadaocupada(codBrigada);
-        Siniestro sini=siniData.buscarSiniestroPorId(codigo);
+        Siniestro sini = siniData.buscarSiniestroPorId(codigo);
 
         siniestro.setCodigo(codigo);
         siniestro.setTipo(tipo);
@@ -594,26 +592,32 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         siniestro.setDetalles(detalles);
         siniestro.setBrigada(bri);
 
-        if (fechaResolucion != null) {
-             System.out.println("Entre");
-            if(codBrigada!=sini.getBrigada().getCodBrigada()){
+        if (fechaResolFormateada != null) {
+            System.out.println("Entre");
+            if (codBrigada != sini.getBrigada().getCodBrigada()) {
                 briData.Brigadaocupada(codBrigada);
                 briData.Brigadalibre(sini.getBrigada().getCodBrigada());
             }
-             siniestro.setFecha_resol(fechaResolFormateada);
+            siniestro.setFecha_resol(fechaResolFormateada);
             briData.modificarsiniestro(siniestro);
-            
-        
-           
+
         } else {
-               if(codBrigada!=sini.getCodigo()){
+            System.out.println("Entre la null");
+            if (codBrigada != sini.getBrigada().getCodBrigada()) {
                 briData.Brigadaocupada(codBrigada);
                 briData.Brigadalibre(sini.getBrigada().getCodBrigada());
+                System.out.println("AQUI");
+                 briData.modificarsiniestro_sinfecha(siniestro);
+                return;
+            } else {
+                briData.modificarsiniestro_sinfecha(siniestro);
+                System.out.println("AQUI2");
+                return;
             }
-            briData.modificarsiniestro_sinfecha(siniestro);
+            
         }
-    
-    
+
+
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBBuscarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarSiniestroActionPerformed
@@ -843,13 +847,13 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         return pos;
     }
 
-   /////////////////////////////////////////////////////////////////////////////////// 
-  //                      REVISAR ESTE MÉTODO                                      //
- ///////////////////////////////////////////////////////////////////////////////////  
+    /////////////////////////////////////////////////////////////////////////////////// 
+    //                      REVISAR ESTE MÉTODO                                      //
+    ///////////////////////////////////////////////////////////////////////////////////  
     public boolean esFechaValida(LocalDate fechaResolFormateada) {
         LocalDate fechaRes = fechaResolFormateada;
         LocalDate fechaMaxima = LocalDate.now();
-       
+
 //        if (fechaRes.isBefore(fechaMinima)) {
 //            JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
 //            return false;

@@ -808,7 +808,7 @@ public class BrigadaData {
 
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
-                //JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+                JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
             }
