@@ -191,10 +191,6 @@ public class BrigadaData {
                 Cuartel_data cuartelData = new Cuartel_data();
                 Cuartel cuartelAsociado = cuartelData.buscarCuartel(codCuartel);
 
-                /* if (cuartelAsociado != null) {
-                    cuartel.setNombre_cuartel(cuartelAsociado.getNombre_cuartel());
-                    // Otros atributos del cuartel si es necesario
-                }*/
                 brigada.setCuartel(cuartelAsociado);
 
                 listaBrigadas.add(brigada);
@@ -369,10 +365,6 @@ public class BrigadaData {
                 Cuartel_data cuartelData = new Cuartel_data();
                 Cuartel cuartelAsociado = cuartelData.buscarCuartel(codCuartel);
 
-                /* if (cuartelAsociado != null) {
-                cuartel.setNombre_cuartel(cuartelAsociado.getNombre_cuartel());
-                // Otros atributos del cuartel si es necesario
-            }*/
                 brigada.setCuartel(cuartelAsociado);
 
                 listaBrigadas.add(brigada);
@@ -737,7 +729,6 @@ public class BrigadaData {
                 valores.append(rs.getString("Nºbrigada")).append(", ");
                 valores.append(rs.getString("Nombre_Brigada")).append(", ");
                 valores.append(rs.getString("ID_Siniestro")).append(", ");
-                //valores.append(rs.getString("Fecha")).append(", ");
                 LocalDate fecha = rs.getDate("Fecha").toLocalDate();
                 valores.append(fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
                 valores.append(", ");
@@ -883,7 +874,7 @@ public class BrigadaData {
             if (rs.next()) {
                 cuenta = rs.getInt("COUNT(*)");
                 if (cuenta > 0) {
-                    //JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
+                 
                     return verdadero;
 
                 } else {
@@ -906,7 +897,7 @@ public class BrigadaData {
 
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
-               // JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+              
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado");
             }
@@ -926,7 +917,7 @@ public class BrigadaData {
 
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
-                //JOptionPane.showMessageDialog(null, "Brigada modificada con éxito");
+               
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ninguna brigada con el código especificado###");
             }
@@ -976,7 +967,7 @@ public class BrigadaData {
             if (rs.next()) {
                 cuenta = rs.getInt("COUNT(*)");
                 if (cuenta > 0) {
-                    //JOptionPane.showMessageDialog(null, "Error \n Ya existe una Brigada con esa especilidad dentro del cuartel_ID:"+cuartel);
+                  
                     return verdadero;
 
                 } else {
@@ -987,6 +978,5 @@ public class BrigadaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla brigada " + ex.getMessage());
         }
         return verdadero;
-
     }
 }

@@ -6,11 +6,9 @@ import Entidades.Brigada;
 import Entidades.Siniestro;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -703,31 +701,13 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     aux = distancia;
                     int id = Integer.parseInt(parts[0]);
                     bri = briData.buscarBrigada2(id);
-                    int codBrigada = buscarCodBrigada();
-                    jTFBrigadaCercana.setText("ID:  " + codBrigada + "     Nombre: " + bri.getNombre_br()
+                    jTFBrigadaCercana.setText("ID:  " + bri.getCodBrigada() + "     Nombre: " + bri.getNombre_br()
                             + "    Cuartel: " + bri.getCuartel().getNombre_cuartel() + "    Distancia al sinietro: " + (int) aux);
                 }
             }
         }
         return bri.getCodBrigada();
     }
- public int buscarCodBrigada(){ 
-       int codigo = Integer.parseInt(jTCodigo.getText());
-     SiniestroData siniData = new SiniestroData();
-             Siniestro sini = siniData.buscarSiniestroPorId(codigo);
-             int codBrigada = 0;
-      if (!sini.getTipo().equals(jcbTipoEmergencia.getSelectedItem().toString())) {
-            codBrigada = imprimirLista();
-        } else if (sini.getCoord_X() != Integer.parseInt(jtfCoord_X.getText())) {
-            codBrigada = imprimirLista();
-        } else if (sini.getCoord_Y() != Integer.parseInt(jtfCoord_Y.getText())) {
-            codBrigada = imprimirLista();   
-        }   else  {
-            codBrigada = sini.getBrigada().getCodBrigada();
-        }
-      return codBrigada;
- }
-    
     
     // Método para calcular la distancia entre dos puntos
     public double calcularDistancia(double coord_X1, double coord_Y1) {
@@ -771,19 +751,10 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         lista.add("Operativos de prevención");
         pos = lista.indexOf(tipo);
         return pos;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////// 
-    //                      REVISAR ESTE MÉTODO                                      //
-    ///////////////////////////////////////////////////////////////////////////////////  
+    } 
     public boolean esFechaValida(LocalDate fechaResolFormateada) {
         LocalDate fechaRes = fechaResolFormateada;
         LocalDate fechaMaxima = LocalDate.now();
-
-//        if (fechaRes.isBefore(fechaMinima)) {
-//            JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser anterior a la fecha del siniestro");
-//            return false;
-//        }
         if (fechaRes.isAfter(fechaMaxima)) {
             JOptionPane.showMessageDialog(null, "La fecha de resolución no puede ser posterior a la fecha del siniestro");
             return false;
@@ -791,8 +762,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             return true;
         }
     }
+    
     // Método que me permite escribir sólo números en un campo textField
-
     public void permitirSoloNumeros(JTextField textField) {
         AbstractDocument doc = (AbstractDocument) textField.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -828,7 +799,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         });
     }
     // Método que me permite escribir sólo letras en un campo textField
-
     public void permitirSoloLetras(JTextField textField) {
         AbstractDocument doc = (AbstractDocument) textField.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -862,5 +832,4 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         });
     }
-
 }
