@@ -102,7 +102,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlCoord_X.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCoord_X.setText("Coordenada X:");
 
-        jtfCoord_X.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfCoord_X.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jtfCoord_X.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfCoord_XKeyReleased(evt);
@@ -112,7 +112,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlCoord_Y.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCoord_Y.setText("Coordenada Y:");
 
-        jtfCoord_Y.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfCoord_Y.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jtfCoord_Y.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfCoord_YKeyReleased(evt);
@@ -316,7 +316,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     .addComponent(jbCargar)
                     .addComponent(jBModificar)
                     .addComponent(jbSalir))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

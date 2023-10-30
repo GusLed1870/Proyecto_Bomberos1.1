@@ -201,7 +201,7 @@
                       <Component id="jBModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="91" max="32767" attributes="0"/>
+                  <EmptySpace pref="95" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -261,7 +261,7 @@
         <Component class="javax.swing.JTextField" name="jtfCoord_X">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="0"/>
+              <Font name="Arial" size="12" style="0"/>
             </Property>
           </Properties>
           <Events>
@@ -279,7 +279,7 @@
         <Component class="javax.swing.JTextField" name="jtfCoord_Y">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="0"/>
+              <Font name="Arial" size="12" style="0"/>
             </Property>
           </Properties>
           <Events>
