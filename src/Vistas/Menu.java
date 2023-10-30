@@ -1,6 +1,10 @@
 
 package Vistas;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 
 
 public class Menu extends javax.swing.JFrame {
@@ -33,7 +37,13 @@ public class Menu extends javax.swing.JFrame {
         jMenu16 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/Recursos/bomberos.jpg"));
+        Image miImagen = icono.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage (miImagen,0,0,getWidth(),getHeight(), this);
+            }
+        };
         jMenuBar3 = new javax.swing.JMenuBar();
         jBbrigada = new javax.swing.JMenu();
         jBbombero = new javax.swing.JMenuItem();
