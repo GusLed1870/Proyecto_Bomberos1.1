@@ -85,7 +85,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlTipoEmergencia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlTipoEmergencia.setText("Tipo de Emergencia:");
 
-        jcbTipoEmergencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jcbTipoEmergencia.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcbTipoEmergencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el tipo de emergencia", "Incendios en viviendas, e industrias", "Salvamento en derrumbes", "Rescates en ámbito montaña", "Rescate de personas atrapadas en accidentes de tráfico", "Socorrer inundaciones", "Operativos de prevención" }));
         jcbTipoEmergencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +125,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jlBrigada.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlBrigada.setText("Brigada más cercana libre:");
 
-        jbLimpiarCampos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbLimpiarCampos.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbLimpiarCampos.setText("Limpiar campos");
         jbLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +133,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         });
 
-        jbCargar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbCargar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbCargar.setText("Cargar");
         jbCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +141,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbSalir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +156,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         jLabel1.setText("EMERGENCIAS");
 
-        jBModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBModificar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jBModificar.setText("Modificar");
         jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,6 +185,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         });
 
+        jBuscarporID.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jBuscarporID.setText("Buscar Emergencia por ID");
         jBuscarporID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,17 +221,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                                     .addComponent(jlCoord_Y))))
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbLimpiarCampos)
-                                .addGap(31, 31, 31)
-                                .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtfCoord_Y, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfCoord_X, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jcbTipoEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +230,17 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                                     .addComponent(jBBuscarSiniestro))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jdcFechaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jdcFechaResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jbLimpiarCampos)
+                                    .addGap(99, 99, 99)
+                                    .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(80, 80, 80)
+                                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTFBrigadaCercana, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel2)

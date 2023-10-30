@@ -63,12 +63,17 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jBActualizarFecha = new javax.swing.JButton();
 
+        setClosable(true);
+        setPreferredSize(new java.awt.Dimension(1100, 676));
+
         jPanel1.setBackground(new java.awt.Color(51, 255, 204));
         jPanel1.setForeground(new java.awt.Color(0, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Situación de los Siniestros");
 
+        jRBEnProgreso.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jRBEnProgreso.setForeground(new java.awt.Color(0, 0, 0));
         jRBEnProgreso.setText("En Progreso");
         jRBEnProgreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +81,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             }
         });
 
+        jRBFinalizado.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jRBFinalizado.setForeground(new java.awt.Color(0, 0, 0));
         jRBFinalizado.setText("Finalizados");
         jRBFinalizado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +106,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Lista de Siniestros");
 
+        jBLimpiarCampos.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jBLimpiarCampos.setForeground(new java.awt.Color(0, 0, 0));
         jBLimpiarCampos.setText("Limpiar Campos");
         jBLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +125,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Seleccione una brigada");
 
+        jBActualizar.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jBActualizar.setForeground(new java.awt.Color(0, 0, 0));
         jBActualizar.setText("Actualizar la puntuación");
         jBActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +134,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             }
         });
 
+        jBSalir.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jBSalir.setForeground(new java.awt.Color(0, 0, 0));
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,15 +146,6 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Seleccione un estado");
 
-        jYearChooser1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                jYearChooser1AncestorMoved(evt);
-            }
-        });
         jYearChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jYearChooser1MouseExited(evt);
@@ -151,6 +155,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Seleccione un año");
 
+        jBActualizarFecha.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jBActualizarFecha.setForeground(new java.awt.Color(0, 0, 0));
         jBActualizarFecha.setText("Actualizar Fecha");
         jBActualizarFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,50 +168,49 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCBrigadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCBrigadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRBEnProgreso)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
-                                        .addComponent(jRBFinalizado)
-                                        .addGap(170, 170, 170)))))
-                        .addGap(61, 61, 61))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jRBEnProgreso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
+                                .addComponent(jRBFinalizado)
+                                .addGap(170, 170, 170))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jBLimpiarCampos)
-                        .addGap(62, 62, 62)
-                        .addComponent(jBActualizar)
-                        .addGap(108, 108, 108)
-                        .addComponent(jBActualizarFecha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(92, 92, 92))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(301, 301, 301)
+                        .addComponent(jBActualizar)
+                        .addGap(107, 107, 107)
+                        .addComponent(jBActualizarFecha)
+                        .addGap(122, 122, 122)
+                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(384, 384, 384))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(jLabel1)
-                .addGap(55, 55, 55)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jRBEnProgreso)
@@ -218,11 +223,11 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel2)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBLimpiarCampos)
                     .addComponent(jBActualizar)
@@ -259,7 +264,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             // jRBFinalizado.setSelected(true);
             //  jBActualizar.setEnabled(false);
         }
-          if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+        if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
             llenarTabla();
 
         } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
@@ -291,7 +296,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             // jRBEnProgreso.setSelected(true);
             // jBActualizar.setEnabled(false);
         }
-          if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+        if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
             llenarTabla();
 
         } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
@@ -310,12 +315,8 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRBFinalizadoActionPerformed
 
-    private void jYearChooser1AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jYearChooser1AncestorMoved
-
-    }//GEN-LAST:event_jYearChooser1AncestorMoved
-
     private void jYearChooser1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jYearChooser1MouseExited
-
+        llenarTablaBrigadaFinalizados();
     }//GEN-LAST:event_jYearChooser1MouseExited
 
     private void jCBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBrigadasActionPerformed
@@ -480,7 +481,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 }
             }
         }
-        System.out.println("ID3 "+codCuartel);
+        System.out.println("ID3 " + codCuartel);
 
     }
 
@@ -623,9 +624,9 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
         int id = -1;
         LocalDate fechainc = null;
         LocalDate fechafin = null;
-        int codBrigada=-1;
-        BrigadaData briData=new BrigadaData();
-        
+        int codBrigada = -1;
+        BrigadaData briData = new BrigadaData();
+
         if (filaSeleccionada >= 0 && filaSeleccionada < jTabla.getRowCount()) {
             try {
                 if (valor != null) {
@@ -638,8 +639,7 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             Object FechaFinal = jTabla.getValueAt(filaSeleccionada, 4);
             Object FechaInicial = jTabla.getValueAt(filaSeleccionada, 3);
             Object cod = jTabla.getValueAt(filaSeleccionada, 0);
-            codBrigada=Integer.parseInt(cod.toString());
-            
+            codBrigada = Integer.parseInt(cod.toString());
 
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Ajusta el formato según el de tu cadena
@@ -654,30 +654,30 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                         llenarTabla();
 
                     } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        System.out.println("1 ID--"+codBrigada);
+                        System.out.println("1 ID--" + codBrigada);
                         llenarTablaBrigadaenProgreso2();
                         briData.Brigadalibre(codBrigada);
                     } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
                         llenarTodosFinalizados();
                         briData.Brigadalibre(codBrigada);
-                        System.out.println("2 ID--"+codBrigada);
+                        System.out.println("2 ID--" + codBrigada);
 
                     } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
                         llenarTablaBrigada();
                         briData.Brigadalibre(codBrigada);
-                        System.out.println("3 ID--"+codBrigada);
+                        System.out.println("3 ID--" + codBrigada);
                     } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
                         llenarTablaBrigadaenProgreso();
                         briData.Brigadalibre(codBrigada);
-                        System.out.println("4 ID--"+codBrigada);
+                        System.out.println("4 ID--" + codBrigada);
                     } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
                         llenarTablaBrigadaFinalizados();
                         briData.Brigadalibre(codBrigada);
-                        System.out.println("5 ID--"+codBrigada);
+                        System.out.println("5 ID--" + codBrigada);
                     } else {
                         llenarTablaBrigada();
                         briData.Brigadalibre(codBrigada);
-                        System.out.println("6 ID--"+codBrigada);
+                        System.out.println("6 ID--" + codBrigada);
                     }
 
                     return; // Sale del método sin actualizar la base de datos
@@ -685,67 +685,67 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
             } catch (NumberFormatException ex) {
 
                 JOptionPane.showMessageDialog(this, "Error: La Fecha tiene que tener el siguiente formato \n dd--mm-yyyy ejemplo 01-02-2023.");
-                      if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTabla();
+                if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTabla();
 
-                    } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaenProgreso2();
-                    } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
-                        llenarTodosFinalizados();
+                } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTablaBrigadaenProgreso2();
+                } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                    llenarTodosFinalizados();
 
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigada();
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaenProgreso();
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaFinalizados();
-                    } else {
-                        llenarTablaBrigada();
-                    }
+                } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTablaBrigada();
+                } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTablaBrigadaenProgreso();
+                } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                    llenarTablaBrigadaFinalizados();
+                } else {
+                    llenarTablaBrigada();
+                }
 
                 return; // Sale del método sin actualizar la base de datos
             } catch (DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "Error: En el formato de Fecha.");
-             if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTabla();
+                if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTabla();
 
-                    } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaenProgreso2();
-                    } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
-                        llenarTodosFinalizados();
+                } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTablaBrigadaenProgreso2();
+                } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                    llenarTodosFinalizados();
 
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigada();
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaenProgreso();
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaFinalizados();
-                    } else {
-                        llenarTablaBrigada();
-                    }
+                } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTablaBrigada();
+                } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                    llenarTablaBrigadaenProgreso();
+                } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                    llenarTablaBrigadaFinalizados();
+                } else {
+                    llenarTablaBrigada();
+                }
                 return;
             }
             // Llamamos al método para actualizar la nota con los valores obtenidos
             BrigadaData is = new BrigadaData();
             is.actualizarFecha_Resolucion(id, fechafin, fechainc);
 
-                if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTabla();
+            if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                llenarTabla();
 
-                    } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaenProgreso2();
-                    } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
-                        llenarTodosFinalizados();
+            } else if (jCBrigadas.getSelectedIndex() == 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                llenarTablaBrigadaenProgreso2();
+            } else if (jCBrigadas.getSelectedIndex() == 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                llenarTodosFinalizados();
 
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigada();
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaenProgreso();
-                    } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
-                        llenarTablaBrigadaFinalizados();
-                    } else {
-                        llenarTablaBrigada();
-                    }
+            } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                llenarTablaBrigada();
+            } else if (jCBrigadas.getSelectedIndex() > 0 && jRBEnProgreso.isSelected() && !jRBFinalizado.isSelected()) {
+                llenarTablaBrigadaenProgreso();
+            } else if (jCBrigadas.getSelectedIndex() > 0 && !jRBEnProgreso.isSelected() && jRBFinalizado.isSelected()) {
+                llenarTablaBrigadaFinalizados();
+            } else {
+                llenarTablaBrigada();
+            }
 
         } else {
             System.out.println("No se ha seleccionado una fila válida.");

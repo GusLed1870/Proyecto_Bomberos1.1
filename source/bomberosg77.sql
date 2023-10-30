@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2023 a las 00:28:17
+-- Tiempo de generación: 30-10-2023 a las 01:42:28
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -203,20 +203,20 @@ CREATE TABLE `siniestro` (
 --
 
 INSERT INTO `siniestro` (`codigo`, `tipo`, `fecha_siniestro`, `coord_X`, `coord_Y`, `detalles`, `fecha_resol`, `puntuacion`, `codBrigada`) VALUES
-(13, 'Socorrer inundaciones', '2023-10-23', 545, 345, 'Desborde del Arroyo Maldonado en zona de Palermo', '2023-10-03', 0, 12),
-(15, 'Salvamento en derrumbes', '2023-10-16', 4657, 456, 'Derrumbe en obra de Angel Carranza 2456', '2023-10-16', 0, 4),
+(13, 'Socorrer inundaciones', '2023-10-23', 545, 345, 'Desborde del Arroyo Maldonado en zona de Palermo', '2023-10-03', 10, 12),
+(15, 'Salvamento en derrumbes', '2023-10-16', 4657, 456, 'Derrumbe en obra de Angel Carranza 2456', '2023-10-16', 7, 4),
 (16, 'Rescates en ámbito montaña', '2023-10-20', 3556, 5555, 'Rescate en Cerro Tandil', '2023-10-21', 0, 33),
-(17, 'Rescate de personas atrapadas en accidentes de tráfico', '2023-10-24', 674, 122, 'Accidente entre vehículos en Av. Córdoba 5640', '2023-10-24', 0, 6),
+(17, 'Rescate de personas atrapadas en accidentes de tráfico', '2023-10-24', 674, 122, 'Accidente entre vehículos en Av. Córdoba 5640', '2023-10-24', 8, 6),
 (18, 'Operativos de prevención', '2023-10-16', 23, 456, 'Charla educativa en escuela Nicolas Avellaneda, en El Salvador 5234', '2023-10-16', 9, 29),
-(19, 'Incendios en viviendas, e industrias', '2023-08-09', 987, 5643, 'Incendio en Restaurante La Dorita, en Humboldt 5400', '2023-08-09', 0, 34),
-(20, 'Incendios en viviendas, e industrias', '2023-10-17', 126, 387, 'Incendio en fábrica textil en Bouchard 3456', '2023-10-18', 0, 28),
+(19, 'Incendios en viviendas, e industrias', '2023-08-09', 987, 5643, 'Incendio en Restaurante La Dorita, en Humboldt 5400', '2023-08-09', 9, 34),
+(20, 'Incendios en viviendas, e industrias', '2023-10-17', 126, 387, 'Incendio en fábrica textil en Bouchard 3456', '2023-10-18', 7, 28),
 (22, 'Incendios en viviendas, e industrias', '2023-10-05', 7643, 448, 'Incendio en descampado al costado de las vías del ferrocarril Mitre en Arévalo y Santa Fe', '2023-10-05', 0, 28),
-(23, 'Incendios en viviendas, e industrias', '2023-10-05', 245, 5678, 'Incendio en supermercado Dia de Av. Córdoba 5621', '2023-10-04', 0, 34),
-(25, 'Incendios en viviendas, e industrias', '2023-10-05', 452, 111, 'Incendio en papelera de Machain 4566', NULL, 0, 2),
+(23, 'Incendios en viviendas, e industrias', '2023-07-11', 245, 5678, 'Incendio en supermercado Dia de Av. Córdoba 5621', '2023-07-11', 6, 34),
+(25, 'Incendios en viviendas, e industrias', '2023-10-05', 452, 111, 'Incendio en papelera de Machain 4566', '2023-10-05', 8, 2),
 (26, 'Incendios en viviendas, e industrias', '2023-10-05', 53, 2344, 'Incendio en vivienda de Paraguay 4567', '2023-10-05', 0, 34),
-(27, 'Incendios en viviendas, e industrias', '2023-10-25', 5567, 678, 'Incendio en fábrica metarlúrgica en Caseros 3745', NULL, 0, 28),
-(28, 'Incendios en viviendas, e industrias', '2023-10-26', 345, 235, 'Incendio en CEAMSE sito en Matienzo y Cramer', '2023-10-26', 0, 2),
-(29, 'Socorrer inundaciones', '2023-10-27', 12, 48, 'Inundación en barrio de La Boca', NULL, 0, 31);
+(28, 'Incendios en viviendas, e industrias', '2023-10-26', 345, 235, 'Incendio en CEAMSE sito en Matienzo y Cramer', '2023-10-26', 7, 2),
+(29, 'Socorrer inundaciones', '2023-10-27', 12, 48, 'Inundación en barrio de La Boca', '2023-10-27', 8, 31),
+(31, 'Salvamento en derrumbes', '2023-10-20', 4656, 22, 'Derrumbe en una obra en Juan B. Justo 1578', '2023-10-20', 9, 41);
 
 --
 -- Índices para tablas volcadas
@@ -276,7 +276,7 @@ ALTER TABLE `cuartel`
 -- AUTO_INCREMENT de la tabla `siniestro`
 --
 ALTER TABLE `siniestro`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Restricciones para tablas volcadas
