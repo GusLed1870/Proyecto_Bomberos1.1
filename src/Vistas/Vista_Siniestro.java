@@ -413,7 +413,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbTipoEmergenciaActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-
+        int codBrigada = 0;
         BrigadaData briData = new BrigadaData();
         Brigada bri = new Brigada();
         String tipo = "";
@@ -478,12 +478,18 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 return;
             }
         }
- 
-        int codBrigada = imprimirLista();
-        System.out.println("Brigada ID " + codBrigada);
+        Siniestro sini = siniData.buscarSiniestroPorId(codigo);
+        if (!sini.getTipo().equals(jcbTipoEmergencia.getSelectedItem().toString())) {
+            codBrigada = imprimirLista();
+        } else if (sini.getCoord_X() != Integer.parseInt(jtfCoord_X.getText())) {
+            codBrigada = imprimirLista();
+        } else if (sini.getCoord_Y() != Integer.parseInt(jtfCoord_Y.getText())) {
+            codBrigada = imprimirLista();   
+        }   else  {
+            codBrigada = sini.getBrigada().getCodBrigada();
+        }
         bri = briData.buscarBrigada(codBrigada);
         briData.Brigadaocupada(codBrigada);
-        Siniestro sini = siniData.buscarSiniestroPorId(codigo);
 
         siniestro.setCodigo(codigo);
         siniestro.setTipo(tipo);
@@ -494,7 +500,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         siniestro.setBrigada(bri);
 
         if (fechaResolFormateada != null) {
-            System.out.println("Entre");
             if (codBrigada != sini.getBrigada().getCodBrigada()) {
                 briData.Brigadaocupada(codBrigada);
                 briData.Brigadalibre(sini.getBrigada().getCodBrigada());
@@ -503,16 +508,16 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             briData.modificarsiniestro(siniestro);
 
         } else {
-            System.out.println("Entre la null");
+            
             if (codBrigada != sini.getBrigada().getCodBrigada()) {
                 briData.Brigadaocupada(codBrigada);
                 briData.Brigadalibre(sini.getBrigada().getCodBrigada());
-                System.out.println("AQUI");
+           
                 briData.modificarsiniestro_sinfecha(siniestro);
                 return;
             } else {
                 briData.modificarsiniestro_sinfecha(siniestro);
-                System.out.println("AQUI2");
+               
                 return;
             }
         }
@@ -698,14 +703,32 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     aux = distancia;
                     int id = Integer.parseInt(parts[0]);
                     bri = briData.buscarBrigada2(id);
-                    jTFBrigadaCercana.setText("ID:  " + bri.getCodBrigada() + "     Nombre: " + bri.getNombre_br()
+                    int codBrigada = buscarCodBrigada();
+                    jTFBrigadaCercana.setText("ID:  " + codBrigada + "     Nombre: " + bri.getNombre_br()
                             + "    Cuartel: " + bri.getCuartel().getNombre_cuartel() + "    Distancia al sinietro: " + (int) aux);
                 }
             }
         }
         return bri.getCodBrigada();
     }
-
+ public int buscarCodBrigada(){ 
+       int codigo = Integer.parseInt(jTCodigo.getText());
+     SiniestroData siniData = new SiniestroData();
+             Siniestro sini = siniData.buscarSiniestroPorId(codigo);
+             int codBrigada = 0;
+      if (!sini.getTipo().equals(jcbTipoEmergencia.getSelectedItem().toString())) {
+            codBrigada = imprimirLista();
+        } else if (sini.getCoord_X() != Integer.parseInt(jtfCoord_X.getText())) {
+            codBrigada = imprimirLista();
+        } else if (sini.getCoord_Y() != Integer.parseInt(jtfCoord_Y.getText())) {
+            codBrigada = imprimirLista();   
+        }   else  {
+            codBrigada = sini.getBrigada().getCodBrigada();
+        }
+      return codBrigada;
+ }
+    
+    
     // Método para calcular la distancia entre dos puntos
     public double calcularDistancia(double coord_X1, double coord_Y1) {
         double coord_X2 = Double.parseDouble(jtfCoord_X.getText());
@@ -804,7 +827,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             }
         });
     }
-       // Método que me permite escribir sólo letras en un campo textField
+    // Método que me permite escribir sólo letras en un campo textField
+
     public void permitirSoloLetras(JTextField textField) {
         AbstractDocument doc = (AbstractDocument) textField.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -817,6 +841,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     super.insertString(fb, offset, string, attr);
                 }
             }
+
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 if (text == null) {
@@ -826,6 +851,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                     super.replace(fb, offset, length, text, attrs);
                 }
             }
+
             private boolean contieneSoloLetrasYEspacios(String text) {
                 for (char c : text.toCharArray()) {
                     if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
