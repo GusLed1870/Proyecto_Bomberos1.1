@@ -412,9 +412,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jcbTipoEmergenciaActionPerformed
 
-    /////////////////////////////////////////////////////////////////////////////////// 
-    //               REVISAR ESTE ACTION PERFORMED (MODIFICAR)                       //
-    ///////////////////////////////////////////////////////////////////////////////////  
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
 
         BrigadaData briData = new BrigadaData();
@@ -481,9 +478,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 return;
             }
         }
-
-        //String[] parts = jTFBrigadaCercana.getText().split(" ");
-        //System.out.println("que es "+parts[2]); 
+ 
         int codBrigada = imprimirLista();
         System.out.println("Brigada ID " + codBrigada);
         bri = briData.buscarBrigada(codBrigada);
@@ -520,10 +515,8 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 System.out.println("AQUI2");
                 return;
             }
-
         }
-
-
+        limpiarCampos();
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBBuscarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarSiniestroActionPerformed
