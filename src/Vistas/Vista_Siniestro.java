@@ -18,7 +18,12 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
@@ -34,7 +39,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jRActivacion.setSelected(false);
         jRActivacion.setText("Deshabilitado");
         jBModificar.setEnabled(false);
-//        jBEliminar.setEnabled(false);
+        limpiarCampos();
     }
 
     @SuppressWarnings("unchecked")
@@ -411,108 +416,7 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
     //               REVISAR ESTE ACTION PERFORMED (MODIFICAR)                       //
     ///////////////////////////////////////////////////////////////////////////////////  
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        /* BrigadaData briData = new BrigadaData();
-        Brigada bri = new Brigada();
-        String tipo = "";
-        String detalles = "";
-        Siniestro siniestro = new Siniestro();
 
-        int codigo = Integer.parseInt(jTCodigo.getText());
-        
-        Date fechaSiniestro = jdcFechaSiniestro.getDate();
-        try {
-
-            
-
-            if (jcbTipoEmergencia.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de emergencia");
-                return;
-            }
-            try {
-                if (!tipo.equalsIgnoreCase("Seleccione el tipo de emergencia")) {
-                    tipo = jcbTipoEmergencia.getSelectedItem().toString();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione un tipo de emergencia");
-                    return;
-                }
-            } catch (NullPointerException e) {
-                return;
-            }
-            if (jdcFechaSiniestro.getDate() == null) {
-                JOptionPane.showMessageDialog(null, "Debe completar la fecha de nacimiento");
-                return;
-            }
-
-            try {
-                LocalDate fechaSiniestroFormateada = fechaSiniestro.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                fechaSiniestro = java.sql.Date.valueOf(fechaSiniestroFormateada);
-                if (!esFechaValida(fechaSiniestroFormateada)) {
-                    return;
-                }
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(null, "Error al procesar la fecha: " + e.getMessage());
-                return;
-            }
-
-            if (jtfCoord_X == null) {
-                JOptionPane.showMessageDialog(null, "Debe completar la Coordenada X");
-                return;
-            }
-            int coord_X = Integer.parseInt(jtfCoord_X.getText());
-            if (jtfCoord_Y == null) {
-                JOptionPane.showMessageDialog(null, "Debe completar la Coordenada Y");
-                return;
-            }
-            int coord_Y = Integer.parseInt(jtfCoord_Y.getText());
-            detalles = jtAreaDetalles.getText();
-            if (detalles.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe agregar detalles sobre el siniestro");
-                return;
-            }
-            LocalDate fechaSiniestroFormateada = fechaSiniestro.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            fechaSiniestro = java.sql.Date.valueOf(fechaSiniestroFormateada);
-
-            String[] parts = jTFBrigadaCercana.getText().split(" ");
-            int codBrigada = Integer.parseInt(parts[1]);
-            bri = briData.buscarBrigada(codBrigada);
-            briData.Brigadaocupada(codBrigada);
-
-            try {
-                Date fechaResolucion = jdcFechaResolucion.getDate();
-                LocalDate fechaResolFormateada = fechaResolucion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-                fechaResolucion = java.sql.Date.valueOf(fechaResolFormateada);
-                if (!esFechaValida(fechaResolFormateada)) {
-                    return;
-                }
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(null, "Error al procesar la fecha: " + e.getMessage());
-                return;
-            }
-            Date fechaResolucion = jdcFechaResolucion.getDate();
-            LocalDate fechaResolFormateada = fechaResolucion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            siniestro.setCodigo(codigo);
-            siniestro.setTipo(tipo);
-            siniestro.setFecha_siniestro(fechaSiniestroFormateada);
-            siniestro.setCoord_X(coord_X);
-            siniestro.setCoord_Y(coord_Y);
-            siniestro.setDetalles(detalles);
-            siniestro.setBrigada(bri);
-            if (fechaResolucion != null) {
-                siniestro.setFecha_resol(fechaResolFormateada);
-                if (!esFechaValida(fechaResolFormateada)) {
-                    return;
-                }
-                briData.modificarsiniestro(siniestro);
-            } else {
-                siniestroData.modificarSiniestro2(siniestro);
-            }
-        } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar datos numéricos en los campos de coordenadas.");
-        } catch (IllegalArgumentException iae) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar la fecha en el formato yyyy-MM-dd");
-        }*/
         BrigadaData briData = new BrigadaData();
         Brigada bri = new Brigada();
         String tipo = "";
@@ -609,14 +513,14 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
                 briData.Brigadaocupada(codBrigada);
                 briData.Brigadalibre(sini.getBrigada().getCodBrigada());
                 System.out.println("AQUI");
-                 briData.modificarsiniestro_sinfecha(siniestro);
+                briData.modificarsiniestro_sinfecha(siniestro);
                 return;
             } else {
                 briData.modificarsiniestro_sinfecha(siniestro);
                 System.out.println("AQUI2");
                 return;
             }
-            
+
         }
 
 
@@ -762,8 +666,6 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
 
         jcbTipoEmergencia.setSelectedIndex(0);
         jdcFechaSiniestro.setDate(null);
-        jtfCoord_X.setText(null);
-        jtfCoord_Y.setText(null);
         jtAreaDetalles.setText(null);
         jdcFechaResolucion.setDate(null);
         jTFBrigadaCercana.setText(null);
@@ -772,8 +674,14 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
         jRActivacion.setSelected(false);
         jRActivacion.setText("Deshabilitado");
         jBModificar.setEnabled(false);
-//        jBEliminar.setEnabled(false);
         jbCargar.setEnabled(true);
+        permitirSoloLetras(jtfCoord_X);
+        jtfCoord_X.setText("");
+        permitirSoloNumeros(jtfCoord_X);
+        permitirSoloLetras(jtfCoord_Y);
+        jtfCoord_Y.setText("");
+        permitirSoloNumeros(jtfCoord_Y);
+
     }
 
     private boolean validacionCamposVacios() {
@@ -867,4 +775,73 @@ public class Vista_Siniestro extends javax.swing.JInternalFrame {
             return true;
         }
     }
+    // Método que me permite escribir sólo números en un campo textField
+
+    public void permitirSoloNumeros(JTextField textField) {
+        AbstractDocument doc = (AbstractDocument) textField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                try {
+                    if (string.matches("[0-9]+")) {
+                        super.insertString(fb, offset, string, attr);
+                        // Después de aplicar el filtro, establece el campo jTDNI en una cadena vacía
+                        jtfCoord_X.setText("");
+                        jtfCoord_Y.setText("");
+                    }
+                } catch (BadLocationException e) {
+                    // Manejar la excepción BadLocationException, por ejemplo, mostrar un mensaje de error.
+                    System.err.println("Error al insertar texto: " + e.getMessage());
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                try {
+                    if (text.matches("[0-9]+")) {
+                        super.replace(fb, offset, length, text, attrs);
+                        // Después de aplicar el filtro, establece el campo jTDNI en una cadena vacía
+                        jtfCoord_X.setText("");
+                        jtfCoord_Y.setText("");
+                    }
+                } catch (Exception e) {
+                    // Manejar la excepción BadLocationException, por ejemplo, mostrar un mensaje de error.
+                    System.err.println("Error al reemplazar texto: " + e.getMessage());
+                }
+            }
+        });
+    }
+       // Método que me permite escribir sólo letras en un campo textField
+    public void permitirSoloLetras(JTextField textField) {
+        AbstractDocument doc = (AbstractDocument) textField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if (string == null) {
+                    return;
+                }
+                if (contieneSoloLetrasYEspacios(string)) {
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if (text == null) {
+                    return;
+                }
+                if (contieneSoloLetrasYEspacios(text)) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+            private boolean contieneSoloLetrasYEspacios(String text) {
+                for (char c : text.toCharArray()) {
+                    if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
 }
