@@ -457,8 +457,6 @@ public class Estado_de_Situacion extends javax.swing.JInternalFrame {
                 }
             }
         }
-        System.out.println("ID3 " + codCuartel);
-
     }
 
     private void llenarTablaBrigadaenProgreso2() {
