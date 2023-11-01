@@ -852,7 +852,7 @@ public class BrigadaData {
             int filas = ps.executeUpdate();
 
             if (filas > 0) {
-                JOptionPane.showMessageDialog(null, "La nota fue actualizada correctamente");
+                JOptionPane.showMessageDialog(null, "La fecha fue actualizada correctamente");
             }
             ps.close();
         } catch (SQLException ex) {
